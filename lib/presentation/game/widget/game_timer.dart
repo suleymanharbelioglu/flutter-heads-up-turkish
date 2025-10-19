@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 class GameTimer extends StatelessWidget {
@@ -12,27 +13,26 @@ class GameTimer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double progress = remainingSeconds / totalSeconds;
+    final progress = totalSeconds == 0 ? 0.0 : remainingSeconds / totalSeconds;
 
     return Stack(
       alignment: Alignment.center,
       children: [
         SizedBox(
-          width: 45,
-          height: 45,
+          width: 60,
+          height: 60,
           child: CircularProgressIndicator(
             value: progress,
-            strokeWidth: 3,
+            strokeWidth: 5,
             backgroundColor: Colors.white24,
-            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+            valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
           ),
         ),
         Text(
           '$remainingSeconds',
-          textAlign: TextAlign.center,
           style: const TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w500,
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
             color: Colors.white,
             shadows: [
               Shadow(

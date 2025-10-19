@@ -1,10 +1,14 @@
 // game_page.dart
+import 'dart:async';
+import 'package:ben_kimim/presentation/game_result/page/game_result.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ben_kimim/presentation/game/bloc/current_name_cubit.dart';
 import 'package:ben_kimim/presentation/game/bloc/score_cubit.dart';
+import 'package:ben_kimim/presentation/game/bloc/timer_cubit.dart';
 import 'package:ben_kimim/presentation/game/widget/game_score.dart';
+import 'package:ben_kimim/presentation/game/widget/game_timer.dart';
 import 'package:ben_kimim/presentation/home/pages/home.dart';
 
 class GamePage extends StatefulWidget {
@@ -21,18 +25,44 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
 
   String? _oldName;
   String? _newName;
-  bool _isAnimating = false;
-
   Color? _oldCardColor;
   String? _oldCardText;
+
+  bool _isAnimating = false;
+  bool _isTimeOver = false;
+
+  Timer? _timer;
+  int? _remainingSeconds; // Local variable, Cubit değişmeyecek
 
   @override
   void initState() {
     super.initState();
+    _setupOrientation();
+    _setupAnimations();
+    _loadInitialName();
+  }
 
+  @override
+  void dispose() {
+    _controller.dispose();
+    _timer?.cancel();
+    _resetOrientation();
+    super.dispose();
+  }
+
+  /// Landscape mod ayarları
+  void _setupOrientation() {
     SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft]);
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
+  }
 
+  void _resetOrientation() {
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+  }
+
+  /// Kart animasyonlarını ayarla
+  void _setupAnimations() {
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 400),
@@ -47,46 +77,71 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
       begin: const Offset(0, 1),
       end: Offset.zero,
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
+  }
 
+  /// İlk kartı yükle ve timer başlat
+  void _loadInitialName() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final cubit = context.read<CurrentNameCubit>();
       cubit.generateNewName();
       setState(() {
-        _oldName = cubit.state; // İlk kartı göster
+        _oldName = cubit.state;
       });
+      _startTimer();
     });
   }
 
-  @override
-  void dispose() {
-    _controller.dispose();
-    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-    super.dispose();
+  /// Timer başlat (local variable üzerinden)
+  void _startTimer() {
+    final timerCubit = context.read<TimerCubit>();
+    _remainingSeconds = timerCubit.state; // Başlangıç süresi
+
+    _timer = Timer.periodic(const Duration(seconds: 1), (t) {
+      if (_remainingSeconds != null && _remainingSeconds! > 0) {
+        setState(() => _remainingSeconds = _remainingSeconds! - 1);
+      } else {
+        t.cancel();
+        _onTimeOver();
+      }
+    });
   }
 
+  /// Süre bittiğinde overlay göster ve 1 sn sonra GameResultPage
+  void _onTimeOver() {
+    setState(() {
+      _isTimeOver = true;
+      _isAnimating = true;
+    });
+
+    Future.delayed(const Duration(seconds: 1), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const GameResultPage()),
+      );
+    });
+  }
+
+  /// Doğru / yanlış cevabı işle
   void _onAnswer(bool isCorrect) async {
-    if (_isAnimating) return;
+    if (_isAnimating || _isTimeOver) return;
 
     final currentCubit = context.read<CurrentNameCubit>();
     final scoreCubit = context.read<ScoreCubit>();
 
     if (isCorrect) scoreCubit.increment();
 
-    // Yeni isim üret ve _newName olarak ata
     currentCubit.generateNewName();
     final nextName = currentCubit.state;
 
     setState(() {
       _oldCardColor = isCorrect ? Colors.green : Colors.red;
       _oldCardText = isCorrect ? "Doğru" : "Pass";
-      _newName = nextName; // animasyon için yeni kart
+      _newName = nextName;
       _isAnimating = true;
     });
 
     await _controller.forward();
 
-    // Animasyon bitti, kartları resetle ve eski kartı yeni isim yap
     setState(() {
       _oldName = nextName;
       _oldCardColor = null;
@@ -108,13 +163,16 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
             _buildAnimatedNames(),
             _buildActionButtons(),
             _buildExitButton(),
-            Align(alignment: Alignment.bottomCenter, child: GameScore()),
+            _buildScore(),
+            _buildTimer(),
+            if (_isTimeOver) _buildTimeOverOverlay(),
           ],
         ),
       ),
     );
   }
 
+  /// Kart animasyonları
   Widget _buildAnimatedNames() {
     return Stack(
       children: [
@@ -135,6 +193,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     );
   }
 
+  /// Kart widget
   Widget _buildCard({required String text, required Color color}) {
     return SizedBox.expand(
       child: Container(
@@ -153,67 +212,55 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     );
   }
 
+  /// Doğru / Yanlış butonları
   Widget _buildActionButtons() {
     return Positioned(
       right: 20,
       bottom: 20,
       child: Row(
         children: [
-          ElevatedButton(
-            onPressed: _isAnimating ? null : () => _onAnswer(true),
-            style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-              backgroundColor: Colors.greenAccent,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-            ),
-            child: const Text(
-              'Doğru',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
-            ),
+          _buildAnswerButton(
+            "Doğru",
+            Colors.greenAccent,
+            () => _onAnswer(true),
           ),
           const SizedBox(width: 16),
-          ElevatedButton(
-            onPressed: _isAnimating ? null : () => _onAnswer(false),
-            style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-              backgroundColor: Colors.redAccent,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-            ),
-            child: const Text(
-              'Yanlış',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
+          _buildAnswerButton(
+            "Yanlış",
+            Colors.redAccent,
+            () => _onAnswer(false),
           ),
         ],
       ),
     );
   }
 
+  Widget _buildAnswerButton(String text, Color color, VoidCallback onPressed) {
+    return ElevatedButton(
+      onPressed: (_isAnimating || _isTimeOver) ? null : onPressed,
+      style: ElevatedButton.styleFrom(
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+        backgroundColor: color,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      ),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+          color: color == Colors.greenAccent ? Colors.black : Colors.white,
+        ),
+      ),
+    );
+  }
+
+  /// Exit butonu
   Widget _buildExitButton() {
     return Positioned(
       left: 20,
       bottom: 20,
       child: ElevatedButton(
-        onPressed: () {
-          context.read<CurrentNameCubit>().reset();
-          context.read<ScoreCubit>().reset();
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (_) => const HomePage()),
-          );
-        },
+        onPressed: _onExitPressed,
         style: ElevatedButton.styleFrom(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
           backgroundColor: Colors.redAccent,
@@ -229,6 +276,48 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
             color: Colors.white,
           ),
         ),
+      ),
+    );
+  }
+
+  void _onExitPressed() {
+    context.read<CurrentNameCubit>().reset();
+    context.read<ScoreCubit>().reset();
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (_) => const HomePage()),
+    );
+  }
+
+  /// Skor widget
+  Widget _buildScore() {
+    return Align(alignment: Alignment.bottomCenter, child: GameScore());
+  }
+
+  /// Timer widget
+  Widget _buildTimer() {
+    return Positioned(
+      top: 20,
+      left: 0,
+      right: 0,
+      child: Center(
+        child: GameTimer(
+          remainingSeconds:
+              _remainingSeconds ?? context.read<TimerCubit>().state,
+          totalSeconds: context.read<TimerCubit>().state,
+        ),
+      ),
+    );
+  }
+
+  /// Süre bitti overlay
+  Widget _buildTimeOverOverlay() {
+    return Container(
+      color: Colors.yellow,
+      alignment: Alignment.center,
+      child: const Text(
+        "Süre Bitti",
+        style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
       ),
     );
   }
