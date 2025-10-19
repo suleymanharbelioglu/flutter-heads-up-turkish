@@ -1,3 +1,4 @@
+
 import 'package:ben_kimim/domain/deck/entity/deck.dart';
 
 class DeckModel {
@@ -5,37 +6,33 @@ class DeckModel {
   final String deckName;
   final String onGorselAdress;
   final String arkaGorselAdress;
-  final List<String>? names; // Tahmin edilecek isimler (opsiyonel)
+  final String namesFilePath; // JSON dosya yolu (zorunlu)
 
   DeckModel({
     required this.deckName,
     required this.categoryName,
     required this.onGorselAdress,
     required this.arkaGorselAdress,
-    this.names,
+    required this.namesFilePath,
   });
 
-  // JSON'dan oluşturma
   factory DeckModel.fromJson(Map<String, dynamic> json) {
     return DeckModel(
-      deckName: json['deckName'],
-      categoryName: json['categoryName'],
-      onGorselAdress: json['onGorselAdress'],
-      arkaGorselAdress: json['arkaGorselAdress'],
-      names: json['names'] != null ? List<String>.from(json['names']) : null,
+      deckName: json['deckName'] as String,
+      categoryName: json['categoryName'] as String,
+      onGorselAdress: json['onGorselAdress'] as String,
+      arkaGorselAdress: json['arkaGorselAdress'] as String,
+      namesFilePath: json['namesFilePath'] as String,
     );
   }
-}
 
-// DeckModel -> DeckEntity dönüşümü
-extension DeckModelX on DeckModel {
   DeckEntity toEntity() {
     return DeckEntity(
       deckName: deckName,
       categoryName: categoryName,
       onGorselAdress: onGorselAdress,
       arkaGorselAdress: arkaGorselAdress,
-      names: names ?? [], // Eğer names yoksa boş liste
+      namesFilePath: namesFilePath,
     );
   }
 }

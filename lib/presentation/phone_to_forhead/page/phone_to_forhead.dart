@@ -2,9 +2,12 @@ import 'dart:async';
 
 import 'package:ben_kimim/common/helper/sound/sound.dart';
 import 'package:ben_kimim/core/configs/theme/app_color.dart';
+import 'package:ben_kimim/presentation/game/bloc/display_current_card_list_cubit.dart';
+import 'package:ben_kimim/presentation/game/bloc/display_current_card_list_state.dart';
 import 'package:ben_kimim/presentation/game/page/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 
 class PhoneToForeheadPage extends StatefulWidget {
@@ -18,6 +21,7 @@ class _PhoneToForeheadPageState extends State<PhoneToForeheadPage> {
   int countdown = 4;
   Timer? _timer;
   StreamSubscription? _accelerometerSubscription;
+  StreamSubscription<DisplayCurrentCardListState>? _cubitSubscription;
   bool countdownStarted = false;
 
   // Pozisyon sınırları
@@ -63,13 +67,13 @@ class _PhoneToForeheadPageState extends State<PhoneToForeheadPage> {
           child: countdownStarted
               ? Text(
                   '$countdown',
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 80,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
                 )
-              : Text(
+              : const Text(
                   'TELEFONU ALNINIZA YERLEŞTİRİN',
                   style: TextStyle(
                     fontSize: 36,
@@ -85,33 +89,65 @@ class _PhoneToForeheadPageState extends State<PhoneToForeheadPage> {
   }
 
   Future<void> startCountDownSound() async {
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1));
     await SoundHelper.playCountdown();
   }
 
   void startCountdown() {
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      setState(() {
-        countdown--;
-      });
+      setState(() => countdown--);
+
       if (countdown == 0) {
         _timer?.cancel();
-        navigateToGame();
+
+        final cubit = context.read<DisplayCurrentCardListCubit>();
+
+        // Cubit subscription
+        _cubitSubscription = cubit.stream.listen((state) {
+          if (state is DisplayCurrentCardListLoaded) {
+            _cubitSubscription?.cancel();
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (_) => const GamePage()),
+            );
+          } else if (state is DisplayCurrentCardListError) {
+            _cubitSubscription?.cancel();
+            // Hata mesajını göster
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text("Error: ${state.message}"),
+                backgroundColor: Colors.red,
+              ),
+            );
+          }
+        });
+
+        // Eğer zaten loaded ise anında geçiş
+        if (cubit.state is DisplayCurrentCardListLoaded) {
+          _cubitSubscription?.cancel();
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (_) => const GamePage()),
+          );
+        } else if (cubit.state is DisplayCurrentCardListError) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                "Error: ${(cubit.state as DisplayCurrentCardListError).message}",
+              ),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
       }
     });
-  }
-
-  void navigateToGame() {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (_) => const GamePage()),
-    );
   }
 
   @override
   void dispose() {
     _accelerometerSubscription?.cancel();
     _timer?.cancel();
+    _cubitSubscription?.cancel();
     super.dispose();
   }
 }

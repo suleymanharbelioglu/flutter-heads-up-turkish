@@ -1,9 +1,11 @@
 import 'dart:math';
 import 'dart:ui';
 import 'package:ben_kimim/common/navigator/app_navigator.dart';
+import 'package:ben_kimim/presentation/game/bloc/display_current_card_list_cubit.dart';
 import 'package:ben_kimim/presentation/phone_to_forhead/page/phone_to_forhead.dart';
 import 'package:flutter/material.dart';
 import 'package:ben_kimim/domain/deck/entity/deck.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DeckFlip extends StatefulWidget {
   final DeckEntity deck;
@@ -121,7 +123,11 @@ class _DeckFlipState extends State<DeckFlip>
                 text: "Oyna",
                 color: Colors.greenAccent.withOpacity(0.9),
                 textColor: Colors.black,
-                onTap: () {
+                onTap: () async {
+                  // 1️⃣ İsim listesini yükle (deste JSON path ver)
+                  await context
+                      .read<DisplayCurrentCardListCubit>()
+                      .loadCardNames(widget.deck.namesFilePath);
                   AppNavigator.push(context, PhoneToForeheadPage());
                 },
               ),
