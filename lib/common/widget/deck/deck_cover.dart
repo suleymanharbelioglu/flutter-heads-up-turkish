@@ -1,6 +1,7 @@
+// deck_cover.dart
+import 'package:ben_kimim/common/widget/deck/deck_flip.dart';
 import 'package:flutter/material.dart';
 import 'package:ben_kimim/domain/deck/entity/deck.dart';
-import 'deck_flip.dart'; // flip sayfası
 
 class DeckCover extends StatelessWidget {
   final DeckEntity deck;
@@ -10,11 +11,12 @@ class DeckCover extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-          context,
+        Navigator.of(context).push(
           PageRouteBuilder(
-            transitionDuration: const Duration(milliseconds: 600),
             pageBuilder: (_, __, ___) => DeckFlip(deck: deck),
+            opaque: false,
+            barrierColor: Colors.black.withOpacity(0.3),
+            // 👆 transitionsBuilder kaldırıldı
           ),
         );
       },
@@ -22,6 +24,7 @@ class DeckCover extends StatelessWidget {
         tag: deck.onGorselAdress,
         child: Container(
           width: 140,
+          height: 200,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
             image: DecorationImage(
