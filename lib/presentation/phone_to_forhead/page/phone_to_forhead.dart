@@ -1,14 +1,13 @@
+// phone_to_forehead_page.dart
 import 'dart:async';
-
-import 'package:ben_kimim/common/helper/sound/sound.dart';
 import 'package:ben_kimim/core/configs/theme/app_color.dart';
-import 'package:ben_kimim/presentation/game/bloc/display_current_card_list_cubit.dart';
-import 'package:ben_kimim/presentation/game/bloc/display_current_card_list_state.dart';
 import 'package:ben_kimim/presentation/game/page/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sensors_plus/sensors_plus.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ben_kimim/presentation/game/bloc/display_current_card_list_cubit.dart';
+import 'package:ben_kimim/presentation/game/bloc/display_current_card_list_state.dart';
 
 class PhoneToForeheadPage extends StatefulWidget {
   const PhoneToForeheadPage({super.key});
@@ -25,22 +24,22 @@ class _PhoneToForeheadPageState extends State<PhoneToForeheadPage> {
   bool countdownStarted = false;
 
   // Pozisyon sınırları
-  final double minX = 7;
-  final double maxX = 10;
-  final double minY = -5;
-  final double maxY = 5;
-  final double minZ = -4;
-  final double maxZ = 5;
+  final double minX = 7, maxX = 10;
+  final double minY = -5, maxY = 5;
+  final double minZ = -4, maxZ = 5;
 
   @override
   void initState() {
     super.initState();
-    // Yalnızca yatay mod
-    SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft]);
 
+    // Yatay mod kilidi
+    SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft]);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
+
+    // Telefon pozisyonunu dinle
     _accelerometerSubscription = accelerometerEvents.listen((event) {
       if (!countdownStarted) {
-        bool inPositionNow =
+        bool inPosition =
             event.x >= minX &&
             event.x <= maxX &&
             event.y >= minY &&
@@ -48,19 +47,26 @@ class _PhoneToForeheadPageState extends State<PhoneToForeheadPage> {
             event.z >= minZ &&
             event.z <= maxZ;
 
-        if (inPositionNow) {
+        if (inPosition) {
           countdownStarted = true;
           startCountdown();
-          startCountDownSound();
         }
       }
     });
   }
 
   @override
+  void dispose() {
+    _timer?.cancel();
+    _accelerometerSubscription?.cancel();
+    _cubitSubscription?.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () async => false, // Geri tuşunu devre dışı bırakır
+      onWillPop: () async => false, // geri tuşunu devre dışı bırak
       child: Scaffold(
         backgroundColor: AppColors.primary,
         body: Center(
@@ -88,11 +94,6 @@ class _PhoneToForeheadPageState extends State<PhoneToForeheadPage> {
     );
   }
 
-  Future<void> startCountDownSound() async {
-    await Future.delayed(const Duration(seconds: 1));
-    await SoundHelper.playCountdown();
-  }
-
   void startCountdown() {
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() => countdown--);
@@ -102,17 +103,14 @@ class _PhoneToForeheadPageState extends State<PhoneToForeheadPage> {
 
         final cubit = context.read<DisplayCurrentCardListCubit>();
 
-        // Cubit subscription
-        _cubitSubscription = cubit.stream.listen((state) {
+        // Durum kontrol fonksiyonu
+        void handleState(DisplayCurrentCardListState state) {
           if (state is DisplayCurrentCardListLoaded) {
-            _cubitSubscription?.cancel();
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (_) => const GamePage()),
             );
           } else if (state is DisplayCurrentCardListError) {
-            _cubitSubscription?.cancel();
-            // Hata mesajını göster
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text("Error: ${state.message}"),
@@ -120,34 +118,20 @@ class _PhoneToForeheadPageState extends State<PhoneToForeheadPage> {
               ),
             );
           }
-        });
+        }
 
-        // Eğer zaten loaded ise anında geçiş
-        if (cubit.state is DisplayCurrentCardListLoaded) {
-          _cubitSubscription?.cancel();
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (_) => const GamePage()),
-          );
-        } else if (cubit.state is DisplayCurrentCardListError) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                "Error: ${(cubit.state as DisplayCurrentCardListError).message}",
-              ),
-              backgroundColor: Colors.red,
-            ),
-          );
+        // Eğer state zaten loaded veya error ise anında işlem yap
+        if (cubit.state is DisplayCurrentCardListLoaded ||
+            cubit.state is DisplayCurrentCardListError) {
+          handleState(cubit.state);
+        } else {
+          // Henüz loaded değilse, stream'i dinle sadece bir kez
+          _cubitSubscription = cubit.stream.listen((state) {
+            handleState(state);
+            _cubitSubscription?.cancel(); // Tek seferlik dinle
+          });
         }
       }
     });
-  }
-
-  @override
-  void dispose() {
-    _accelerometerSubscription?.cancel();
-    _timer?.cancel();
-    _cubitSubscription?.cancel();
-    super.dispose();
   }
 }
