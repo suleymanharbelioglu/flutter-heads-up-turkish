@@ -1,5 +1,7 @@
 import 'dart:math';
 import 'dart:ui';
+import 'package:ben_kimim/common/navigator/app_navigator.dart';
+import 'package:ben_kimim/presentation/phone_to_forhead/page/phone_to_forhead.dart';
 import 'package:flutter/material.dart';
 import 'package:ben_kimim/domain/deck/entity/deck.dart';
 
@@ -25,13 +27,12 @@ class _DeckFlipState extends State<DeckFlip>
     _autoFlip();
   }
 
- 
-
   @override
   void dispose() {
     _controller.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -68,9 +69,7 @@ class _DeckFlipState extends State<DeckFlip>
       ),
     );
   }
-  
-  
-  
+
   /// Ön yüz (Hero animasyonu burada)
   Widget buildFrontCard() {
     return Hero(
@@ -123,7 +122,7 @@ class _DeckFlipState extends State<DeckFlip>
                 color: Colors.greenAccent.withOpacity(0.9),
                 textColor: Colors.black,
                 onTap: () {
-                  // Oyna aksiyonu burada yapılabilir
+                  AppNavigator.push(context, PhoneToForeheadPage());
                 },
               ),
             ],
@@ -159,7 +158,7 @@ class _DeckFlipState extends State<DeckFlip>
     );
   }
 
- void _initAnimation() {
+  void _initAnimation() {
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 1000),

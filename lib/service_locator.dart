@@ -3,6 +3,7 @@ import 'package:ben_kimim/data/card/source/card_service.dart';
 import 'package:ben_kimim/data/deck/repository/deck_repo_impl.dart';
 import 'package:ben_kimim/data/deck/source/deck_service.dart';
 import 'package:ben_kimim/domain/card/repository/card_repo.dart';
+import 'package:ben_kimim/domain/card/usecase/get_current_card_name_list.dart';
 import 'package:ben_kimim/domain/deck/repository/deck_repo.dart';
 import 'package:ben_kimim/domain/deck/usecases/get_c1_decks.dart';
 import 'package:ben_kimim/domain/deck/usecases/get_c2_decks.dart';
@@ -22,4 +23,7 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<GetC1DecksUseCase>(GetC1DecksUseCase());
   sl.registerSingleton<GetC2DecksUseCase>(GetC2DecksUseCase());
   sl.registerSingleton<GetC3DecksUseCase>(GetC3DecksUseCase());
+  sl.registerSingleton<GetCurrentCardNameListUseCase>(
+    GetCurrentCardNameListUseCase(),
+  );
 }
