@@ -1,4 +1,3 @@
-
 import 'package:ben_kimim/domain/deck/entity/deck.dart';
 
 class DeckModel {
@@ -7,6 +6,7 @@ class DeckModel {
   final String onGorselAdress;
   final String arkaGorselAdress;
   final String namesFilePath; // JSON dosya yolu (zorunlu)
+  final String deckDescription; // Yeni alan
 
   DeckModel({
     required this.deckName,
@@ -14,6 +14,7 @@ class DeckModel {
     required this.onGorselAdress,
     required this.arkaGorselAdress,
     required this.namesFilePath,
+    required this.deckDescription, // constructor’a ekle
   });
 
   factory DeckModel.fromJson(Map<String, dynamic> json) {
@@ -23,6 +24,7 @@ class DeckModel {
       onGorselAdress: json['onGorselAdress'] as String,
       arkaGorselAdress: json['arkaGorselAdress'] as String,
       namesFilePath: json['namesFilePath'] as String,
+      deckDescription: json['deckDescription'] as String,
     );
   }
 
@@ -33,6 +35,7 @@ class DeckModel {
       onGorselAdress: onGorselAdress,
       arkaGorselAdress: arkaGorselAdress,
       namesFilePath: namesFilePath,
+      deckDescription: deckDescription, // Entity’ye ekle
     );
   }
 }

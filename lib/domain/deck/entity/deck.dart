@@ -4,6 +4,7 @@ class DeckEntity {
   final String onGorselAdress;
   final String arkaGorselAdress;
   final String namesFilePath; // JSON dosya yolu (zorunlu)
+  final String deckDescription; // Yeni alan
 
   DeckEntity({
     required this.deckName,
@@ -11,5 +12,6 @@ class DeckEntity {
     required this.onGorselAdress,
     required this.arkaGorselAdress,
     required this.namesFilePath,
+    required this.deckDescription, // constructor’a ekle
   });
 }

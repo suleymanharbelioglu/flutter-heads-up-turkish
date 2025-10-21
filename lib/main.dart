@@ -3,6 +3,7 @@ import 'package:ben_kimim/presentation/game/bloc/current_name_cubit.dart';
 import 'package:ben_kimim/presentation/game/bloc/display_current_card_list_cubit.dart';
 import 'package:ben_kimim/presentation/game/bloc/score_cubit.dart';
 import 'package:ben_kimim/presentation/game/bloc/timer_cubit.dart';
+import 'package:ben_kimim/presentation/game_result/bloc/result_cubit.dart';
 import 'package:ben_kimim/presentation/splash/bloc/splash_cubit.dart';
 import 'package:ben_kimim/presentation/splash/pages/splash.dart';
 import 'package:ben_kimim/service_locator.dart';
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => TimerCubit()),
         BlocProvider(create: (context) => DisplayCurrentCardListCubit()),
         BlocProvider(create: (context) => ScoreCubit()),
+        BlocProvider(create: (context) => ResultCubit()),
         BlocProvider(
           create: (context) =>
               CurrentNameCubit(context.read<DisplayCurrentCardListCubit>()),
