@@ -9,12 +9,15 @@ class GameScore extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ScoreCubit, int>(
       builder: (context, score) {
-        return Text(
-          "$score DOĞRU", // Skor artık dinamik
-          style: const TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 10),
+          child: Text(
+            "$score DOĞRU", // Skor artık dinamik
+            style: const TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
           ),
         );
       },

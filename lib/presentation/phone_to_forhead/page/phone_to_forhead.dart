@@ -1,5 +1,6 @@
 // phone_to_forehead_page.dart
 import 'dart:async';
+import 'package:ben_kimim/common/helper/sound/sound.dart';
 import 'package:ben_kimim/core/configs/theme/app_color.dart';
 import 'package:ben_kimim/presentation/game/page/game.dart';
 import 'package:flutter/material.dart';
@@ -50,6 +51,7 @@ class _PhoneToForeheadPageState extends State<PhoneToForeheadPage> {
         if (inPosition) {
           countdownStarted = true;
           startCountdown();
+          startCountDownSound(); // 🔊 Ses burada başlatılıyor
         }
       }
     });
@@ -92,6 +94,12 @@ class _PhoneToForeheadPageState extends State<PhoneToForeheadPage> {
         ),
       ),
     );
+  }
+
+  /// 🔊 Geri sayım sesi 1 saniye gecikmeli çalar
+  Future<void> startCountDownSound() async {
+    await Future.delayed(const Duration(seconds: 1)); // 1 saniye geciktirme
+    await SoundHelper.playCountdown(); // Ses dosyasını yükle + çal
   }
 
   void startCountdown() {

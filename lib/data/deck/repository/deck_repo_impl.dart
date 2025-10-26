@@ -5,19 +5,9 @@ import 'package:dartz/dartz.dart';
 
 class DeckRepoImpl  extends DeckRepo{
   @override
-  Future<Either> getC1Decks() async {
-    return await sl<DeckService>().getC1Decks();
+  Future<Either> getPopularDecks() async {
+    return await sl<DeckService>().getPopularDecks();
   }
   
-  @override
-  Future<Either> getC2Decks() async {
-        return await sl<DeckService>().getC2Decks();
-
-  }
-  
-  @override
-  Future<Either> getC3Decks() async {
-       return await sl<DeckService>().getC3Decks();
-
-  }
+ 
 }

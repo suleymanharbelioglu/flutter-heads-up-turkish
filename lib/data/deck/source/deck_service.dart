@@ -6,9 +6,8 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/services.dart';
 
 abstract class DeckService {
-  Future<Either> getC1Decks();
-  Future<Either> getC2Decks();
-  Future<Either> getC3Decks();
+  Future<Either> getPopularDecks();
+
 }
 
 class DeckServiceImpl extends DeckService {
@@ -28,29 +27,13 @@ class DeckServiceImpl extends DeckService {
   }
 
   @override
-  Future<Either<String, List<DeckEntity>>> getC1Decks() async {
+  Future<Either<String, List<DeckEntity>>> getPopularDecks() async {
     final result = await _loadDecks();
     return result.fold(
       (l) => Left(l),
-      (decks) => Right(decks.where((d) => d.categoryName == 'C1').toList()),
+      (decks) => Right(decks.where((d) => d.categoryName == 'Popular').toList()),
     );
   }
 
-  @override
-  Future<Either<String, List<DeckEntity>>> getC2Decks() async {
-    final result = await _loadDecks();
-    return result.fold(
-      (l) => Left(l),
-      (decks) => Right(decks.where((d) => d.categoryName == 'C2').toList()),
-    );
-  }
 
-  @override
-  Future<Either<String, List<DeckEntity>>> getC3Decks() async {
-    final result = await _loadDecks();
-    return result.fold(
-      (l) => Left(l),
-      (decks) => Right(decks.where((d) => d.categoryName == 'C3').toList()),
-    );
-  }
 }

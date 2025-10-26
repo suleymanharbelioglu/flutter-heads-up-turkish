@@ -1,74 +1,10 @@
 [
   {
-    "deckName": "D1C1",
-    "categoryName": "C1",
-    "onGorselAdress": "assets/images/c1d1on.png",
-    "arkaGorselAdress": "assets/images/c1d1arka.png",
-    "namesFilePath": "assets/data/names/D1C1_nameList.json",
-    "deckDescription": "D1C1 D1C1 D1C1 D1C1 D1C1 D1C1 D1C1 D1C1 D1C1 D1C1 D1C1 D1C1 D1C1 D1C1 D1C1 D1C1 D1C1 D1C1 D1C1 D1C1"
-  },
-  {
-    "deckName": "D2C1",
-    "categoryName": "C1",
-    "onGorselAdress": "assets/images/c1d2on.png",
-    "arkaGorselAdress": "assets/images/c1d2arka.png",
-    "namesFilePath": "assets/data/names/D2C1_nameList.json",
-    "deckDescription": "D2C1 D2C1 D2C1 D2C1 D2C1 D2C1 D2C1 D2C1 D2C1 D2C1 D2C1 D2C1 D2C1 D2C1 D2C1 D2C1 D2C1 D2C1 D2C1 D2C1"
-  },
-  {
-    "deckName": "D3C1",
-    "categoryName": "C1",
-    "onGorselAdress": "assets/images/c1d3on.png",
-    "arkaGorselAdress": "assets/images/c1d3arka.png",
-    "namesFilePath": "assets/data/names/D3C1_nameList.json",
-    "deckDescription": "D3C1 D3C1 D3C1 D3C1 D3C1 D3C1 D3C1 D3C1 D3C1 D3C1 D3C1 D3C1 D3C1 D3C1 D3C1 D3C1 D3C1 D3C1 D3C1 D3C1"
-  },
-  {
-    "deckName": "D1C2",
-    "categoryName": "C2",
-    "onGorselAdress": "assets/images/c2d1on.png",
-    "arkaGorselAdress": "assets/images/c2d1arka.png",
-    "namesFilePath": "assets/data/names/D1C2_nameList.json",
-    "deckDescription": "D1C2 D1C2 D1C2 D1C2 D1C2 D1C2 D1C2 D1C2 D1C2 D1C2 D1C2 D1C2 D1C2 D1C2 D1C2 D1C2 D1C2 D1C2 D1C2 D1C2"
-  },
-  {
-    "deckName": "D2C2",
-    "categoryName": "C2",
-    "onGorselAdress": "assets/images/c2d2on.png",
-    "arkaGorselAdress": "assets/images/c2d2arka.png",
-    "namesFilePath": "assets/data/names/D2C2_nameList.json",
-    "deckDescription": "D2C2 D2C2 D2C2 D2C2 D2C2 D2C2 D2C2 D2C2 D2C2 D2C2 D2C2 D2C2 D2C2 D2C2 D2C2 D2C2 D2C2 D2C2 D2C2 D2C2"
-  },
-  {
-    "deckName": "D3C2",
-    "categoryName": "C2",
-    "onGorselAdress": "assets/images/c2d3on.png",
-    "arkaGorselAdress": "assets/images/c2d3arka.png",
-    "namesFilePath": "assets/data/names/D3C2_nameList.json",
-    "deckDescription": "D3C2 D3C2 D3C2 D3C2 D3C2 D3C2 D3C2 D3C2 D3C2 D3C2 D3C2 D3C2 D3C2 D3C2 D3C2 D3C2 D3C2 D3C2 D3C2 D3C2"
-  },
-  {
-    "deckName": "D1C3",
-    "categoryName": "C3",
-    "onGorselAdress": "assets/images/c3d1on.png",
-    "arkaGorselAdress": "assets/images/c3d1arka.png",
-    "namesFilePath": "assets/data/names/D1C3_nameList.json",
-    "deckDescription": "D1C3 D1C3 D1C3 D1C3 D1C3 D1C3 D1C3 D1C3 D1C3 D1C3 D1C3 D1C3 D1C3 D1C3 D1C3 D1C3 D1C3 D1C3 D1C3 D1C3"
-  },
-  {
-    "deckName": "D2C3",
-    "categoryName": "C3",
-    "onGorselAdress": "assets/images/c3d2on.png",
-    "arkaGorselAdress": "assets/images/c3d2arka.png",
-    "namesFilePath": "assets/data/names/D2C3_nameList.json",
-    "deckDescription": "D2C3 D2C3 D2C3 D2C3 D2C3 D2C3 D2C3 D2C3 D2C3 D2C3 D2C3 D2C3 D2C3 D2C3 D2C3 D2C3 D2C3 D2C3 D2C3 D2C3"
-  },
-  {
-    "deckName": "D3C3",
-    "categoryName": "C3",
-    "onGorselAdress": "assets/images/c3d3on.png",
-    "arkaGorselAdress": "assets/images/c3d3arka.png",
-    "namesFilePath": "assets/data/names/D3C3_nameList.json",
-    "deckDescription": "D3C3 D3C3 D3C3 D3C3 D3C3 D3C3 D3C3 D3C3 D3C3 D3C3 D3C3 D3C3 D3C3 D3C3 D3C3 D3C3 D3C3 D3C3 D3C3 D3C3"
+    "deckName": "Hayvanlar",
+    "categoryName": "Popular",
+    "onGorselAdress": "assets/images/animals.jpg",
+    "arkaGorselAdress": "assets/images/animals_back.jpg",
+    "namesFilePath": "assets/data/names/animals_nameList.json",
+    "deckDescription": "Takım arkadaşına karttaki hayvanı, hayvanın adının hiçbir bölümünü söylemeden ve kafiyeli sözcük kullanmadan tahmin ettir!\n\nEkstra bir meydan okuma için: İpucu verirken sadece sesleri veya canlandırmaları kullan. Kelime kullanmak yasak!"
   }
 ]

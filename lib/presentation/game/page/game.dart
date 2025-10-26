@@ -1,21 +1,19 @@
-// game_page.dart
 import 'dart:async';
+import 'package:ben_kimim/common/helper/sound/sound.dart';
+import 'package:ben_kimim/core/configs/theme/app_color.dart';
 import 'package:ben_kimim/presentation/game_result/bloc/result_cubit.dart';
 import 'package:ben_kimim/presentation/game_result/page/game_result.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sensors_plus/sensors_plus.dart';
 import 'package:ben_kimim/presentation/game/bloc/current_name_cubit.dart';
 import 'package:ben_kimim/presentation/game/bloc/score_cubit.dart';
 import 'package:ben_kimim/presentation/game/bloc/timer_cubit.dart';
 import 'package:ben_kimim/presentation/game/widget/game_score.dart';
 import 'package:ben_kimim/presentation/game/widget/game_timer.dart';
-import 'package:ben_kimim/presentation/home/pages/home.dart';
+import 'package:ben_kimim/presentation/home/pages/all_decks.dart';
+import 'package:sensors_plus/sensors_plus.dart';
 
-/// GamePage: Sensör kontrollü oyun ekranı
-/// - Kartlar sensörle Play / Pass / Correct olarak kontrol edilir
-/// - Animasyon ve skor işlemleri burada gerçekleşir
 class GamePage extends StatefulWidget {
   const GamePage({super.key});
 
@@ -24,47 +22,24 @@ class GamePage extends StatefulWidget {
 }
 
 class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
-  // -----------------------
-  // ANIMASYON NESNELERİ
-  // -----------------------
   late AnimationController _controller;
   late Animation<Offset> _oldOffsetAnimation;
   late Animation<Offset> _newOffsetAnimation;
 
-  // -----------------------
-  // KART İSİMLERİ VE RENK
-  // -----------------------
   String? _oldName;
   String? _newName;
   Color? _oldCardColor;
   String? _oldCardText;
 
-  // -----------------------
-  // DURUM KONTROL FLAGLERİ
-  // -----------------------
   bool _isAnimating = false;
   bool _isTimeOver = false;
   int? _remainingSeconds;
 
-  // -----------------------
-  // SENSÖR ABONELİĞİ
-  // -----------------------
   StreamSubscription<AccelerometerEvent>? _sensorSub;
   String _currentZone = "play";
-
-  // -----------------------
-  // TIMER
-  // -----------------------
   Timer? _timer;
+  bool _isPaused = false;
 
-  // -----------------------
-  // DEBUG SENSÖR DEĞERLERİ
-  // -----------------------
-  double _debugX = 0, _debugY = 0, _debugZ = 0;
-
-  // -----------------------
-  // INIT / DISPOSE
-  // -----------------------
   @override
   void initState() {
     super.initState();
@@ -83,49 +58,33 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     super.dispose();
   }
 
-  // -----------------------
-  // ORIENTATION SETUP
-  // -----------------------
   void _setupOrientation() {
-    // Yatay moda zorla ve status/navigation bar gizle
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeLeft,
-      DeviceOrientation.landscapeRight,
-    ]);
+    SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft]);
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
   }
 
   void _resetOrientation() {
-    // Sayfadan çıkınca dikey moda dön ve system barları geri getir
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
   }
 
-  // -----------------------
-  // ANIMASYONLAR
-  // -----------------------
   void _setupAnimations() {
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 600),
+      duration: const Duration(milliseconds: 400),
     );
 
-    // Eski kart yukarı kayacak
     _oldOffsetAnimation = Tween<Offset>(
       begin: Offset.zero,
       end: const Offset(0, -1),
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
 
-    // Yeni kart alttan gelecek
     _newOffsetAnimation = Tween<Offset>(
       begin: const Offset(0, 1),
       end: Offset.zero,
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
   }
 
-  // -----------------------
-  // İLK İSİM VE TIMER
-  // -----------------------
   void _loadInitialNameAndStartTimer() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final nameCubit = context.read<CurrentNameCubit>();
@@ -139,10 +98,15 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     final timerCubit = context.read<TimerCubit>();
     _remainingSeconds = timerCubit.state;
 
-    // 1 saniyelik periyodik timer
     _timer = Timer.periodic(const Duration(seconds: 1), (t) {
+      if (_isPaused) return;
       if (_remainingSeconds != null && _remainingSeconds! > 0) {
         setState(() => _remainingSeconds = _remainingSeconds! - 1);
+
+        // ⏰ Son 5 saniyede ses çal
+        if (_remainingSeconds == 5) {
+          SoundHelper.playLastSeconds();
+        }
       } else {
         t.cancel();
         _onTimeOver();
@@ -150,13 +114,14 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     });
   }
 
-  void _onTimeOver() {
+  void _onTimeOver() async {
     setState(() {
       _isTimeOver = true;
       _isAnimating = true;
     });
 
-    // 1 saniye bekle ve sonuç sayfasına geç
+    await SoundHelper.playTimeUp(); // 🔊 Süre bitti sesi
+
     Future.delayed(const Duration(seconds: 1), () {
       Navigator.pushReplacement(
         context,
@@ -165,33 +130,17 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     });
   }
 
-  // -----------------------
-  // SENSÖR DİNLEME
-  // -----------------------
   void _startSensorListening() {
     _sensorSub = accelerometerEvents.listen((event) {
-      // Debug için değerleri güncelle
-      setState(() {
-        _debugX = event.x;
-        _debugY = event.y;
-        _debugZ = event.z;
-      });
-
-      // Animasyon veya süre dolmuşsa işlem yok
-      if (_isAnimating || _isTimeOver) return;
+      if (_isAnimating || _isTimeOver || _isPaused) return;
 
       final zone = _detectZone(event.x, event.y, event.z);
-
-      // Aralık dışı null ise işlem yapma
       if (zone != null && zone != _currentZone) {
         _handleZoneTransition(from: _currentZone, to: zone);
       }
     });
   }
 
-  // -----------------------
-  // ZONE DETECTION
-  // -----------------------
   String? _detectZone(double x, double y, double z) {
     bool inRange(double value, double a, double b) {
       final min = a < b ? a : b;
@@ -199,52 +148,46 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
       return value >= min && value <= max;
     }
 
-    // PLAY: x 8-10, y -4-4, z -6-6
     if (inRange(x, 8, 10) && inRange(y, -4, 4) && inRange(z, -6, 6)) {
       return "play";
     }
-
-    // PASS: x -4-7, y -4-4, z 7-10
     if (inRange(x, -4, 7) && inRange(y, -4, 4) && inRange(z, 7, 10)) {
       return "pass";
     }
-
-    // CORRECT: x -4-7, y -4-4, z -10…-7
     if (inRange(x, -4, 7) && inRange(y, -4, 4) && inRange(z, -10, -7)) {
       return "correct";
     }
-
-    return null; // Aralık dışında
+    return null;
   }
 
-  // -----------------------
-  // ZONE GEÇİŞ İŞLEMİ
-  // -----------------------
   void _handleZoneTransition({required String from, required String to}) {
-    if (_isAnimating || _isTimeOver) return;
+    if (_isAnimating || _isTimeOver || _isPaused) return;
 
-    // PLAY -> PASS / CORRECT
     if (from == "play" && (to == "pass" || to == "correct")) {
       setState(() {
         _currentZone = to;
-        _oldCardColor = to == "pass" ? Colors.red : Colors.green;
+        _oldCardColor = to == "pass" ? AppColors.pass : AppColors.correct;
         _oldCardText = to == "pass" ? "PASS" : "DOĞRU";
       });
+
+      // 🔊 Sesleri SoundHelper'dan çalıyoruz
+      if (to == "pass") {
+        SoundHelper.playPass();
+      } else {
+        SoundHelper.playCorrect();
+      }
+
       return;
     }
 
-    // PASS / CORRECT -> PLAY
     if ((from == "pass" || from == "correct") && to == "play") {
       _handleReturnToPlay(fromZone: from);
       return;
     }
   }
 
-  // -----------------------
-  // KART GEÇİŞ ANİMASYONU VE SKOR
-  // -----------------------
   Future<void> _handleReturnToPlay({required String fromZone}) async {
-    if (_isAnimating || _isTimeOver) return;
+    if (_isAnimating || _isTimeOver || _isPaused) return;
 
     final currentNameCubit = context.read<CurrentNameCubit>();
     final scoreCubit = context.read<ScoreCubit>();
@@ -252,9 +195,9 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
 
     if (fromZone == "correct") {
       scoreCubit.increment();
-      resultCubit.addCorrectWord(currentNameCubit.state); // Cubit’e ekle
+      resultCubit.addCorrectWord(currentNameCubit.state);
     } else if (fromZone == "pass") {
-      resultCubit.addPassWord(currentNameCubit.state); // Cubit’e ekle
+      resultCubit.addPassWord(currentNameCubit.state);
     }
 
     currentNameCubit.generateNewName();
@@ -279,31 +222,23 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     _controller.reset();
   }
 
-  // -----------------------
-  // BUILD
-  // -----------------------
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueGrey.shade900,
       body: SafeArea(
         child: Stack(
           children: [
-            _buildAnimatedNames(), // Kart animasyonları
-            _buildExitButton(), // Çıkış butonu
-            _buildScore(), // Skor widget
-            _buildTimer(), // Timer widget
-            if (_isTimeOver) _buildTimeOverOverlay(), // Süre bitince overlay
-            _buildSensorDebug(), // Debug sensör değerleri
+            _buildAnimatedNames(),
+            _buildBackButton(),
+            _buildScore(),
+            _buildTimer(),
+            if (_isTimeOver) _buildTimeOverOverlay(),
           ],
         ),
       ),
     );
   }
 
-  // -----------------------
-  // WIDGET: KART ANİMASYONU
-  // -----------------------
   Widget _buildAnimatedNames() {
     return Stack(
       children: [
@@ -312,21 +247,18 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
             position: _oldOffsetAnimation,
             child: _buildCard(
               text: _oldCardText ?? _oldName!,
-              color: _oldCardColor ?? Colors.greenAccent,
+              color: _oldCardColor ?? AppColors.game,
             ),
           ),
         if (_newName != null)
           SlideTransition(
             position: _newOffsetAnimation,
-            child: _buildCard(text: _newName!, color: Colors.greenAccent),
+            child: _buildCard(text: _newName!, color: AppColors.game),
           ),
       ],
     );
   }
 
-  // -----------------------
-  // WIDGET: TEK KART
-  // -----------------------
   Widget _buildCard({required String text, required Color color}) {
     return SizedBox.expand(
       child: Container(
@@ -338,34 +270,6 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
           style: const TextStyle(
             fontSize: 72,
             fontWeight: FontWeight.bold,
-            color: Colors.black,
-          ),
-        ),
-      ),
-    );
-  }
-
-  // -----------------------
-  // WIDGET: ÇIKIŞ BUTONU
-  // -----------------------
-  Widget _buildExitButton() {
-    return Positioned(
-      left: 20,
-      bottom: 20,
-      child: ElevatedButton(
-        onPressed: _onExitPressed,
-        style: ElevatedButton.styleFrom(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-          backgroundColor: Colors.redAccent,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-        ),
-        child: const Text(
-          'Exit',
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
             color: Colors.white,
           ),
         ),
@@ -373,30 +277,166 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     );
   }
 
-  // -----------------------
-  // ÇIKIŞ BUTONU İŞLEMİ
-  // -----------------------
-  void _onExitPressed() {
-    context.read<CurrentNameCubit>().reset();
-    context.read<ScoreCubit>().reset();
-    _sensorSub?.cancel();
-
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (_) => const HomePage()),
+  Widget _buildBackButton() {
+    return Positioned(
+      top: 20,
+      left: 20,
+      child: IconButton(
+        icon: const Icon(Icons.arrow_back, color: Colors.white, size: 32),
+        onPressed: _onBackPressed,
+      ),
     );
   }
 
-  // -----------------------
-  // WIDGET: SKOR
-  // -----------------------
+  void _onBackPressed() {
+    setState(() => _isPaused = true);
+    _showPauseDialog();
+  }
+
+  Future<void> _showPauseDialog() async {
+    await showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Container(
+            width: 320,
+            height: 210,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Üstteki Mor Bar
+                Container(
+                  width: double.infinity,
+                  decoration: const BoxDecoration(
+                    color: Color(0xFF5058E2),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(16),
+                      topRight: Radius.circular(16),
+                    ),
+                  ),
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  child: const Center(
+                    child: Text(
+                      "DURAKLATILDI",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 22,
+                        fontWeight: FontWeight.w900,
+                        letterSpacing: 1,
+                      ),
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 18),
+
+                // Uyarı yazısı
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  child: Text(
+                    "Çıkmak istediğine emin misin?",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black87,
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 20),
+
+                // Butonlar yan yana
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Row(
+                    children: [
+                      // Ana Menü (sol)
+                      Expanded(
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFFFF4F81),
+                            minimumSize: const Size(double.infinity, 50),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
+                          onPressed: () {
+                            context.read<CurrentNameCubit>().reset();
+                            context.read<ScoreCubit>().reset();
+                            _timer?.cancel();
+                            _sensorSub?.cancel();
+
+                            Navigator.of(context).pop();
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const AllDecksPage(),
+                              ),
+                            );
+                          },
+                          child: const Text(
+                            "Ana Menü",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      const SizedBox(width: 12),
+
+                      // Devam Et (sağ)
+                      Expanded(
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF4CD964),
+                            minimumSize: const Size(double.infinity, 50),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
+                          onPressed: () {
+                            setState(() => _isPaused = false);
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text(
+                            "Devam Et",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 16),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   Widget _buildScore() {
     return Align(alignment: Alignment.bottomCenter, child: GameScore());
   }
 
-  // -----------------------
-  // WIDGET: TIMER
-  // -----------------------
   Widget _buildTimer() {
     return Positioned(
       top: 20,
@@ -412,35 +452,16 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     );
   }
 
-  // -----------------------
-  // WIDGET: SÜRE BİTTİ OVERLAY
-  // -----------------------
   Widget _buildTimeOverOverlay() {
     return Container(
-      color: Colors.yellow,
+      color: AppColors.timeUp,
       alignment: Alignment.center,
       child: const Text(
-        "Süre Bitti",
-        style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
-      ),
-    );
-  }
-
-  // -----------------------
-  // WIDGET: SENSÖR DEBUG PANEL
-  // -----------------------
-  Widget _buildSensorDebug() {
-    return Positioned(
-      top: 20,
-      left: 20,
-      child: Container(
-        padding: const EdgeInsets.all(8),
-        color: Colors.black.withOpacity(0.5),
-        child: Text(
-          'x: ${_debugX.toStringAsFixed(2)}\n'
-          'y: ${_debugY.toStringAsFixed(2)}\n'
-          'z: ${_debugZ.toStringAsFixed(2)}',
-          style: const TextStyle(color: Colors.white, fontSize: 16),
+        "Süre Bitti!",
+        style: TextStyle(
+          fontSize: 50,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
         ),
       ),
     );
