@@ -1,6 +1,6 @@
 import 'package:ben_kimim/common/navigator/app_navigator.dart';
 import 'package:ben_kimim/core/configs/assets/app_images.dart';
-import 'package:ben_kimim/presentation/home/pages/all_decks.dart';
+import 'package:ben_kimim/presentation/all_decks/pages/all_decks.dart';
 import 'package:flutter/material.dart';
 
 class HowToPlayPage extends StatelessWidget {
@@ -25,7 +25,7 @@ class HowToPlayPage extends StatelessWidget {
           children: [
             InstructionItem(
               description:
-                  "Telefonu alnınıza yerleştirin. Arkadaşlarınız kelimeyi anlatırken, şarkı söyleyerek veya hareketlerle ipuçları verirken tahmin etmeye çalışın.",
+                  "Telefonu alnınıza yerleştirin. Arkadaşlarınızın verdiği ipuçları veya taklitlerden yararlanarak kelimeyi tahmin etmeye çalışın.",
               imagePath: AppImages.game,
             ),
             const SizedBox(height: 40),

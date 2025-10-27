@@ -45,17 +45,10 @@ class DeckCover extends StatelessWidget {
                 child: Center(
                   child: Text(
                     deck.deckName,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      shadows: [
-                        Shadow(
-                          offset: Offset(2, 2),
-                          blurRadius: 6,
-                          color: Colors.black54,
-                        ),
-                      ],
+                      color: deck.deckTextColor,
                     ),
                   ),
                 ),

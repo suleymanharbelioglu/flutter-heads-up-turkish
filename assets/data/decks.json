@@ -2,9 +2,82 @@
   {
     "deckName": "Hayvanlar",
     "categoryName": "Popular",
-    "onGorselAdress": "assets/images/animals.jpg",
-    "arkaGorselAdress": "assets/images/animals_back.jpg",
+    "onGorselAdress": "assets/images/deneme.jpg",
+    "arkaGorselAdress": "assets/images/deneme.jpg",
     "namesFilePath": "assets/data/names/animals_nameList.json",
-    "deckDescription": "Takım arkadaşına karttaki hayvanı, hayvanın adının hiçbir bölümünü söylemeden ve kafiyeli sözcük kullanmadan tahmin ettir!\n\nEkstra bir meydan okuma için: İpucu verirken sadece sesleri veya canlandırmaları kullan. Kelime kullanmak yasak!"
+    "deckTextColor": "0xFF5F919C",
+    "deckDescription": "Dört bacaklı mıyım? , evde beslenebilir miyim? , hortumum var mı?...\nBu deste, çevrenizde görebileceğiniz ya da yaban hayatında yaşayan hayvanları içeriyor.\nArkadaşlarınıza sorular sorun; onlardan gelen küçük ipuçları, canlandırmalar veya seslerden yola çıkarak hangi hayvan olduğunuzu tahmin etmeye çalışın."
+  },
+  {
+    "deckName": "Meyveler ve Sebzeler",
+    "categoryName": "Popular",
+    "onGorselAdress": "assets/images/deneme.jpg",
+    "arkaGorselAdress": "assets/images/deneme.jpg",
+    "namesFilePath": "assets/data/names/meyveler_ve_sebzeler_nameList.json",
+    "deckTextColor": "0xFF5F919C",
+    "deckDescription": "Tatlı mı yoksa ekşi mi? Çiğ mi yenir yoksa pişirilmeli mi?...\nBu deste, çevrenizde görebileceğiniz meyve ve sebzeleri içeriyor.\nArkadaşlarınıza sorular sorun ve ipuçlarından hangi meyve veya sebze olduğunu tahmin edin."
+  },
+  {
+    "deckName": "Yemekler",
+    "categoryName": "Popular",
+    "onGorselAdress": "assets/images/deneme.jpg",
+    "arkaGorselAdress": "assets/images/deneme.jpg",
+    "namesFilePath": "assets/data/names/yemekler_nameList.json",
+    "deckTextColor": "0xFF5F919C",
+    "deckDescription": "Etli mi? Sıcak mı yenir?...\nBu deste, Türkiye’nin en popüler yemeklerini içeriyor.\nArkadaşlarınıza sorular sorun ve ipuçlarından hangi yemek olduğunu tahmin edin."
+  },
+  {
+    "deckName": "Ünlüler",
+    "categoryName": "Popular",
+    "onGorselAdress": "assets/images/deneme.jpg",
+    "arkaGorselAdress": "assets/images/deneme.jpg",
+    "namesFilePath": "assets/data/names/unluler_nameList.json",
+    "deckTextColor": "0xFF5F919C",
+    "deckDescription": "Siyasi mi? Sanatçı mı?...\nSporcu mu, bilim insanı mı?...\nBu deste, Türkiye’nin en ünlü isimlerini içeriyor.\nArkadaşlarınıza sorular sorun; ipuçları ve küçük detaylardan hangi ünlüyü düşündüğünüzü tahmin edin."
+  },
+  {
+    "deckName": "Oyuncular",
+    "categoryName": "Popular",
+    "onGorselAdress": "assets/images/deneme.jpg",
+    "arkaGorselAdress": "assets/images/deneme.jpg",
+    "namesFilePath": "assets/data/names/oyuncular_nameList.json",
+    "deckTextColor": "0xFF5F919C",
+    "deckDescription": "Erkek mi? Kadın mı?...\nSinema mı, dizi mi?...\nBu deste, Türkiye’nin en ünlü oyuncularını içeriyor.\nArkadaşlarınıza sorular sorun ve ipuçlarından hangi oyuncu olduğunu tahmin edin."
+  },
+  {
+    "deckName": "Filmler",
+    "categoryName": "Popular",
+    "onGorselAdress": "assets/images/deneme.jpg",
+    "arkaGorselAdress": "assets/images/deneme.jpg",
+    "namesFilePath": "assets/data/names/filmler_nameList.json",
+    "deckTextColor": "0xFF5F919C",
+    "deckDescription": "Komedi mi? Dram mı?...\nAksiyon mu, romantik mi?...\nBu deste, Türkiye’nin en ünlü filmlerini içeriyor.\nArkadaşlarınıza sorular sorun ve ipuçlarından hangi film olduğunu tahmin edin."
+  },
+  {
+    "deckName": "Futbolcular",
+    "categoryName": "Popular",
+    "onGorselAdress": "assets/images/deneme.jpg",
+    "arkaGorselAdress": "assets/images/deneme.jpg",
+    "namesFilePath": "assets/data/names/futbolcular_nameList.json",
+    "deckTextColor": "0xFF5F919C",
+    "deckDescription": "Forvet mi? Kaleci mi?...\nDefans mı, orta saha mı?...\nBu deste, Türkiye’nin en ünlü futbolcularını içeriyor.\nArkadaşlarınıza sorular sorun ve ipuçlarından hangi futbolcu olduğunu tahmin edin."
+  },
+  {
+    "deckName": "Müzikler",
+    "categoryName": "Popular",
+    "onGorselAdress": "assets/images/deneme.jpg",
+    "arkaGorselAdress": "assets/images/deneme.jpg",
+    "namesFilePath": "assets/data/names/müzikler_nameList.json",
+    "deckTextColor": "0xFF5F919C",
+    "deckDescription": "Na na an, ya a, hım hım...\nBu deste, Türkiye’nin en popüler müziklerini içeriyor.\nArkadaşlarınıza müzikleri hiç kelime kullanmadan mırıldanacak.\nSiz de ipuçlarından hangi müzik olduğunu tahmin edin."
+  },
+  {
+    "deckName": "Siyasetçiler",
+    "categoryName": "Popular",
+    "onGorselAdress": "assets/images/deneme.jpg",
+    "arkaGorselAdress": "assets/images/deneme.jpg",
+    "namesFilePath": "assets/data/names/siyasetciler_nameList.json",
+    "deckTextColor": "0xFF5F919C",
+    "deckDescription": "Cumhurbaşkanı mı? Bakan mı?...\nMuhalefet mi, iktidar mı?...\nBu deste, Türkiye’nin en ünlü siyasetçilerini içeriyor.\nArkadaşlarınıza sorular sorun ve ipuçlarından hangi siyasetçi olduğunu tahmin edin."
   }
 ]

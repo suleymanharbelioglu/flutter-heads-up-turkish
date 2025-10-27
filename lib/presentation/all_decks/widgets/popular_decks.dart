@@ -1,7 +1,7 @@
 import 'package:ben_kimim/common/widget/deck/deck_cover.dart';
 import 'package:ben_kimim/domain/deck/entity/deck.dart';
-import 'package:ben_kimim/presentation/home/bloc/popular_decks_cubit.dart';
-import 'package:ben_kimim/presentation/home/bloc/popular_decks_state.dart';
+import 'package:ben_kimim/presentation/all_decks/bloc/popular_decks_cubit.dart';
+import 'package:ben_kimim/presentation/all_decks/bloc/popular_decks_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

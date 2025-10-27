@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:ben_kimim/domain/deck/entity/deck.dart';
 
 class DeckModel {
@@ -7,6 +8,7 @@ class DeckModel {
   final String arkaGorselAdress;
   final String namesFilePath; // JSON dosya yolu (zorunlu)
   final String deckDescription; // Yeni alan
+  final Color deckTextColor; // Yeni alan
 
   DeckModel({
     required this.deckName,
@@ -14,7 +16,8 @@ class DeckModel {
     required this.onGorselAdress,
     required this.arkaGorselAdress,
     required this.namesFilePath,
-    required this.deckDescription, // constructor’a ekle
+    required this.deckDescription,
+    required this.deckTextColor, // constructor’a ekle
   });
 
   factory DeckModel.fromJson(Map<String, dynamic> json) {
@@ -25,6 +28,7 @@ class DeckModel {
       arkaGorselAdress: json['arkaGorselAdress'] as String,
       namesFilePath: json['namesFilePath'] as String,
       deckDescription: json['deckDescription'] as String,
+      deckTextColor: Color(int.parse(json['deckTextColor'])), // JSON’dan çevir
     );
   }
 
@@ -35,7 +39,8 @@ class DeckModel {
       onGorselAdress: onGorselAdress,
       arkaGorselAdress: arkaGorselAdress,
       namesFilePath: namesFilePath,
-      deckDescription: deckDescription, // Entity’ye ekle
+      deckDescription: deckDescription,
+      deckTextColor: deckTextColor, // Entity’ye ekle
     );
   }
 }

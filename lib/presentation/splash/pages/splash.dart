@@ -1,6 +1,6 @@
 import 'package:ben_kimim/common/navigator/app_navigator.dart';
 import 'package:ben_kimim/core/configs/assets/app_images.dart';
-import 'package:ben_kimim/presentation/home/pages/all_decks.dart';
+import 'package:ben_kimim/presentation/bottom_nav/page/bottom_nav.dart';
 import 'package:ben_kimim/presentation/splash/bloc/splash_cubit.dart';
 import 'package:ben_kimim/presentation/splash/bloc/splash_state.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +15,7 @@ class SplashPage extends StatelessWidget {
       listener: (context, state) {
         if (state is SplashNavigate) {
           // Sayfa geçişini burada yapıyoruz
-          AppNavigator.pushAndRemove(context, const AllDecksPage());
+          AppNavigator.pushAndRemove(context, const BottomNavPage());
         }
       },
       // Scaffold, arka plan görselini ve yükleme göstergesini barındıracak

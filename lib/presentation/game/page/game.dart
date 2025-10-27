@@ -11,7 +11,7 @@ import 'package:ben_kimim/presentation/game/bloc/score_cubit.dart';
 import 'package:ben_kimim/presentation/game/bloc/timer_cubit.dart';
 import 'package:ben_kimim/presentation/game/widget/game_score.dart';
 import 'package:ben_kimim/presentation/game/widget/game_timer.dart';
-import 'package:ben_kimim/presentation/home/pages/all_decks.dart';
+import 'package:ben_kimim/presentation/all_decks/pages/all_decks.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 
 class GamePage extends StatefulWidget {

@@ -3,7 +3,7 @@ import 'package:ben_kimim/data/card/model/card_result.dart';
 import 'package:ben_kimim/presentation/game/bloc/current_name_cubit.dart';
 import 'package:ben_kimim/presentation/game/bloc/score_cubit.dart';
 import 'package:ben_kimim/presentation/game_result/bloc/result_cubit.dart';
-import 'package:ben_kimim/presentation/home/pages/all_decks.dart';
+import 'package:ben_kimim/presentation/all_decks/pages/all_decks.dart';
 import 'package:ben_kimim/presentation/phone_to_forhead/page/phone_to_forhead.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

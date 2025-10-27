@@ -2,6 +2,7 @@ import 'dart:math';
 import 'dart:ui';
 import 'package:ben_kimim/common/navigator/app_navigator.dart';
 import 'package:ben_kimim/presentation/game/bloc/display_current_card_list_cubit.dart';
+import 'package:ben_kimim/presentation/game/bloc/timer_cubit.dart';
 import 'package:ben_kimim/presentation/phone_to_forhead/page/phone_to_forhead.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -86,17 +87,10 @@ class _DeckFlipState extends State<DeckFlip>
               child: Center(
                 child: Text(
                   widget.deck.deckName,
-                  style: const TextStyle(
-                    fontSize: 26,
+                  style: TextStyle(
+                    fontSize: 32,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    shadows: [
-                      Shadow(
-                        offset: Offset(2, 2),
-                        blurRadius: 6,
-                        color: Colors.black54,
-                      ),
-                    ],
+                    color: widget.deck.deckTextColor,
                   ),
                 ),
               ),
@@ -121,35 +115,135 @@ class _DeckFlipState extends State<DeckFlip>
               child: Text(
                 widget.deck.deckName,
                 textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 26,
+                style: TextStyle(
+                  fontSize: 32,
                   fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  shadows: [
-                    Shadow(
-                      offset: Offset(2, 2),
-                      blurRadius: 6,
-                      color: Colors.black54,
+                  color: widget.deck.deckTextColor,
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            Expanded(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  children: [
+                    Text(
+                      widget.deck.deckDescription,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: widget.deck.deckTextColor,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
+                    const SizedBox(height: 20),
+
+                    // Timer kontrol alanı
+                    BlocBuilder<TimerCubit, int>(
+                      builder: (context, state) {
+                        return Padding(
+                          padding: const EdgeInsets.only(
+                            top: 40,
+                            bottom: 30,
+                          ), // alta yakın konum
+                          child: Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                                vertical: 4,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.transparent,
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                              child: Container(
+                                width: 160,
+                                height: 35,
+                                decoration: BoxDecoration(
+                                  color: Colors
+                                      .white, // mavi arka plan (görseldeki gibi)
+                                  borderRadius: BorderRadius.circular(25),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    // - butonu
+                                    Container(
+                                      width: 50,
+                                      height: 50,
+                                      decoration: const BoxDecoration(
+                                        color: Color(0xFF339CFF), // yeşil ton
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(25),
+                                          bottomLeft: Radius.circular(25),
+                                        ),
+                                      ),
+                                      child: IconButton(
+                                        icon: const Icon(
+                                          Icons.remove,
+                                          color: Colors.white,
+                                          size: 24,
+                                        ),
+                                        onPressed: () => context
+                                            .read<TimerCubit>()
+                                            .decrease(),
+                                      ),
+                                    ),
+
+                                    // Süre metni
+                                    Expanded(
+                                      child: Center(
+                                        child: Text(
+                                          "${state}s",
+                                          style: const TextStyle(
+                                            fontSize: 22,
+                                            fontWeight: FontWeight.bold,
+                                            color: Color(0xFF339CFF),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+
+                                    // + butonu
+                                    Container(
+                                      width: 50,
+                                      height: 50,
+                                      decoration: const BoxDecoration(
+                                        color: Color(0xFF339CFF),
+                                        borderRadius: BorderRadius.only(
+                                          topRight: Radius.circular(25),
+                                          bottomRight: Radius.circular(25),
+                                        ),
+                                      ),
+                                      child: IconButton(
+                                        icon: const Icon(
+                                          Icons.add,
+                                          color: Colors.white,
+                                          size: 24,
+                                        ),
+                                        onPressed: () => context
+                                            .read<TimerCubit>()
+                                            .increase(),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+
+                    const SizedBox(height: 16),
                   ],
                 ),
               ),
             ),
-            const SizedBox(height: 12),
-            Expanded(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Text(
-                  widget.deck.deckDescription,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
-            ),
+
             const SizedBox(height: 16),
             _buildButtons(),
           ],
@@ -280,7 +374,7 @@ class _ArrowBackgroundPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = Colors.purple.withOpacity(0.25)
+      ..color = Colors.black.withOpacity(0.1)
       ..style = PaintingStyle.fill;
 
     final path = Path();

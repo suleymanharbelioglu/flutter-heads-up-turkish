@@ -41,6 +41,7 @@ dependencies:
   just_audio: ^0.10.5
   sensors_plus: ^7.0.0
   font_awesome_flutter: ^10.9.1
+  google_fonts: ^6.3.2
 
 dev_dependencies:
   flutter_test:
