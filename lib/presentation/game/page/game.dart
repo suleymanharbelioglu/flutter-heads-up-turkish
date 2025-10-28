@@ -1,105 +1,116 @@
-import 'dart:async';
-import 'package:ben_kimim/common/helper/sound/sound.dart';
-import 'package:ben_kimim/core/configs/theme/app_color.dart';
-import 'package:ben_kimim/presentation/game_result/bloc/result_cubit.dart';
-import 'package:ben_kimim/presentation/game_result/page/game_result.dart';
+import 'dart:async'; // Timer ve StreamSubscription için
+import 'package:ben_kimim/common/helper/sound/sound.dart'; // Oyundaki sesleri çalmak için
+import 'package:ben_kimim/core/configs/theme/app_color.dart'; // Uygulama renklerini almak için
+import 'package:ben_kimim/presentation/bottom_nav/page/bottom_nav.dart';
+import 'package:ben_kimim/presentation/game_result/bloc/result_cubit.dart'; // Sonuçları yönetmek için
+import 'package:ben_kimim/presentation/game_result/page/game_result.dart'; // Oyun bitince sonuç sayfasına geçmek için
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ben_kimim/presentation/game/bloc/current_name_cubit.dart';
-import 'package:ben_kimim/presentation/game/bloc/score_cubit.dart';
-import 'package:ben_kimim/presentation/game/bloc/timer_cubit.dart';
-import 'package:ben_kimim/presentation/game/widget/game_score.dart';
-import 'package:ben_kimim/presentation/game/widget/game_timer.dart';
-import 'package:ben_kimim/presentation/all_decks/pages/all_decks.dart';
-import 'package:sensors_plus/sensors_plus.dart';
+import 'package:flutter/services.dart'; // Ekran yönünü değiştirmek ve system UI için
+import 'package:flutter_bloc/flutter_bloc.dart'; // BLoC state management için
+import 'package:ben_kimim/presentation/game/bloc/current_name_cubit.dart'; // Şu anki isimleri yönetmek için
+import 'package:ben_kimim/presentation/game/bloc/score_cubit.dart'; // Skoru yönetmek için
+import 'package:ben_kimim/presentation/game/bloc/timer_cubit.dart'; // Oyunun süresini yönetmek için
+import 'package:ben_kimim/presentation/game/widget/game_score.dart'; // Skor widgetı
+import 'package:ben_kimim/presentation/game/widget/game_timer.dart'; // Zamanlayıcı widgetı
+import 'package:ben_kimim/presentation/all_decks/pages/all_decks.dart'; // Ana menüye dönmek için
+import 'package:sensors_plus/sensors_plus.dart'; // Cihaz sensörlerini almak için (accelerometer)
 
 class GamePage extends StatefulWidget {
   const GamePage({super.key});
 
   @override
-  State<GamePage> createState() => _GamePageState();
+  State<GamePage> createState() => _GamePageState(); // Stateful widget için state oluşturuyor
 }
 
 class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
+  // Animasyonlar için controller
   late AnimationController _controller;
-  late Animation<Offset> _oldOffsetAnimation;
-  late Animation<Offset> _newOffsetAnimation;
+  late Animation<Offset>
+  _oldOffsetAnimation; // Eski kartın yukarı kayma animasyonu
+  late Animation<Offset>
+  _newOffsetAnimation; // Yeni kartın aşağıdan gelme animasyonu
 
-  String? _oldName;
-  String? _newName;
-  Color? _oldCardColor;
-  String? _oldCardText;
+  // Kart bilgilerinin saklanması
+  String? _oldName; // Önceki kartın ismi
+  String? _newName; // Gelecek kartın ismi
+  Color? _oldCardColor; // Kartın renk değişimi (doğru/pas)
+  String? _oldCardText; // Kart üzerinde gösterilecek metin (PASS/DOĞRU)
 
-  bool _isAnimating = false;
-  bool _isTimeOver = false;
-  int? _remainingSeconds;
+  // Durumlar
+  bool _isAnimating = false; // Kart animasyonu devam ediyor mu
+  bool _isTimeOver = false; // Süre doldu mu
+  int? _remainingSeconds; // Kalan saniye
 
-  StreamSubscription<AccelerometerEvent>? _sensorSub;
-  String _currentZone = "play";
-  Timer? _timer;
-  bool _isPaused = false;
+  StreamSubscription<AccelerometerEvent>? _sensorSub; // Sensör dinlemesi
+  String _currentZone = "play"; // Şu anki kart bölgesi (play/pass/correct)
+  Timer? _timer; // Oyun timerı
+  bool _isPaused = false; // Oyun duraklatıldı mı
 
   @override
   void initState() {
     super.initState();
-    _setupOrientation();
-    _setupAnimations();
-    _loadInitialNameAndStartTimer();
-    _startSensorListening();
+    _setupOrientation(); // Oyuna özel ekran yönünü ayarlama
+    _setupAnimations(); // Kart animasyonlarını oluşturma
+    _loadInitialNameAndStartTimer(); // İlk ismi yükle ve timer başlat
+    _startSensorListening(); // Cihaz hareketlerini dinle
   }
 
   @override
   void dispose() {
-    _controller.dispose();
-    _timer?.cancel();
-    _sensorSub?.cancel();
-    _resetOrientation();
+    _controller.dispose(); // Animasyon controllerını temizle
+    _timer?.cancel(); // Timerı iptal et
+    _sensorSub?.cancel(); // Sensör dinlemeyi kapat
+    _resetOrientation(); // Ekran yönünü eski haline getir
     super.dispose();
   }
 
+  // Oyuna özel ekran yönünü ayarlama (landscape ve UI gizleme)
   void _setupOrientation() {
     SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft]);
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
   }
 
+  // Ekran yönünü eski hale getirme (portrait)
   void _resetOrientation() {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
   }
 
+  // Kart animasyonlarını tanımlama
   void _setupAnimations() {
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 400),
+      duration: const Duration(milliseconds: 400), // Animasyon süresi
     );
 
     _oldOffsetAnimation = Tween<Offset>(
-      begin: Offset.zero,
-      end: const Offset(0, -1),
+      begin: Offset.zero, // Başlangıç pozisyonu
+      end: const Offset(0, -1), // Yukarı kayma
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
 
     _newOffsetAnimation = Tween<Offset>(
-      begin: const Offset(0, 1),
-      end: Offset.zero,
+      begin: const Offset(0, 1), // Aşağıdan başla
+      end: Offset.zero, // Ortaya gel
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
   }
 
+  // İlk kartı yükle ve timer başlat
   void _loadInitialNameAndStartTimer() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final nameCubit = context.read<CurrentNameCubit>();
-      nameCubit.generateNewName();
-      setState(() => _oldName = nameCubit.state);
-      _startTimer();
+      nameCubit.generateNewName(); // İlk ismi üret
+      setState(() => _oldName = nameCubit.state); // _oldName olarak ata
+      _startTimer(); // Timer başlat
     });
   }
 
+  // Timer başlatma ve her saniye azaltma
   void _startTimer() {
     final timerCubit = context.read<TimerCubit>();
-    _remainingSeconds = timerCubit.state;
+    _remainingSeconds = timerCubit.state; // Timerın toplam süresi
 
     _timer = Timer.periodic(const Duration(seconds: 1), (t) {
-      if (_isPaused) return;
+      if (_isPaused) return; // Duraklatılmışsa ilerleme
       if (_remainingSeconds != null && _remainingSeconds! > 0) {
         setState(() => _remainingSeconds = _remainingSeconds! - 1);
 
@@ -108,21 +119,32 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
           SoundHelper.playLastSeconds();
         }
       } else {
-        t.cancel();
-        _onTimeOver();
+        t.cancel(); // Süre dolduysa timer durdur
+        _onTimeOver(); // Süre bitti işlemleri
       }
     });
   }
 
+  // Süre dolunca yapılacak işlemler
   void _onTimeOver() async {
+    // 1️⃣ Son kelimeyi kontrol et
+    final resultCubit = context.read<ResultCubit>();
+
+    // Eğer son kelime işaretlenmemişse (PASS/DOĞRU yapılmamışsa) ekle
+    if (_oldName != null &&
+        (_oldCardText == null || _oldCardText == _oldName)) {
+      resultCubit.addPassWord(_oldName!); // ya da istersen addCorrectWord()
+    }
     setState(() {
       _isTimeOver = true;
-      _isAnimating = true;
+      _isAnimating = true; // Animasyon durumu true, kart kaydırılamaz
     });
 
     await SoundHelper.playTimeUp(); // 🔊 Süre bitti sesi
 
     Future.delayed(const Duration(seconds: 1), () {
+      // Sonuç sayfasına geç
+
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (_) => const GameResultPage()),
@@ -130,17 +152,27 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     });
   }
 
+  // Sensörleri dinleme başlat
   void _startSensorListening() {
     _sensorSub = accelerometerEvents.listen((event) {
-      if (_isAnimating || _isTimeOver || _isPaused) return;
+      if (_isAnimating || _isTimeOver || _isPaused)
+        return; // Kart animasyonu veya süre dolduysa ignore
 
-      final zone = _detectZone(event.x, event.y, event.z);
+      final zone = _detectZone(
+        event.x,
+        event.y,
+        event.z,
+      ); // Hangi bölgedeyiz kontrol et
       if (zone != null && zone != _currentZone) {
-        _handleZoneTransition(from: _currentZone, to: zone);
+        _handleZoneTransition(
+          from: _currentZone,
+          to: zone,
+        ); // Bölge değişirse işle
       }
     });
   }
 
+  // Kartın hangi bölgesinde olduğunu belirleme (play/pass/correct)
   String? _detectZone(double x, double y, double z) {
     bool inRange(double value, double a, double b) {
       final min = a < b ? a : b;
@@ -148,26 +180,33 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
       return value >= min && value <= max;
     }
 
+    // play bölgesi
     if (inRange(x, 8, 10) && inRange(y, -4, 4) && inRange(z, -6, 6)) {
       return "play";
     }
+    // pass bölgesi
     if (inRange(x, -4, 7) && inRange(y, -4, 4) && inRange(z, 7, 10)) {
       return "pass";
     }
+    // correct bölgesi
     if (inRange(x, -4, 7) && inRange(y, -4, 4) && inRange(z, -10, -7)) {
       return "correct";
     }
-    return null;
+    return null; // Hiçbir bölgeye girmediyse null
   }
 
+  // Bölge geçişini yönet
   void _handleZoneTransition({required String from, required String to}) {
     if (_isAnimating || _isTimeOver || _isPaused) return;
 
+    // play -> pass/correct
     if (from == "play" && (to == "pass" || to == "correct")) {
       setState(() {
         _currentZone = to;
-        _oldCardColor = to == "pass" ? AppColors.pass : AppColors.correct;
-        _oldCardText = to == "pass" ? "PASS" : "DOĞRU";
+        _oldCardColor = to == "pass"
+            ? AppColors.pass
+            : AppColors.correct; // Renk değişimi
+        _oldCardText = to == "pass" ? "PASS" : "DOĞRU"; // Kart üzerindeki metin
       });
 
       // 🔊 Sesleri SoundHelper'dan çalıyoruz
@@ -180,12 +219,14 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
       return;
     }
 
+    // pass/correct -> play (kart yenileniyor)
     if ((from == "pass" || from == "correct") && to == "play") {
       _handleReturnToPlay(fromZone: from);
       return;
     }
   }
 
+  // Kart eski bölgeden play alanına döndüğünde yapılacaklar
   Future<void> _handleReturnToPlay({required String fromZone}) async {
     if (_isAnimating || _isTimeOver || _isPaused) return;
 
@@ -193,6 +234,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     final scoreCubit = context.read<ScoreCubit>();
     final resultCubit = context.read<ResultCubit>();
 
+    // Doğruysa skor ekle, pass ise result listesine ekle
     if (fromZone == "correct") {
       scoreCubit.increment();
       resultCubit.addCorrectWord(currentNameCubit.state);
@@ -200,17 +242,18 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
       resultCubit.addPassWord(currentNameCubit.state);
     }
 
-    currentNameCubit.generateNewName();
+    currentNameCubit.generateNewName(); // Yeni kart ismi
     final nextName = currentNameCubit.state;
 
     setState(() {
-      _isAnimating = true;
-      _newName = nextName;
+      _isAnimating = true; // Animasyon aktif
+      _newName = nextName; // Yeni kart set edildi
       _currentZone = "play";
     });
 
-    await _controller.forward();
+    await _controller.forward(); // Animasyonu başlat
 
+    // Animasyon sonrası durumu resetle
     setState(() {
       _oldName = nextName;
       _oldCardColor = null;
@@ -219,7 +262,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
       _isAnimating = false;
     });
 
-    _controller.reset();
+    _controller.reset(); // Animasyon controller reset
   }
 
   @override
@@ -228,44 +271,46 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
       body: SafeArea(
         child: Stack(
           children: [
-            _buildAnimatedNames(),
-            _buildBackButton(),
-            _buildScore(),
-            _buildTimer(),
-            if (_isTimeOver) _buildTimeOverOverlay(),
+            _buildAnimatedNames(), // Kart animasyonları
+            _buildBackButton(), // Geri butonu
+            _buildScore(), // Skor
+            _buildTimer(), // Zamanlayıcı
+            if (_isTimeOver) _buildTimeOverOverlay(), // Süre bitti overlay
           ],
         ),
       ),
     );
   }
 
+  // Kart animasyonları
   Widget _buildAnimatedNames() {
     return Stack(
       children: [
         if (_oldName != null)
           SlideTransition(
-            position: _oldOffsetAnimation,
+            position: _oldOffsetAnimation, // Yukarı kayma animasyonu
             child: _buildCard(
-              text: _oldCardText ?? _oldName!,
-              color: _oldCardColor ?? AppColors.game,
+              text: _oldCardText ?? _oldName!, // Kart üzerindeki metin
+              color: _oldCardColor ?? AppColors.game, // Kart rengi
             ),
           ),
         if (_newName != null)
           SlideTransition(
-            position: _newOffsetAnimation,
+            position: _newOffsetAnimation, // Aşağıdan gelme animasyonu
             child: _buildCard(text: _newName!, color: AppColors.game),
           ),
       ],
     );
   }
 
+  // Kart widget'ı
   Widget _buildCard({required String text, required Color color}) {
     return SizedBox.expand(
       child: Container(
         alignment: Alignment.center,
-        color: color,
+        color: color, // Kart rengi
         child: Text(
-          text,
+          text, // Kart üzerindeki yazı
           textAlign: TextAlign.center,
           style: const TextStyle(
             fontSize: 72,
@@ -277,26 +322,30 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     );
   }
 
+  // Geri butonu
   Widget _buildBackButton() {
     return Positioned(
       top: 20,
       left: 20,
       child: IconButton(
         icon: const Icon(Icons.arrow_back, color: Colors.white, size: 32),
-        onPressed: _onBackPressed,
+        onPressed: _onBackPressed, // Geri basınca duraklat ve dialog aç
       ),
     );
   }
 
   void _onBackPressed() {
-    setState(() => _isPaused = true);
-    _showPauseDialog();
+    print("on back pressed ..............");
+    setState(() => _isPaused = true); // Oyun duraklatıldı
+    _showPauseDialog(); // Duraklatma dialogu aç
+    SoundHelper.pauseLastSeconds();
   }
 
+  // Duraklatma dialogu
   Future<void> _showPauseDialog() async {
     await showDialog(
       context: context,
-      barrierDismissible: false,
+      barrierDismissible: false, // Dialog dışında dokunulmaz
       builder: (context) {
         return Dialog(
           shape: RoundedRectangleBorder(
@@ -312,7 +361,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                // Üstteki Mor Bar
+                // Üst mor bar
                 Container(
                   width: double.infinity,
                   decoration: const BoxDecoration(
@@ -354,7 +403,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
 
                 const SizedBox(height: 20),
 
-                // Butonlar yan yana
+                // Butonlar (Ana Menü / Devam Et)
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Row(
@@ -370,6 +419,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
                             ),
                           ),
                           onPressed: () {
+                            // Cubitleri resetle
                             context.read<CurrentNameCubit>().reset();
                             context.read<ScoreCubit>().reset();
                             _timer?.cancel();
@@ -379,7 +429,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                builder: (_) => const AllDecksPage(),
+                                builder: (_) => const BottomNavPage(),
                               ),
                             );
                           },
@@ -407,7 +457,8 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
                             ),
                           ),
                           onPressed: () {
-                            setState(() => _isPaused = false);
+                            setState(() => _isPaused = false); // Oyuna devam et
+                            SoundHelper.resumeLastSeconds();
                             Navigator.of(context).pop();
                           },
                           child: const Text(
@@ -433,10 +484,12 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     );
   }
 
+  // Skor widgetı
   Widget _buildScore() {
     return Align(alignment: Alignment.bottomCenter, child: GameScore());
   }
 
+  // Timer widgetı
   Widget _buildTimer() {
     return Positioned(
       top: 20,
@@ -452,6 +505,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     );
   }
 
+  // Süre bitti overlay
   Widget _buildTimeOverOverlay() {
     return Container(
       color: AppColors.timeUp,

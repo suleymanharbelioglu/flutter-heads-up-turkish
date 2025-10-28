@@ -35,16 +35,23 @@ class DeckCover extends StatelessWidget {
           ),
           // Başlık Hero
           Positioned(
-            top: 16,
+            top: 16, // Üstten mesafe
             left: 0,
             right: 0,
             child: Hero(
               tag: "title_${deck.deckName}",
               child: Material(
                 color: Colors.transparent,
-                child: Center(
+                child: Container(
+                  alignment: Alignment.topCenter, // Üst merkez
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                  ), // Taşma önleme
                   child: Text(
                     deck.deckName,
+                    textAlign: TextAlign.center, // Ortalanmış text
+                    maxLines: 2, // 2 satıra izin
+                    overflow: TextOverflow.ellipsis, // Taşarsa … göster
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,

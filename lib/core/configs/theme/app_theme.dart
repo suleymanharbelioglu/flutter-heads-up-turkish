@@ -7,6 +7,7 @@ class AppTheme {
     scaffoldBackgroundColor: Colors.white,
     primaryColor: AppColors.primary,
     appBarTheme: AppBarTheme(
+      
       backgroundColor: AppColors.primary,
       centerTitle: true,
       titleTextStyle: GoogleFonts.fredoka(

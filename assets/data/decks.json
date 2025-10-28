@@ -72,12 +72,48 @@
     "deckDescription": "Na na an, ya a, hım hım...\nBu deste, Türkiye’nin en popüler müziklerini içeriyor.\nArkadaşlarınıza müzikleri hiç kelime kullanmadan mırıldanacak.\nSiz de ipuçlarından hangi müzik olduğunu tahmin edin."
   },
   {
-    "deckName": "Siyasetçiler",
+    "deckName": "Canlandır",
     "categoryName": "Popular",
     "onGorselAdress": "assets/images/deneme.jpg",
     "arkaGorselAdress": "assets/images/deneme.jpg",
-    "namesFilePath": "assets/data/names/siyasetciler_nameList.json",
+    "namesFilePath": "assets/data/names/canlandir_nameList.json",
     "deckTextColor": "0xFF5F919C",
-    "deckDescription": "Cumhurbaşkanı mı? Bakan mı?...\nMuhalefet mi, iktidar mı?...\nBu deste, Türkiye’nin en ünlü siyasetçilerini içeriyor.\nArkadaşlarınıza sorular sorun ve ipuçlarından hangi siyasetçi olduğunu tahmin edin."
+    "deckDescription": "Koşmak mı? Yemek yemek mi?...\nBu deste, hayatın her anından farklı durumları içeriyor.\nArkadaşlarınız ses çıkarmadan canlandırsın, siz ne olduğunu tahmin edin."
+  },
+  {
+    "deckName": "Oyunlar",
+    "categoryName": "Popular",
+    "onGorselAdress": "assets/images/deneme.jpg",
+    "arkaGorselAdress": "assets/images/deneme.jpg",
+    "namesFilePath": "assets/data/names/oyunlar_nameList.json",
+    "deckTextColor": "0xFF5F919C",
+    "deckDescription": "Mobil mi, konsol mu? PC oyunu mu?...\nAksiyon mu, strateji mi?...\nBu deste, en popüler dijital oyunları içeriyor.\nArkadaşlarınıza sorular sorun ve ipuçlarından hangi oyun olduğunu tahmin et!"
+  },
+  {
+    "deckName": "Ülkeler",
+    "categoryName": "Popular",
+    "onGorselAdress": "assets/images/deneme.jpg",
+    "arkaGorselAdress": "assets/images/deneme.jpg",
+    "namesFilePath": "assets/data/names/ulkeler_nameList.json",
+    "deckTextColor": "0xFF5F919C",
+    "deckDescription": "Kahvesiyle mi meşhur,?...\nAsya mı, Avrupa mı?...\nBu deste, dünyanın en tanınmış 100 ülkesini içeriyor.\nArkadaşlarınıza sorular sor ve ipuçlarından hangi ülke olduğunu tahmin et!"
+  },
+  {
+    "deckName": "Nesneler",
+    "categoryName": "Popular",
+    "onGorselAdress": "assets/images/deneme.jpg",
+    "arkaGorselAdress": "assets/images/deneme.jpg",
+    "namesFilePath": "assets/data/names/nesneler_nameList.json",
+    "deckTextColor": "0xFF5F919C",
+    "deckDescription": "Elektrikle mi çalışır? Her gün yanında mı taşırsın?...\nBu deste, etrafımızda her gün gördüğümüz  nesneleri içeriyor.\nArkadaşlarına sorular sor ve ipuçlarından hangi ülke olduğunu tahmin et!"
+  },
+  {
+    "deckName": "Başkentler",
+    "categoryName": "Popular",
+    "onGorselAdress": "assets/images/deneme.jpg",
+    "arkaGorselAdress": "assets/images/deneme.jpg",
+    "namesFilePath": "assets/data/names/baskentler_nameList.json",
+    "deckTextColor": "0xFF5F919C",
+    "deckDescription": "Çok kalabalık mı? Asya’da mı? Bu deste, dünyanın en bilinen  başkentleri içeriyor. Arkadaşlarınıza sorular sor ve ipuçlarından hangi başkent olduğunu tahmin et!"
   }
 ]

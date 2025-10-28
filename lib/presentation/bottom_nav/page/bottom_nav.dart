@@ -1,8 +1,8 @@
-import 'package:ben_kimim/core/configs/theme/app_color.dart';
 import 'package:ben_kimim/presentation/all_decks/pages/all_decks.dart';
 import 'package:ben_kimim/presentation/how_to_play/page/how_to_play.dart';
 import 'package:ben_kimim/presentation/premium/page/premium.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class BottomNavPage extends StatefulWidget {
@@ -20,6 +20,12 @@ class _BottomNavPageState extends State<BottomNavPage> {
     AllDecksPage(),
     HowToPlayPage(),
   ];
+  @override
+  void initState() {
+    super.initState();
+    // Portrait modunu kilitle
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  }
 
   void _onTap(int index) {
     setState(() {

@@ -28,7 +28,7 @@
         "Böğürtlen",
         "Yaban Mersini",
         "Kuşburnu",
-        "Hurması",
+        "Hurma",
         "Zeytin",
         "Domates",
         "Salatalık",
@@ -40,7 +40,6 @@
         "Marul",
         "Roka",
         "Maydanoz",
-        "Dereotu",
         "Nane",
         "Tere",
         "Pazı",
@@ -77,10 +76,6 @@
         "Dolmalık Biber",
         "Çeri Domates",
         "Kavurmalık Kabak",
-        "Taze Soğan",
-        "Dereotu",
-        "Kavun",
-        "Karpuz",
         "Yenidünya",
         "Kızılcık",
         "Muşmula",
@@ -101,6 +96,13 @@
         "Frenk Üzümü",
         "Kara Dut",
         "Beyaz Dut",
-        "Kavun Çeşidi"
+        "Mısır Patlağı",
+        "Kuru Üzüm",
+        "Kuru Kayısı",
+        "Kuru İncir",
+        "Taze Soğan",
+        "Dereotu",
+        "Karpuz Çekirdeği",
+        "Kavun Çekirdeği"
     ]
 }

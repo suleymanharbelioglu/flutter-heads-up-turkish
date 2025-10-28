@@ -11,6 +11,9 @@ class SoundHelper {
   static final AudioPlayer _clickPlayer = AudioPlayer();
   static final AudioPlayer _countdownPlayer = AudioPlayer();
 
+  // Flag: son 5 saniye sesi çalıyor mu
+  static bool _isPlayingLastSeconds = false;
+
   // Doğru cevap sesi
   static Future<void> playCorrect() async {
     try {
@@ -51,13 +54,47 @@ class SoundHelper {
     }
   }
 
-  // Son 5 saniye sesi (timeUp ile aynı player)
+  // Son 5 saniye sesi
   static Future<void> playLastSeconds() async {
     try {
+      _isPlayingLastSeconds = true;
       await _timeEndingPlayer.setAsset(AppSounds.lastseconds);
-      _timeEndingPlayer.play();
+      await _timeEndingPlayer.play();
+      print(
+        "play last seconds : $_isPlayingLastSeconds ................. play",
+      );
     } catch (e) {
       print("Error playing lastSeconds: $e");
+    }
+  }
+
+  // Pause last seconds
+  static Future<void> pauseLastSeconds() async {
+    try {
+      if (_isPlayingLastSeconds) {
+        print(
+          "play last seconds : $_isPlayingLastSeconds .................  pause",
+        );
+
+        await _timeEndingPlayer.pause();
+      }
+    } catch (e) {
+      print("Error pausing lastSeconds: $e");
+    }
+  }
+
+  // Resume last seconds
+  static Future<void> resumeLastSeconds() async {
+    try {
+      if (_isPlayingLastSeconds) {
+        print(
+          "play last seconds : $_isPlayingLastSeconds ................. resume",
+        );
+
+        await _timeEndingPlayer.play();
+      }
+    } catch (e) {
+      print("Error resuming lastSeconds: $e");
     }
   }
 
@@ -66,6 +103,8 @@ class SoundHelper {
     try {
       await _timeEndingPlayer.setAsset(AppSounds.timeUp);
       _timeEndingPlayer.play();
+      _isPlayingLastSeconds = false; // süre bitti, lastSeconds artık çalmıyor
+      print("play last seconds : $_isPlayingLastSeconds .................stop");
     } catch (e) {
       print("Error playing timeUp: $e");
     }

@@ -7,9 +7,10 @@ class AllDecksPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Tahmin Et!"), actions: [
-          
-        ],
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: Text("Tahmin Et!"),
+        actions: [],
       ),
       body: SingleChildScrollView(child: Column(children: [PopularDecks()])),
     );
