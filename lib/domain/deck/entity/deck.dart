@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class DeckEntity {
-  final String categoryName;
+  final List<String> categoryNameList; // Değiştirildi
   final String deckName;
   final String onGorselAdress;
   final String arkaGorselAdress;
@@ -11,11 +11,11 @@ class DeckEntity {
 
   DeckEntity({
     required this.deckName,
-    required this.categoryName,
+    required this.categoryNameList, // Güncellendi
     required this.onGorselAdress,
     required this.arkaGorselAdress,
     required this.namesFilePath,
     required this.deckDescription,
-    required this.deckTextColor, // constructor’a ekle
+    required this.deckTextColor,
   });
 }

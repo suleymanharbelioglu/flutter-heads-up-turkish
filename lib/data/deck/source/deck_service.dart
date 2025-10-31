@@ -7,7 +7,10 @@ import 'package:flutter/services.dart';
 
 abstract class DeckService {
   Future<Either> getPopularDecks();
-
+  Future<Either> getMuzikDecks();
+  Future<Either> getDiziFilmDecks();
+  Future<Either> getSporDecks();
+  Future<Either> getCanlandirDecks();
 }
 
 class DeckServiceImpl extends DeckService {
@@ -31,9 +34,53 @@ class DeckServiceImpl extends DeckService {
     final result = await _loadDecks();
     return result.fold(
       (l) => Left(l),
-      (decks) => Right(decks.where((d) => d.categoryName == 'Popular').toList()),
+      (decks) => Right(
+        decks.where((d) => d.categoryNameList.contains('Popular')).toList(),
+      ),
     );
   }
 
+  @override
+  Future<Either<String, List<DeckEntity>>> getDiziFilmDecks() async {
+    final result = await _loadDecks();
+    return result.fold(
+      (l) => Left(l),
+      (decks) => Right(
+        decks.where((d) => d.categoryNameList.contains('Dizi/Film')).toList(),
+      ),
+    );
+  }
 
+  @override
+  Future<Either<String, List<DeckEntity>>> getMuzikDecks() async {
+    final result = await _loadDecks();
+    return result.fold(
+      (l) => Left(l),
+      (decks) => Right(
+        decks.where((d) => d.categoryNameList.contains('Müzik')).toList(),
+      ),
+    );
+  }
+
+  @override
+  Future<Either<String, List<DeckEntity>>> getSporDecks() async {
+    final result = await _loadDecks();
+    return result.fold(
+      (l) => Left(l),
+      (decks) => Right(
+        decks.where((d) => d.categoryNameList.contains('Spor')).toList(),
+      ),
+    );
+  }
+
+  @override
+  Future<Either<String, List<DeckEntity>>> getCanlandirDecks() async {
+    final result = await _loadDecks();
+    return result.fold(
+      (l) => Left(l),
+      (decks) => Right(
+        decks.where((d) => d.categoryNameList.contains('Canlandır')).toList(),
+      ),
+    );
+  }
 }

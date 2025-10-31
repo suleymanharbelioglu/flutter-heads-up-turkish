@@ -1,4 +1,8 @@
+import 'package:ben_kimim/presentation/all_decks/widgets/canlandir_decks.dart';
+import 'package:ben_kimim/presentation/all_decks/widgets/dizi_film_decks.dart';
+import 'package:ben_kimim/presentation/all_decks/widgets/muzik_decks.dart';
 import 'package:ben_kimim/presentation/all_decks/widgets/popular_decks.dart';
+import 'package:ben_kimim/presentation/all_decks/widgets/spor_decks.dart';
 import 'package:flutter/material.dart';
 
 class AllDecksPage extends StatelessWidget {
@@ -12,7 +16,17 @@ class AllDecksPage extends StatelessWidget {
         title: Text("Tahmin Et!"),
         actions: [],
       ),
-      body: SingleChildScrollView(child: Column(children: [PopularDecks()])),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            PopularDecks(),
+            MuzikDecks(),
+            SporDecks(),
+            DiziFilmDecks(),
+            CanlandirDecks(),
+          ],
+        ),
+      ),
     );
   }
 }

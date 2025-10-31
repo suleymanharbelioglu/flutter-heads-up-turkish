@@ -12,7 +12,6 @@ import 'package:ben_kimim/presentation/game/bloc/score_cubit.dart'; // Skoru yö
 import 'package:ben_kimim/presentation/game/bloc/timer_cubit.dart'; // Oyunun süresini yönetmek için
 import 'package:ben_kimim/presentation/game/widget/game_score.dart'; // Skor widgetı
 import 'package:ben_kimim/presentation/game/widget/game_timer.dart'; // Zamanlayıcı widgetı
-import 'package:ben_kimim/presentation/all_decks/pages/all_decks.dart'; // Ana menüye dönmek için
 import 'package:sensors_plus/sensors_plus.dart'; // Cihaz sensörlerini almak için (accelerometer)
 
 class GamePage extends StatefulWidget {

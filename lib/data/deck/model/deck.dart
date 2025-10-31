@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ben_kimim/domain/deck/entity/deck.dart';
 
 class DeckModel {
-  final String categoryName;
+  final List<String> categoryNameList; // Değiştirildi
   final String deckName;
   final String onGorselAdress;
   final String arkaGorselAdress;
@@ -12,35 +12,35 @@ class DeckModel {
 
   DeckModel({
     required this.deckName,
-    required this.categoryName,
+    required this.categoryNameList, // Güncellendi
     required this.onGorselAdress,
     required this.arkaGorselAdress,
     required this.namesFilePath,
     required this.deckDescription,
-    required this.deckTextColor, // constructor’a ekle
+    required this.deckTextColor,
   });
 
   factory DeckModel.fromJson(Map<String, dynamic> json) {
     return DeckModel(
       deckName: json['deckName'] as String,
-      categoryName: json['categoryName'] as String,
+      categoryNameList: List<String>.from(json['categoryNameList']), // Güncellendi
       onGorselAdress: json['onGorselAdress'] as String,
       arkaGorselAdress: json['arkaGorselAdress'] as String,
       namesFilePath: json['namesFilePath'] as String,
       deckDescription: json['deckDescription'] as String,
-      deckTextColor: Color(int.parse(json['deckTextColor'])), // JSON’dan çevir
+      deckTextColor: Color(int.parse(json['deckTextColor'])),
     );
   }
 
   DeckEntity toEntity() {
     return DeckEntity(
       deckName: deckName,
-      categoryName: categoryName,
+      categoryNameList: categoryNameList, // Güncellendi
       onGorselAdress: onGorselAdress,
       arkaGorselAdress: arkaGorselAdress,
       namesFilePath: namesFilePath,
       deckDescription: deckDescription,
-      deckTextColor: deckTextColor, // Entity’ye ekle
+      deckTextColor: deckTextColor,
     );
   }
 }
