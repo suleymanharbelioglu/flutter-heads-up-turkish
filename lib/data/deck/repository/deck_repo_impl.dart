@@ -10,6 +10,11 @@ class DeckRepoImpl extends DeckRepo {
   }
 
   @override
+  Future<Either> getMuzikDecks() async {
+    return await sl<DeckService>().getMuzikDecks();
+  }
+
+  @override
   Future<Either> getCanlandirDecks() async {
     return await sl<DeckService>().getCanlandirDecks();
   }
@@ -17,11 +22,6 @@ class DeckRepoImpl extends DeckRepo {
   @override
   Future<Either> getDiziFilmDecks() async {
     return await sl<DeckService>().getDiziFilmDecks();
-  }
-
-  @override
-  Future<Either> getMuzikDecks() async {
-    return await sl<DeckService>().getMuzikDecks();
   }
 
   @override

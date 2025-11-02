@@ -1,7 +1,8 @@
-import 'package:ben_kimim/core/usecase/usecase.dart';
-import 'package:ben_kimim/domain/deck/repository/deck_repo.dart';
-import 'package:ben_kimim/service_locator.dart';
 import 'package:dartz/dartz.dart';
+
+import '../../../core/usecase/usecase.dart';
+import '../../../service_locator.dart';
+import '../repository/deck_repo.dart';
 
 class GetMuzikDecksUseCase implements UseCase<Either, dynamic> {
   @override

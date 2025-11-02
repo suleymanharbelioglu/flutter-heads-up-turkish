@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
+import 'dart:ui';
 
 class DeckEntity {
-  final List<String> categoryNameList; // Değiştirildi
+  final List<String> categoryNameList; // artık liste
   final String deckName;
   final String onGorselAdress;
   final String arkaGorselAdress;
@@ -11,11 +11,16 @@ class DeckEntity {
 
   DeckEntity({
     required this.deckName,
-    required this.categoryNameList, // Güncellendi
+    required this.categoryNameList,
     required this.onGorselAdress,
     required this.arkaGorselAdress,
     required this.namesFilePath,
     required this.deckDescription,
     required this.deckTextColor,
   });
+
+  @override
+  String toString() {
+    return "categoryNameList: ${categoryNameList.join(', ')}";
+  }
 }

@@ -41,7 +41,7 @@
     "arkaGorselAdress": "assets/images/deneme.jpg",
     "namesFilePath": "assets/data/names/unluler_nameList.json",
     "deckTextColor": "0xFF5F919C",
-    "deckDescription": "Siyasi mi? Sanatçı mı?...\nSporcu mu, bilim insanı mı?...\nBu deste, Türkiye’nin en ünlü isimlerini içeriyor.\nArkadaşlarınıza sorular sorun; ipuçları ve küçük detaylardan hangi ünlüyü düşündüğünüzü tahmin edin."
+    "deckDescription": "Siyasi mi? Sanatçı mı?...\nPopularcu mu, bilim insanı mı?...\nBu deste, Türkiye’nin en ünlü isimlerini içeriyor.\nArkadaşlarınıza sorular sorun; ipuçları ve küçük detaylardan hangi ünlüyü düşündüğünüzü tahmin edin."
   },
   {
     "deckName": "Oyuncular",
@@ -57,7 +57,7 @@
   {
     "deckName": "Filmler",
     "categoryNameList": [
-      "Popular"
+      "Dizi/Film"
     ],
     "onGorselAdress": "assets/images/deneme.jpg",
     "arkaGorselAdress": "assets/images/deneme.jpg",
@@ -68,7 +68,6 @@
   {
     "deckName": "Futbolcular",
     "categoryNameList": [
-      "Popular",
       "Spor"
     ],
     "onGorselAdress": "assets/images/deneme.jpg",
@@ -91,7 +90,6 @@
   {
     "deckName": "Canlandır",
     "categoryNameList": [
-      "Popular",
       "Canlandır"
     ],
     "onGorselAdress": "assets/images/deneme.jpg",
@@ -147,7 +145,7 @@
   {
     "deckName": "Mimikler",
     "categoryNameList": [
-      "Popular"
+      "Canlandır"
     ],
     "onGorselAdress": "assets/images/deneme.jpg",
     "arkaGorselAdress": "assets/images/deneme.jpg",
@@ -191,14 +189,13 @@
   {
     "deckName": "Egzersizeler",
     "categoryNameList": [
-      "Popular",
       "Spor"
     ],
     "onGorselAdress": "assets/images/deneme.jpg",
     "arkaGorselAdress": "assets/images/deneme.jpg",
     "namesFilePath": "assets/data/names/egzersizler_nameList.json",
     "deckTextColor": "0xFF5F919C",
-    "deckDescription": "Şınav mı? Squat mı?...\nMekik mi, plank mı?...\nBu deste, günlük hayatta yaptığımız en popüler egzersiz ve spor hareketlerini içeriyor.\nArkadaşların bu hareketleri konuşmadan canlandırsın, sen de hangi egzersiz olduğunu tahmin et."
+    "deckDescription": "Şınav mı? Squat mı?...\nMekik mi, plank mı?...\nBu deste, günlük hayatta yaptığımız en popüler egzersiz ve Popular hareketlerini içeriyor.\nArkadaşların bu hareketleri konuşmadan canlandırsın, sen de hangi egzersiz olduğunu tahmin et."
   },
   {
     "deckName": "Elementler",
@@ -214,7 +211,6 @@
   {
     "deckName": "Basketbolucular",
     "categoryNameList": [
-      "Popular",
       "Spor"
     ],
     "onGorselAdress": "assets/images/deneme.jpg",
@@ -259,7 +255,7 @@
   {
     "deckName": "Ezel_Karakterleri",
     "categoryNameList": [
-      "Popular"
+      "Dizi/Film"
     ],
     "onGorselAdress": "assets/images/deneme.jpg",
     "arkaGorselAdress": "assets/images/deneme.jpg",
@@ -270,7 +266,6 @@
   {
     "deckName": "Kurtlar Vadisi Karakterleri",
     "categoryNameList": [
-      "Popular",
       "Dizi/Film"
     ],
     "onGorselAdress": "assets/images/deneme.jpg",
@@ -282,7 +277,6 @@
   {
     "deckName": "Aşkı-Memnu Karakterleri",
     "categoryNameList": [
-      "Popular",
       "Dizi/Film"
     ],
     "onGorselAdress": "assets/images/deneme.jpg",
@@ -294,7 +288,6 @@
   {
     "deckName": "Leylayla Mecnun Karakterleri",
     "categoryNameList": [
-      "Popular",
       "Dizi/Film"
     ],
     "onGorselAdress": "assets/images/deneme.jpg",
@@ -306,7 +299,6 @@
   {
     "deckName": "Öyle Bir Geçer Zaman Ki Karakterleri",
     "categoryNameList": [
-      "Popular",
       "Dizi/Film"
     ],
     "onGorselAdress": "assets/images/deneme.jpg",
@@ -318,7 +310,6 @@
   {
     "deckName": "Muteşem Yüzyıl Karakterleri",
     "categoryNameList": [
-      "Popular",
       "Dizi/Film"
     ],
     "onGorselAdress": "assets/images/deneme.jpg",
@@ -330,7 +321,6 @@
   {
     "deckName": "Avrupa Yakası Karakterleri",
     "categoryNameList": [
-      "Popular",
       "Dizi/Film"
     ],
     "onGorselAdress": "assets/images/deneme.jpg",
@@ -342,7 +332,6 @@
   {
     "deckName": "Yaprak Dökümü Karakterleri",
     "categoryNameList": [
-      "Popular",
       "Dizi/Film"
     ],
     "onGorselAdress": "assets/images/deneme.jpg",
@@ -354,7 +343,6 @@
   {
     "deckName": "Cocuklar Duymasın Karakterleri",
     "categoryNameList": [
-      "Popular",
       "Dizi/Film"
     ],
     "onGorselAdress": "assets/images/deneme.jpg",
@@ -366,7 +354,6 @@
   {
     "deckName": " Pop Müzik",
     "categoryNameList": [
-      "Popular",
       "Müzik"
     ],
     "onGorselAdress": "assets/images/deneme.jpg",
@@ -378,7 +365,6 @@
   {
     "deckName": " Rock Müzik",
     "categoryNameList": [
-      "Popular",
       "Müzik"
     ],
     "onGorselAdress": "assets/images/deneme.jpg",
@@ -390,7 +376,6 @@
   {
     "deckName": " Arabesk Müzik",
     "categoryNameList": [
-      "Popular",
       "Müzik"
     ],
     "onGorselAdress": "assets/images/deneme.jpg",
@@ -402,7 +387,6 @@
   {
     "deckName": " Türk Sanat Müziği",
     "categoryNameList": [
-      "Popular",
       "Müzik"
     ],
     "onGorselAdress": "assets/images/deneme.jpg",
@@ -414,7 +398,6 @@
   {
     "deckName": " Rap/Hip-Hop Müzik",
     "categoryNameList": [
-      "Popular",
       "Müzik"
     ],
     "onGorselAdress": "assets/images/deneme.jpg",
@@ -424,21 +407,19 @@
     "deckDescription": "Tık tık bum, tışş, vız vız!\nBu deste, sert ritimleri ve hızlı akışı (flow) olan, Türkçe Rap'in en popüler ve ikonik eserlerini içeriyor.\nArkadaşlarınıza müzikleri hiç kelime kullanmadan mırıldanacak.\nSiz de ipuçlarından hangi müzik olduğunu tahmin edin."
   },
   {
-    "deckName": " Sporlar",
+    "deckName": "Spor",
     "categoryNameList": [
-      "Popular",
       "Spor"
     ],
     "onGorselAdress": "assets/images/deneme.jpg",
     "arkaGorselAdress": "assets/images/deneme.jpg",
-    "namesFilePath": "assets/data/names/sporlar_nameList.json",
+    "namesFilePath": "assets/data/names/spor_nameList.json",
     "deckTextColor": "0xFF5F919C",
-    "deckDescription": "Koşmak mı, zıplamak mı? Topla mı oynanır, suyun içinde mi yapılır?...\nBu deste, dünyadaki en popüler sporları, oyunları ve fitness hareketlerini içeriyor.\nArkadaşlarınız hareketleri canlandırsın, siz de hangi spor dalı olduğunu tahmin edin."
+    "deckDescription": "Koşmak mı, zıplamak mı? Topla mı oynanır, suyun içinde mi yapılır?...\nBu deste, dünyadaki en popüler sporlarını, oyunları ve fitness hareketlerini içeriyor.\nArkadaşlarınız hareketleri canlandırsın, siz de hangi Popular dalı olduğunu tahmin edin."
   },
   {
     "deckName": " Canlandır : 2 Kişilik",
     "categoryNameList": [
-      "Popular",
       "Canlandır"
     ],
     "onGorselAdress": "assets/images/deneme.jpg",

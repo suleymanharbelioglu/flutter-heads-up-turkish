@@ -3,10 +3,11 @@ import 'dart:async';
 import 'splash_state.dart';
 
 class SplashCubit extends Cubit<SplashState> {
-  SplashCubit() : super(SplashInitial()) ;
+  SplashCubit() : super(SplashInitial());
 
   void startSplash() async {
-    await Future.delayed(const Duration(seconds: 3));
+    print("splash cubit");
+    await Future.delayed(const Duration(seconds: 1));
     emit(SplashNavigate());
   }
 }

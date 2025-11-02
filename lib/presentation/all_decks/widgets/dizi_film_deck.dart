@@ -1,13 +1,13 @@
 import 'package:ben_kimim/common/widget/deck/deck_cover.dart';
 import 'package:ben_kimim/core/configs/theme/app_color.dart';
 import 'package:ben_kimim/domain/deck/entity/deck.dart';
-import 'package:ben_kimim/presentation/all_decks/bloc/Canlandir_decks_cubit.dart';
-import 'package:ben_kimim/presentation/all_decks/bloc/canlandir_decks_state.dart';
+import 'package:ben_kimim/presentation/all_decks/bloc/dizi_film_decks_cubit.dart';
+import 'package:ben_kimim/presentation/all_decks/bloc/dizi_film_decks_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CanlandirDecks extends StatelessWidget {
-  const CanlandirDecks({super.key});
+class DiziFilmDecks extends StatelessWidget {
+  const DiziFilmDecks({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,19 +20,19 @@ class CanlandirDecks extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
             child: Text(
-              "Canlandır",
+              "Dizi/Film",
               style: TextStyle(fontSize: 32, color: AppColors.primary),
             ),
           ),
           Container(
             color: Colors.amber.shade100,
             height: 220, // DeckCover boyutuna göre ayarlanabilir
-            child: BlocBuilder<CanlandirDecksCubit, CanlandirDecksState>(
+            child: BlocBuilder<DiziFilmDecksCubit, DiziFilmDecksState>(
               builder: (context, state) {
-                if (state is CanlandirDecksLoading) {
+                if (state is DiziFilmDecksLoading) {
                   return const Center(child: CircularProgressIndicator());
                 }
-                if (state is CanlandirDecksLoadFailure) {
+                if (state is DiziFilmDecksLoadFailure) {
                   return Center(
                     child: Text(
                       state.errorMessage,
@@ -40,7 +40,7 @@ class CanlandirDecks extends StatelessWidget {
                     ),
                   );
                 }
-                if (state is CanlandirDecksLoaded) {
+                if (state is DiziFilmDecksLoaded) {
                   return _decksLoaded(state.decks);
                 }
                 return const SizedBox.shrink();

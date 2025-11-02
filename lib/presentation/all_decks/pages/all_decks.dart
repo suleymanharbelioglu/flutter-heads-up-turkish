@@ -1,5 +1,5 @@
 import 'package:ben_kimim/presentation/all_decks/widgets/canlandir_decks.dart';
-import 'package:ben_kimim/presentation/all_decks/widgets/dizi_film_decks.dart';
+import 'package:ben_kimim/presentation/all_decks/widgets/dizi_film_deck.dart';
 import 'package:ben_kimim/presentation/all_decks/widgets/muzik_decks.dart';
 import 'package:ben_kimim/presentation/all_decks/widgets/popular_decks.dart';
 import 'package:ben_kimim/presentation/all_decks/widgets/spor_decks.dart';
@@ -19,11 +19,11 @@ class AllDecksPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            PopularDecks(),
+            // PopularDecks(),
             MuzikDecks(),
-            SporDecks(),
-            DiziFilmDecks(),
-            CanlandirDecks(),
+            // DiziFilmDecks(),
+            // CanlandirDecks(),
+            // SporDecks(),
           ],
         ),
       ),

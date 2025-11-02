@@ -36,7 +36,6 @@ dependencies:
   cupertino_icons: ^1.0.8
   get_it: ^8.2.0
   dartz: ^0.10.1
-  bloc: ^9.1.0
   flutter_bloc: ^9.1.1
   just_audio: ^0.10.5
   sensors_plus: ^7.0.0

@@ -1,4 +1,4 @@
-import 'package:ben_kimim/domain/deck/usecases/get_dizi_film_decks.dart';
+import 'package:ben_kimim/domain/deck/repository/deck_repo.dart';
 import 'package:ben_kimim/presentation/all_decks/bloc/dizi_film_decks_state.dart';
 import 'package:ben_kimim/service_locator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,9 +7,8 @@ class DiziFilmDecksCubit extends Cubit<DiziFilmDecksState> {
   DiziFilmDecksCubit() : super(DiziFilmInitial());
 
   void loadDiziFilmDecks() async {
-    print("loadDiziFilmdecks cubit");
     emit(DiziFilmDecksLoading());
-    var returnedData = await sl<GetDiziFilmDecksUseCase>().call();
+    var returnedData = await sl<DeckRepo>().getDiziFilmDecks();
     returnedData.fold(
       (error) {
         emit(DiziFilmDecksLoadFailure(errorMessage: error));
