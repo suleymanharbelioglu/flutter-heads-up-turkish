@@ -7,8 +7,8 @@
     "onGorselAdress": "assets/images/deck_images/hayvanlar.jpg",
     "arkaGorselAdress": "assets/images/deck_images/hayvanlar_arka.jpg",
     "namesFilePath": "assets/data/names/animals_nameList.json",
-    "deckTextColor": "0xFF5F919C",
-    "deckDescription": "Dört bacaklı mıyım? , evde beslenebilir miyim? , hortumum var mı?...\nBu deste, çevrenizde görebileceğiniz ya da yaban hayatında yaşayan hayvanları içeriyor.\nArkadaşlarınıza sorular sorun; onlardan gelen küçük ipuçları, canlandırmalar veya seslerden yola çıkarak hangi hayvan olduğunuzu tahmin etmeye çalışın."
+    "deckTextColor": "0xFF000000",
+    "deckDescription": "Dört bacaklı mıyım? Evde beslenebilir miyim? Hortumum var mı?...\nBu deste, çevrenizde görebileceğiniz veya yaban hayatında yaşayan hayvanları içeriyor.\nArkadaşların, hiçbir kelime kullanmadan hayvanları canlandırsın; sen de tahmin et."
   },
   {
     "deckName": "Meyveler ve Sebzeler",
@@ -48,8 +48,8 @@
     "categoryNameList": [
       "Popular"
     ],
-    "onGorselAdress": "assets/images/deck_images/deneme.jpg",
-    "arkaGorselAdress": "assets/images/deck_images/deneme.jpg",
+    "onGorselAdress": "assets/images/deck_images/oyuncular.jpg",
+    "arkaGorselAdress": "assets/images/deck_images/oyuncular_arka.jpg",
     "namesFilePath": "assets/data/names/oyuncular_nameList.json",
     "deckTextColor": "0xFF5F919C",
     "deckDescription": "Erkek mi? Kadın mı?...\nSinema mı, dizi mi?...\nBu deste, Türkiye’nin en ünlü oyuncularını içeriyor.\nArkadaşlarınıza sorular sorun ve ipuçlarından hangi oyuncu olduğunu tahmin edin."
@@ -59,8 +59,8 @@
     "categoryNameList": [
       "Dizi/Film"
     ],
-    "onGorselAdress": "assets/images/deck_images/deneme.jpg",
-    "arkaGorselAdress": "assets/images/deck_images/deneme.jpg",
+    "onGorselAdress": "assets/images/deck_images/filmler.jpg",
+    "arkaGorselAdress": "assets/images/deck_images/filmler_arka.jpg",
     "namesFilePath": "assets/data/names/filmler_nameList.json",
     "deckTextColor": "0xFF5F919C",
     "deckDescription": "Komedi mi? Dram mı?...\nAksiyon mu, romantik mi?...\nBu deste, Türkiye’nin en ünlü filmlerini içeriyor.\nArkadaşlarınıza sorular sorun ve ipuçlarından hangi film olduğunu tahmin edin."
@@ -70,8 +70,8 @@
     "categoryNameList": [
       "Spor"
     ],
-    "onGorselAdress": "assets/images/deck_images/deneme.jpg",
-    "arkaGorselAdress": "assets/images/deck_images/deneme.jpg",
+    "onGorselAdress": "assets/images/deck_images/futbolcular.jpg",
+    "arkaGorselAdress": "assets/images/deck_images/futbolcular_arka.jpg",
     "namesFilePath": "assets/data/names/futbolcular_nameList.json",
     "deckTextColor": "0xFF5F919C",
     "deckDescription": "Forvet mi? Kaleci mi?...\nDefans mı, orta saha mı?...\nBu deste, Türkiye’nin en ünlü futbolcularını içeriyor.\nArkadaşlarınıza sorular sorun ve ipuçlarından hangi futbolcu olduğunu tahmin edin."
@@ -81,8 +81,8 @@
     "categoryNameList": [
       "Müzik"
     ],
-    "onGorselAdress": "assets/images/deck_images/deneme.jpg",
-    "arkaGorselAdress": "assets/images/deck_images/deneme.jpg",
+    "onGorselAdress": "assets/images/deck_images/muzik.jpg",
+    "arkaGorselAdress": "assets/images/deck_images/muzik_arka.jpg",
     "namesFilePath": "assets/data/names/müzikler_nameList.json",
     "deckTextColor": "0xFF5F919C",
     "deckDescription": "Na na an, ya a, hım hım...\nBu deste, Türkiye’nin en popüler müziklerini içeriyor.\nArkadaşlarınıza müzikleri hiç kelime kullanmadan mırıldanacak.\nSiz de ipuçlarından hangi müzik olduğunu tahmin edin."
@@ -92,8 +92,8 @@
     "categoryNameList": [
       "Canlandır"
     ],
-    "onGorselAdress": "assets/images/deck_images/deneme.jpg",
-    "arkaGorselAdress": "assets/images/deck_images/deneme.jpg",
+    "onGorselAdress": "assets/images/deck_images/canlandir.jpg",
+    "arkaGorselAdress": "assets/images/deck_images/canlandir_arka.jpg",
     "namesFilePath": "assets/data/names/canlandir_nameList.json",
     "deckTextColor": "0xFF5F919C",
     "deckDescription": "Koşmak mı? Yemek yemek mi?...\nBu deste, hayatın her anından farklı durumları içeriyor.\nArkadaşlarınız ses çıkarmadan canlandırsın, siz ne olduğunu tahmin edin."
@@ -103,8 +103,8 @@
     "categoryNameList": [
       "Popular"
     ],
-    "onGorselAdress": "assets/images/deck_images/deneme.jpg",
-    "arkaGorselAdress": "assets/images/deck_images/deneme.jpg",
+    "onGorselAdress": "assets/images/deck_images/oyunlar.jpg",
+    "arkaGorselAdress": "assets/images/deck_images/oyunlar_arka.jpg",
     "namesFilePath": "assets/data/names/oyunlar_nameList.json",
     "deckTextColor": "0xFF5F919C",
     "deckDescription": "Mobil mi, konsol mu? PC oyunu mu?...\nAksiyon mu, strateji mi?...\nBu deste, en popüler dijital oyunları içeriyor.\nArkadaşlarınıza sorular sorun ve ipuçlarından hangi oyun olduğunu tahmin et!"
@@ -114,8 +114,8 @@
     "categoryNameList": [
       "Bilim & Genel Kültür"
     ],
-    "onGorselAdress": "assets/images/deck_images/deneme.jpg",
-    "arkaGorselAdress": "assets/images/deck_images/deneme.jpg",
+    "onGorselAdress": "assets/images/deck_images/ulkeler.jpg",
+    "arkaGorselAdress": "assets/images/deck_images/ulkeler_arka.jpg",
     "namesFilePath": "assets/data/names/ulkeler_nameList.json",
     "deckTextColor": "0xFF5F919C",
     "deckDescription": "Kahvesiyle mi meşhur,?...\nAsya mı, Avrupa mı?...\nBu deste, dünyanın en tanınmış 100 ülkesini içeriyor.\nArkadaşlarınıza sorular sor ve ipuçlarından hangi ülke olduğunu tahmin et!"
