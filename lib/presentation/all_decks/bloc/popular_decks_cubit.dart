@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class PopularDecksCubit extends Cubit<PopularDecksState> {
   PopularDecksCubit() : super(PopularInitial());
 
-  void loadPopularDecks() async {
+  Future<void> loadPopularDecks() async {
     emit(PopularDecksLoading());
     var returnedData = await sl<DeckRepo>().getPopularDecks();
     returnedData.fold(

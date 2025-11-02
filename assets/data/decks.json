@@ -79,7 +79,7 @@
   {
     "deckName": "Müzikler",
     "categoryNameList": [
-      "Popular"
+      "Müzik"
     ],
     "onGorselAdress": "assets/images/deneme.jpg",
     "arkaGorselAdress": "assets/images/deneme.jpg",
@@ -112,7 +112,7 @@
   {
     "deckName": "Ülkeler",
     "categoryNameList": [
-      "Popular"
+      "Bilim & Genel Kültür"
     ],
     "onGorselAdress": "assets/images/deneme.jpg",
     "arkaGorselAdress": "assets/images/deneme.jpg",
@@ -123,24 +123,24 @@
   {
     "deckName": "Nesneler",
     "categoryNameList": [
-      "Popular"
+      "Günlük Yaşam"
     ],
     "onGorselAdress": "assets/images/deneme.jpg",
     "arkaGorselAdress": "assets/images/deneme.jpg",
     "namesFilePath": "assets/data/names/nesneler_nameList.json",
     "deckTextColor": "0xFF5F919C",
-    "deckDescription": "Elektrikle mi çalışır? Her gün yanında mı taşırsın?...\nBu deste, etrafımızda her gün gördüğümüz  nesneleri içeriyor.\nArkadaşlarına sorular sor ve ipuçlarından hangi ülke olduğunu tahmin et!"
+    "deckDescription": "Elektrikle mi çalışır? Her gün yanında mı taşırsın?...\nBu deste, etrafımızda her gün gördüğümüz  nesneleri içeriyor.\nArkadaşlarına sorular sor ve ipuçlarından hangi ülke olduğunu tahmin et!"
   },
   {
     "deckName": "Başkentler",
     "categoryNameList": [
-      "Popular"
+      "Bilim & Genel Kültür"
     ],
     "onGorselAdress": "assets/images/deneme.jpg",
     "arkaGorselAdress": "assets/images/deneme.jpg",
     "namesFilePath": "assets/data/names/baskentler_nameList.json",
     "deckTextColor": "0xFF5F919C",
-    "deckDescription": "Çok kalabalık mı? Asya’da mı? Bu deste, dünyanın en bilinen  başkentleri içeriyor. Arkadaşlarınıza sorular sor ve ipuçlarından hangi başkent olduğunu tahmin et!"
+    "deckDescription": "Çok kalabalık mı? Asya’da mı? Bu deste, dünyanın en bilinen  başkentleri içeriyor. Arkadaşlarınıza sorular sor ve ipuçlarından hangi başkent olduğunu tahmin et!"
   },
   {
     "deckName": "Mimikler",
@@ -156,29 +156,29 @@
   {
     "deckName": "Meslekler",
     "categoryNameList": [
-      "Popular"
+      "Günlük Yaşam"
     ],
     "onGorselAdress": "assets/images/deneme.jpg",
     "arkaGorselAdress": "assets/images/deneme.jpg",
     "namesFilePath": "assets/data/names/meslekler_nameList.json",
     "deckTextColor": "0xFF5F919C",
-    "deckDescription": "Doktor mu? Öğretmen mi?...\nPolis mi, aşçı mı?...\nBu deste, günlük hayatta en tanıdık  meslekleri içeriyor.\nArkadaşların bu meslekleri konuşmadan canlandırsın, sen de tahmin et."
+    "deckDescription": "Doktor mu? Öğretmen mi?...\nPolis mi, aşçı mı?...\nBu deste, günlük hayatta en tanıdık  meslekleri içeriyor.\nArkadaşların bu meslekleri konuşmadan canlandırsın, sen de tahmin et."
   },
   {
     "deckName": "Aletler",
     "categoryNameList": [
-      "Popular"
+      "Günlük Yaşam"
     ],
     "onGorselAdress": "assets/images/deneme.jpg",
     "arkaGorselAdress": "assets/images/deneme.jpg",
     "namesFilePath": "assets/data/names/aletler_nameList.json",
     "deckTextColor": "0xFF5F919C",
-    "deckDescription": "Çekiç mi? Tornavida mı?...\nMatkap mı, pense mi?...\nBu deste, günlük hayatta sıkça gördüğümüz aletleri içeriyor.\nArkadaşların aleti konumaşdan  anlatsın, sen de hangi alet olduğunu tahmin et."
+    "deckDescription": "Çekiç mi? Tornavida mı?...\nMatkap mı, pense mi?...\nBu deste, günlük hayatta sıkça gördüğümüz aletleri içeriyor.\nArkadaşların aleti konumaşdan  anlatsın, sen de hangi alet olduğunu tahmin et."
   },
   {
     "deckName": "BAkım ve Makyaj Malzemeleri",
     "categoryNameList": [
-      "Popular"
+      "Günlük Yaşam"
     ],
     "onGorselAdress": "assets/images/deneme.jpg",
     "arkaGorselAdress": "assets/images/deneme.jpg",
@@ -200,7 +200,7 @@
   {
     "deckName": "Elementler",
     "categoryNameList": [
-      "Popular"
+      "Bilim & Genel Kültür"
     ],
     "onGorselAdress": "assets/images/deneme.jpg",
     "arkaGorselAdress": "assets/images/deneme.jpg",
@@ -222,7 +222,7 @@
   {
     "deckName": "Kıyfet ve Aksesuarlar",
     "categoryNameList": [
-      "Popular"
+      "Günlük Yaşam"
     ],
     "onGorselAdress": "assets/images/deneme.jpg",
     "arkaGorselAdress": "assets/images/deneme.jpg",
@@ -233,7 +233,7 @@
   {
     "deckName": "Bilim İnsanları",
     "categoryNameList": [
-      "Popular"
+      "Bilim & Genel Kültür"
     ],
     "onGorselAdress": "assets/images/deneme.jpg",
     "arkaGorselAdress": "assets/images/deneme.jpg",
@@ -244,13 +244,13 @@
   {
     "deckName": "Kitaplar",
     "categoryNameList": [
-      "Popular"
+      "Bilim & Genel Kültür"
     ],
     "onGorselAdress": "assets/images/deneme.jpg",
     "arkaGorselAdress": "assets/images/deneme.jpg",
     "namesFilePath": "assets/data/names/kitaplar_nameList.json",
     "deckTextColor": "0xFF5F919C",
-    "deckDescription": "Distopik bir dünyada mı geçiyor?\nYazar İngiliz mi?\nBu deste, dünyanın ve Türkiye’nin en tanınmış kitaplarını içeriyor.\nArkadaşların sorulara , aldığın ipuçlarından   hangi kitabı olduğunu tahmin et."
+    "deckDescription": "Distopik bir dünyada mı geçiyor?\nYazar İngiliz mi?\nBu deste, dünyanın ve Türkiye’nin en tanınmış kitaplarını içeriyor.\nArkadaşların sorulara , aldığın ipuçlarından   hangi kitabı olduğunu tahmin et."
   },
   {
     "deckName": "Ezel_Karakterleri",
@@ -261,7 +261,7 @@
     "arkaGorselAdress": "assets/images/deneme.jpg",
     "namesFilePath": "assets/data/names/ezel_karakterleri_nameList.json",
     "deckTextColor": "0xFF5F919C",
-    "deckDescription": "Ramiz mi, Ezel mi?...\nEyşan mı, Cengiz mi?...\nBu deste, Ezel dizisinin unutulmaz karakterlerini içeriyor.\nArkadaşların karakterleri  canlandırsın, sen de kimin olduğunu tahmin et!"
+    "deckDescription": "Ramiz mi, Ezel mi?...\nEyşan mı, Cengiz mi?...\nBu deste, Ezel dizisinin unutulmaz karakterlerini içeriyor.\nArkadaşların karakterleri  canlandırsın, sen de kimin olduğunu tahmin et!"
   },
   {
     "deckName": "Kurtlar Vadisi Karakterleri",
@@ -272,7 +272,7 @@
     "arkaGorselAdress": "assets/images/deneme.jpg",
     "namesFilePath": "assets/data/names/kv_karakterleri_nameList.json",
     "deckTextColor": "0xFF5F919C",
-    "deckDescription": "Polat mı, Memati mi?...\nÇakır mı, Abdülhey mi?...\nBu deste, Kurtlar Vadisi'nin efsane karakterlerini içeriyor.\nArkadaşların bu karakterleri  canlandırsın, sen de kim olduğunu tahmin et!"
+    "deckDescription": "Polat mı, Memati mi?...\nÇakır mı, Abdülhey mi?...\nBu deste, Kurtlar Vadisi'nin efsane karakterlerini içeriyor.\nArkadaşların bu karakterleri  canlandırsın, sen de kim olduğunu tahmin et!"
   },
   {
     "deckName": "Aşkı-Memnu Karakterleri",
@@ -283,7 +283,7 @@
     "arkaGorselAdress": "assets/images/deneme.jpg",
     "namesFilePath": "assets/data/names/aski_memnu_karakterleri_nameList.json",
     "deckTextColor": "0xFF5F919C",
-    "deckDescription": "Bihter mi, Behlül mü?...\nAdnan mı, Nihal mi?...\nBu deste, Aşk-ı Memnu’nun en unutulmaz karakterlerini içeriyor.\nArkadaşların karakterleri  canlandırsın, sen de kimin olduğunu tahmin et!"
+    "deckDescription": "Bihter mi, Behlül mü?...\nAdnan mı, Nihal mi?...\nBu deste, Aşk-ı Memnu’nun en unutulmaz karakterlerini içeriyor.\nArkadaşların karakterleri  canlandırsın, sen de kimin olduğunu tahmin et!"
   },
   {
     "deckName": "Leylayla Mecnun Karakterleri",
@@ -294,7 +294,7 @@
     "arkaGorselAdress": "assets/images/deneme.jpg",
     "namesFilePath": "assets/data/names/leylayla_mecnun_karakterleri_nameList.json",
     "deckTextColor": "0xFF5F919C",
-    "deckDescription": "Mecnun mu, Leyla mı? İsmail Abi mi?...\nBu deste, Leyla ile Mecnun’un unutulmaz karakterlerini içeriyor.\nArkadaşların karakterleri  canlandırsın, sen de kimin olduğunu tahmin et!"
+    "deckDescription": "Mecnun mu, Leyla mı? İsmail Abi mi?...\nBu deste, Leyla ile Mecnun’un unutulmaz karakterlerini içeriyor.\nArkadaşların karakterleri  canlandırsın, sen de kimin olduğunu tahmin et!"
   },
   {
     "deckName": "Öyle Bir Geçer Zaman Ki Karakterleri",
@@ -327,7 +327,7 @@
     "arkaGorselAdress": "assets/images/deneme.jpg",
     "namesFilePath": "assets/data/names/avrupa_yakasi_karakterleri_nameList.json",
     "deckTextColor": "0xFF5F919C",
-    "deckDescription": "Burhan mı, Aslı mı?...\nŞahika mı, Fatoş mu?...\nBu deste, Avrupa Yakası dizisinin unutulmaz karakterlerini içeriyor.\nArkadaşların karakterleri  canlandırsın, sen de kimin olduğunu tahmin et!"
+    "deckDescription": "Burhan mı, Aslı mı?...\nŞahika mı, Fatoş mu?...\nBu deste, Avrupa Yakası dizisinin unutulmaz karakterlerini içeriyor.\nArkadaşların karakterleri  canlandırsın, sen de kimin olduğunu tahmin et!"
   },
   {
     "deckName": "Yaprak Dökümü Karakterleri",
@@ -338,7 +338,7 @@
     "arkaGorselAdress": "assets/images/deneme.jpg",
     "namesFilePath": "assets/data/names/yaprak_dokumu_karakterleri_nameList.json",
     "deckTextColor": "0xFF5F919C",
-    "deckDescription": "Ali Rıza mı, Ferhunde mi?...\nLeyla mı, Ayşe mi?...\nBu deste, Yaprak Dökümü dizisinin unutulmaz karakterlerini içeriyor.\nArkadaşların karakterleri  canlandırsın, sen de kimin olduğunu tahmin et!"
+    "deckDescription": "Ali Rıza mı, Ferhunde mi?...\nLeyla mı, Ayşe mi?...\nBu deste, Yaprak Dökümü dizisinin unutulmaz karakterlerini içeriyor.\nArkadaşların karakterleri  canlandırsın, sen de kimin olduğunu tahmin et!"
   },
   {
     "deckName": "Cocuklar Duymasın Karakterleri",
@@ -349,7 +349,7 @@
     "arkaGorselAdress": "assets/images/deneme.jpg",
     "namesFilePath": "assets/data/names/cocuklar_dymasin_karakterleri_nameList.json",
     "deckTextColor": "0xFF5F919C",
-    "deckDescription": "Haluk mu, Meltem mi?...\nDuygu mu, Çağrı mı?...\nBu deste, Çocuklar Duymasın dizisinin unutulmaz karakterlerini içeriyor.\nArkadaşların karakterleri  canlandırsın, sen de kimin olduğunu tahmin et!"
+    "deckDescription": "Haluk mı, Meltem mi?...\nDuygu mu, Çağrı mı?...\nBu deste, Çocuklar Duymasın dizisinin unutulmaz karakterlerini içeriyor.\nArkadaşların karakterleri  canlandırsın, sen de kimin olduğunu tahmin et!"
   },
   {
     "deckName": " Pop Müzik",

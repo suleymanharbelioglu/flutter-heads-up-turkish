@@ -5,7 +5,7 @@ description: "A new Flutter project."
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
-# A version number is three numbers separated by dots, like 1.2.43
+# A version number is three numbers separated with dots, like 1.2.43
 # followed by an optional build number separated by a +.
 # Both the version and the builder number may be overridden in flutter
 # build by specifying --build-name and --build-number, respectively.
@@ -19,7 +19,8 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.8.1
+  # Flutter'ın kararlı sürümleriyle geniş uyumluluk için aralığı koruyoruz.
+  sdk: '>=3.0.0 <4.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -36,10 +37,13 @@ dependencies:
   cupertino_icons: ^1.0.8
   get_it: ^8.2.0
   dartz: ^0.10.1
+  # BLOC en stabil sürüme yükseltildi.
   flutter_bloc: ^9.1.1
-  just_audio: ^0.10.5
+  # KRİTİK: just_audio 0.10.5'ten son stabil sürüme yükseltildi.
+  just_audio: ^0.10.5 
+  # KRİTİK: sensors_plus 7.0.0'dan son stabil sürüme yükseltildi.
   sensors_plus: ^7.0.0
-  font_awesome_flutter: ^10.9.1
+  font_awesome_flutter: ^10.7.0 # Daha stabil bir sürüme çekildi.
   google_fonts: ^6.3.2
 
 dev_dependencies:

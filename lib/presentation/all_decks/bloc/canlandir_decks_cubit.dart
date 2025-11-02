@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class CanlandirDecksCubit extends Cubit<CanlandirDecksState> {
   CanlandirDecksCubit() : super(CanlandirInitial());
 
-  void loadCanlandirDecks() async {
+  Future<void> loadCanlandirDecks() async {
     emit(CanlandirDecksLoading());
     var returnedData = await sl<DeckRepo>().getCanlandirDecks();
     returnedData.fold(

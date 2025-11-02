@@ -28,4 +28,14 @@ class DeckRepoImpl extends DeckRepo {
   Future<Either> getSporDecks() async {
     return await sl<DeckService>().getSporDecks();
   }
+
+  @override
+  Future<Either> getBilimVeGenelKDecks() async {
+    return await sl<DeckService>().getBilimVeGenelKDecks();
+  }
+
+  @override
+  Future<Either> getGunlukYasamDecks() async {
+    return await sl<DeckService>().getGunlukYasamDecks();
+  }
 }

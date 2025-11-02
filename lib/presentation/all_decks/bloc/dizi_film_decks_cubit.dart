@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class DiziFilmDecksCubit extends Cubit<DiziFilmDecksState> {
   DiziFilmDecksCubit() : super(DiziFilmInitial());
 
-  void loadDiziFilmDecks() async {
+  Future<void> loadDiziFilmDecks() async {
     emit(DiziFilmDecksLoading());
     var returnedData = await sl<DeckRepo>().getDiziFilmDecks();
     returnedData.fold(

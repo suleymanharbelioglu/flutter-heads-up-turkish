@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class MuzikDecksCubit extends Cubit<MuzikDecksState> {
   MuzikDecksCubit() : super(MuzikInitial());
 
-  void loadMuzikDecks() async {
+  Future<void> loadMuzikDecks() async {
     emit(MuzikDecksLoading());
     var returnedData = await sl<DeckRepo>().getMuzikDecks();
     returnedData.fold(

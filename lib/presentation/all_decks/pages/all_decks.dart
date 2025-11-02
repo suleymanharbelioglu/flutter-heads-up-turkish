@@ -1,5 +1,8 @@
+import 'package:ben_kimim/core/configs/theme/app_color.dart';
+import 'package:ben_kimim/presentation/all_decks/widgets/bilim_ve_genelk_decks.dart';
 import 'package:ben_kimim/presentation/all_decks/widgets/canlandir_decks.dart';
 import 'package:ben_kimim/presentation/all_decks/widgets/dizi_film_deck.dart';
+import 'package:ben_kimim/presentation/all_decks/widgets/gunluk_yasam_decks.dart';
 import 'package:ben_kimim/presentation/all_decks/widgets/muzik_decks.dart';
 import 'package:ben_kimim/presentation/all_decks/widgets/popular_decks.dart';
 import 'package:ben_kimim/presentation/all_decks/widgets/spor_decks.dart';
@@ -11,6 +14,7 @@ class AllDecksPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.primary,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Text("Tahmin Et!"),
@@ -19,11 +23,13 @@ class AllDecksPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // PopularDecks(),
+            PopularDecks(),
             MuzikDecks(),
-            // DiziFilmDecks(),
-            // CanlandirDecks(),
-            // SporDecks(),
+            DiziFilmDecks(),
+            CanlandirDecks(),
+            SporDecks(),
+            GunlukYasamDecks(),
+            BilimVeGenelKDecks()
           ],
         ),
       ),

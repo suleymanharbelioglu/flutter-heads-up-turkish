@@ -1,13 +1,13 @@
 import 'package:ben_kimim/common/widget/deck/deck_cover.dart';
 import 'package:ben_kimim/core/configs/theme/app_color.dart';
 import 'package:ben_kimim/domain/deck/entity/deck.dart';
-import 'package:ben_kimim/presentation/all_decks/bloc/muzik_decks_cubit.dart';
-import 'package:ben_kimim/presentation/all_decks/bloc/Muzik_decks_state.dart';
+import 'package:ben_kimim/presentation/all_decks/bloc/gunluk_yasam_decks_cubit.dart';
+import 'package:ben_kimim/presentation/all_decks/bloc/gunluk_yasam_decks_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class MuzikDecks extends StatelessWidget {
-  const MuzikDecks({super.key});
+class GunlukYasamDecks extends StatelessWidget {
+  const GunlukYasamDecks({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class MuzikDecks extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
             child: Text(
-              "Müzik",
+              "Günlük Yaşam",
               style: TextStyle(
                   fontSize: 32,
                   color: Colors.white,
@@ -30,12 +30,12 @@ class MuzikDecks extends StatelessWidget {
           Container(
             color: AppColors.primary,
             height: 220, // DeckCover boyutuna göre ayarlanabilir
-            child: BlocBuilder<MuzikDecksCubit, MuzikDecksState>(
+            child: BlocBuilder<GunlukYasamDecksCubit, GunlukYasamDecksState>(
               builder: (context, state) {
-                if (state is MuzikDecksLoading) {
+                if (state is GunlukYasamDecksLoading) {
                   return const Center(child: CircularProgressIndicator());
                 }
-                if (state is MuzikDecksLoadFailure) {
+                if (state is GunlukYasamDecksLoadFailure) {
                   return Center(
                     child: Text(
                       state.errorMessage,
@@ -43,7 +43,7 @@ class MuzikDecks extends StatelessWidget {
                     ),
                   );
                 }
-                if (state is MuzikDecksLoaded) {
+                if (state is GunlukYasamDecksLoaded) {
                   return _decksLoaded(state.decks);
                 }
                 return const SizedBox.shrink();

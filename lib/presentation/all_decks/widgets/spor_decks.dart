@@ -1,7 +1,7 @@
 import 'package:ben_kimim/common/widget/deck/deck_cover.dart';
 import 'package:ben_kimim/core/configs/theme/app_color.dart';
 import 'package:ben_kimim/domain/deck/entity/deck.dart';
-import 'package:ben_kimim/presentation/all_decks/bloc/Spor_decks_cubit.dart';
+import 'package:ben_kimim/presentation/all_decks/bloc/spor_decks_cubit.dart';
 import 'package:ben_kimim/presentation/all_decks/bloc/spor_decks_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,11 +21,14 @@ class SporDecks extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
             child: Text(
               "Spor",
-              style: TextStyle(fontSize: 32, color: AppColors.primary),
+              style: TextStyle(
+                  fontSize: 32,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold),
             ),
           ),
           Container(
-            color: Colors.amber.shade100,
+            color: AppColors.primary,
             height: 220, // DeckCover boyutuna göre ayarlanabilir
             child: BlocBuilder<SporDecksCubit, SporDecksState>(
               builder: (context, state) {

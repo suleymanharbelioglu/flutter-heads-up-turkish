@@ -1,6 +1,8 @@
 import 'package:ben_kimim/core/configs/theme/app_theme.dart';
+import 'package:ben_kimim/presentation/all_decks/bloc/bilim_ve_genelk_decks_cubit.dart';
 import 'package:ben_kimim/presentation/all_decks/bloc/canlandir_decks_cubit.dart';
 import 'package:ben_kimim/presentation/all_decks/bloc/dizi_film_decks_cubit.dart';
+import 'package:ben_kimim/presentation/all_decks/bloc/gunluk_yasam_decks_cubit.dart';
 import 'package:ben_kimim/presentation/all_decks/bloc/muzik_decks_cubit.dart';
 import 'package:ben_kimim/presentation/all_decks/bloc/popular_decks_cubit.dart';
 import 'package:ben_kimim/presentation/all_decks/bloc/spor_decks_cubit.dart';
@@ -33,7 +35,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => SplashCubit()..startSplash()),
+        // startSplash() çağrısı SplashPage'e taşındı. Sadece Cubit oluşturuluyor.
+        BlocProvider(create: (context) => SplashCubit()),
         BlocProvider(create: (context) => TimerCubit()),
         BlocProvider(create: (context) => DisplayCurrentCardListCubit()),
         BlocProvider(create: (context) => ScoreCubit()),
@@ -42,20 +45,29 @@ class MyApp extends StatelessWidget {
           create: (context) =>
               CurrentNameCubit(context.read<DisplayCurrentCardListCubit>()),
         ),
-        // BlocProvider(
-        //   create: (context) => PopularDecksCubit()..loadPopularDecks(),
-        // ),
-        BlocProvider(create: (context) => MuzikDecksCubit()..loadMuzikDecks()),
-        // BlocProvider(create: (context) => SporDecksCubit()..loadSporDecks()),
-        // BlocProvider(
-        //   create: (context) => DiziFilmDecksCubit()..loadDiziFilmDecks(),
-        // ),
-        // BlocProvider(
-        //   create: (context) => CanlandirDecksCubit()..loadCanlandirDecks(),
-        // ),
+        // KRİTİK DEĞİŞİKLİK: TÜM YÜKLEME ÇAĞRILARI BURADAN KALDIRILDI.
+        BlocProvider(
+          create: (context) => PopularDecksCubit(),
+        ),
+        BlocProvider(create: (context) => MuzikDecksCubit()),
+        BlocProvider(create: (context) => SporDecksCubit()),
+        BlocProvider(
+          create: (context) => DiziFilmDecksCubit(),
+        ),
+        BlocProvider(
+          create: (context) => CanlandirDecksCubit(),
+        ),
+        BlocProvider(
+          create: (context) => GunlukYasamDecksCubit(),
+        ),
+        BlocProvider(
+          create: (context) => BilimVeGenelKDecksCubit(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
+        // Projenizdeki temanın doğru yolu: lib/config/theme.dart'ı referans alarak import etmelisiniz.
+        // Konuşma geçmişine göre: import 'package:ben_kimim/core/configs/theme/app_theme.dart';
         theme: AppTheme.appTheme,
         title: 'Ben Kimim',
         home: SplashPage(),

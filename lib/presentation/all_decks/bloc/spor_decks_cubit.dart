@@ -8,7 +8,7 @@ class SporDecksCubit extends Cubit<SporDecksState> {
     print("spor deck cubit constructer");
   }
 
-  void loadSporDecks() async {
+  Future<void> loadSporDecks() async {
     print("load spor deck method");
     emit(SporDecksLoading());
     var returnedData = await sl<DeckRepo>().getSporDecks();

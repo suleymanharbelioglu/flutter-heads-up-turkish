@@ -21,11 +21,14 @@ class DiziFilmDecks extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
             child: Text(
               "Dizi/Film",
-              style: TextStyle(fontSize: 32, color: AppColors.primary),
+              style: TextStyle(
+                  fontSize: 32,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold),
             ),
           ),
           Container(
-            color: Colors.amber.shade100,
+            color: AppColors.primary,
             height: 220, // DeckCover boyutuna göre ayarlanabilir
             child: BlocBuilder<DiziFilmDecksCubit, DiziFilmDecksState>(
               builder: (context, state) {
