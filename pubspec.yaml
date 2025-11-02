@@ -72,6 +72,7 @@ flutter:
   assets:
     - assets/sounds/
     - assets/images/
+    - assets/images/deck_images/
     - assets/data/
     - assets/data/names/
 
