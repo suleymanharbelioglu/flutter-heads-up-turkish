@@ -3,5 +3,5 @@ import 'package:flutter/material.dart';
 
 class AppTextstyle {
   static TextStyle allDecksBaslik = TextStyle(
-      fontSize: 28, color: AppColors.primary, fontWeight: FontWeight.bold);
+      fontSize: 24, color: AppColors.primary, fontWeight: FontWeight.bold);
 }

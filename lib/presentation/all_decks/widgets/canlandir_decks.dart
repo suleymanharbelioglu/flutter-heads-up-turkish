@@ -1,3 +1,4 @@
+import 'package:ben_kimim/common/helper/size/size_helper.dart';
 import 'package:ben_kimim/common/widget/deck/deck_cover.dart';
 import 'package:ben_kimim/core/configs/theme/app_color.dart';
 import 'package:ben_kimim/core/configs/theme/app_textstyle.dart';
@@ -21,13 +22,13 @@ class CanlandirDecks extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
             child: Text(
-              "Canlandır",
+              "CANLANDIR",
               style: AppTextstyle.allDecksBaslik
             ),
           ),
           Container(
             color: AppColors.allDecksBackground,
-            height: 260, // DeckCover boyutuna göre ayarlanabilir
+            height: SizeHelper.categoryDeckHeight, // DeckCover boyutuna göre ayarlanabilir
             child: BlocBuilder<CanlandirDecksCubit, CanlandirDecksState>(
               builder: (context, state) {
                 if (state is CanlandirDecksLoading) {
@@ -62,7 +63,7 @@ class CanlandirDecks extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.only(right: 12),
           child: SizedBox(
-            width: 180, // Burayı sabit veriyoruz
+            width: SizeHelper.categoryDeckWidth, // Burayı sabit veriyoruz
             child: DeckCover(deck: deckList[index]),
           ),
         );

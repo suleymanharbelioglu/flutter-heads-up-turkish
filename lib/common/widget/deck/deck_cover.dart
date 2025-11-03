@@ -23,13 +23,32 @@ class DeckCover extends StatelessWidget {
           // Görsel Hero
           Hero(
             tag: "image_${deck.deckName}",
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
-                image: DecorationImage(
-                  image: AssetImage(deck.onGorselAdress),
-                  fit: BoxFit.cover,
-                ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(16),
+              child: Image.asset(
+                deck.onGorselAdress,
+                fit: BoxFit.cover,
+                width: double.infinity,
+                height: double.infinity,
+                // Resim yüklenene kadar animasyon
+                frameBuilder: (BuildContext context, Widget child, int? frame,
+                    bool wasSynchronouslyLoaded) {
+                  if (wasSynchronouslyLoaded) {
+                    return child;
+                  }
+                  return AnimatedOpacity(
+                    opacity: frame == null ? 0 : 1,
+                    duration: const Duration(milliseconds: 500),
+                    curve: Curves.easeOut,
+                    child: frame == null
+                        ? Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                            ),
+                          )
+                        : child,
+                  );
+                },
               ),
             ),
           ),
@@ -44,16 +63,13 @@ class DeckCover extends StatelessWidget {
                 color: Colors.transparent,
                 child: Container(
                   alignment: Alignment.topCenter, // Üst merkez
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                  ), // Taşma önleme
                   child: Text(
                     deck.deckName,
                     textAlign: TextAlign.center, // Ortalanmış text
                     maxLines: 2, // 2 satıra izin
                     overflow: TextOverflow.ellipsis, // Taşarsa … göster
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 19,
                       fontWeight: FontWeight.bold,
                       color: deck.deckTextColor,
                     ),
