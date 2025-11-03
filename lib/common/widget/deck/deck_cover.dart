@@ -35,7 +35,7 @@ class DeckCover extends StatelessWidget {
           ),
           // Başlık Hero
           Positioned(
-            top: 16, // Üstten mesafe
+            top: 8, // Üstten mesafe
             left: 0,
             right: 0,
             child: Hero(
@@ -53,7 +53,7 @@ class DeckCover extends StatelessWidget {
                     maxLines: 2, // 2 satıra izin
                     overflow: TextOverflow.ellipsis, // Taşarsa … göster
                     style: TextStyle(
-                      fontSize: 22,
+                      fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: deck.deckTextColor,
                     ),

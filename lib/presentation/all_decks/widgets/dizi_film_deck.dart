@@ -1,5 +1,6 @@
 import 'package:ben_kimim/common/widget/deck/deck_cover.dart';
 import 'package:ben_kimim/core/configs/theme/app_color.dart';
+import 'package:ben_kimim/core/configs/theme/app_textstyle.dart';
 import 'package:ben_kimim/domain/deck/entity/deck.dart';
 import 'package:ben_kimim/presentation/all_decks/bloc/dizi_film_decks_cubit.dart';
 import 'package:ben_kimim/presentation/all_decks/bloc/dizi_film_decks_state.dart';
@@ -19,17 +20,11 @@ class DiziFilmDecks extends StatelessWidget {
           // Üst başlık
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
-            child: Text(
-              "Dizi/Film",
-              style: TextStyle(
-                  fontSize: 32,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold),
-            ),
+            child: Text("Dizi & Film", style: AppTextstyle.allDecksBaslik),
           ),
           Container(
-            color: AppColors.primary,
-            height: 220, // DeckCover boyutuna göre ayarlanabilir
+            color: AppColors.allDecksBackground,
+            height: 260, // DeckCover boyutuna göre ayarlanabilir
             child: BlocBuilder<DiziFilmDecksCubit, DiziFilmDecksState>(
               builder: (context, state) {
                 if (state is DiziFilmDecksLoading) {
@@ -64,7 +59,7 @@ class DiziFilmDecks extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.only(right: 12),
           child: SizedBox(
-            width: 150, // Burayı sabit veriyoruz
+            width: 180, // Burayı sabit veriyoruz
             child: DeckCover(deck: deckList[index]),
           ),
         );

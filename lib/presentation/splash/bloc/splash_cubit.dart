@@ -45,7 +45,7 @@ class SplashCubit extends Cubit<SplashState> {
       ]);
 
       // Minimum yükleme süresi bekle (kullanıcı deneyimi için)
-      await Future.delayed(const Duration(seconds: 2));
+      await Future.delayed(const Duration(seconds: 1));
 
       // 3. Başarılı, navigasyon durumunu yay
       emit(SplashNavigate());

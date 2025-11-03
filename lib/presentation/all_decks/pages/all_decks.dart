@@ -14,7 +14,7 @@ class AllDecksPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.primary,
+      backgroundColor: AppColors.allDecksBackground,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Text("Tahmin Et!"),

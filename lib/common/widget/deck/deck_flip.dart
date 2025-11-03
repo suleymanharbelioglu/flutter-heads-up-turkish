@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'dart:ui';
 import 'package:ben_kimim/common/navigator/app_navigator.dart';
+import 'package:ben_kimim/core/configs/theme/app_color.dart';
 import 'package:ben_kimim/presentation/game/bloc/display_current_card_list_cubit.dart';
 import 'package:ben_kimim/presentation/game/bloc/timer_cubit.dart';
 import 'package:ben_kimim/presentation/phone_to_forhead/page/phone_to_forhead.dart';
@@ -243,7 +244,6 @@ class _DeckFlipState extends State<DeckFlip>
                 ),
               ),
             ),
-
             const SizedBox(height: 16),
             _buildButtons(),
           ],
@@ -294,8 +294,8 @@ class _DeckFlipState extends State<DeckFlip>
           GestureDetector(
             onTap: () async {
               await context.read<DisplayCurrentCardListCubit>().loadCardNames(
-                widget.deck.namesFilePath,
-              );
+                    widget.deck.namesFilePath,
+                  );
               AppNavigator.push(context, PhoneToForeheadPage());
             },
             child: Container(
@@ -344,7 +344,7 @@ class _DeckFlipState extends State<DeckFlip>
   }
 
   Future<void> _autoFlip() async {
-    await Future.delayed(const Duration(milliseconds: 200));
+    await Future.delayed(const Duration(milliseconds: 500));
     if (mounted) {
       await _controller.forward();
       setState(() {
@@ -374,7 +374,7 @@ class _ArrowBackgroundPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = Colors.black.withOpacity(0.1)
+      ..color = AppColors.primary.withOpacity(0.5)
       ..style = PaintingStyle.fill;
 
     final path = Path();
