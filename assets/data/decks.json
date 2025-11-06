@@ -37,7 +37,7 @@
     "categoryNameList": [
       "Popular"
     ],
-    "onGorselAdress": "assets/images/deck_images/dunya_mutfagi_arka.jpg",
+    "onGorselAdress": "assets/images/deck_images/dunya_mutfagi.jpg",
     "arkaGorselAdress": "assets/images/deck_images/dunya_mutfagi_arka.jpg",
     "namesFilePath": "assets/data/names/dunya_mutfagi_nameList.json",
     "deckTextColor": "0xFF28400D",
@@ -290,8 +290,8 @@
     "categoryNameList": [
       "Dizi/Film"
     ],
-    "onGorselAdress": "assets/images/deck_images/deneme.jpg",
-    "arkaGorselAdress": "assets/images/deck_images/deneme.jpg",
+    "onGorselAdress": "assets/images/deck_images/ezel.jpg",
+    "arkaGorselAdress": "assets/images/deck_images/ezel_arka.jpg",
     "namesFilePath": "assets/data/names/ezel_karakterleri_nameList.json",
     "deckTextColor": "0xFF5F919C",
     "deckDescription": "Ramiz mi, Ezel mi?...\nEyşan mı, Cengiz mi?...\nBu deste, Ezel dizisinin unutulmaz karakterlerini içeriyor.\nArkadaşların karakterleri  canlandırsın, sen de kimin olduğunu tahmin et!"
@@ -301,8 +301,8 @@
     "categoryNameList": [
       "Dizi/Film"
     ],
-    "onGorselAdress": "assets/images/deck_images/deneme.jpg",
-    "arkaGorselAdress": "assets/images/deck_images/deneme.jpg",
+    "onGorselAdress": "assets/images/deck_images/kv.jpg",
+    "arkaGorselAdress": "assets/images/deck_images/kv.jpg",
     "namesFilePath": "assets/data/names/kv_karakterleri_nameList.json",
     "deckTextColor": "0xFF5F919C",
     "deckDescription": "Polat mı, Memati mi?...\nÇakır mı, Abdülhey mi?...\nBu deste, Kurtlar Vadisi'nin efsane karakterlerini içeriyor.\nArkadaşların bu karakterleri  canlandırsın, sen de kim olduğunu tahmin et!"
@@ -312,8 +312,8 @@
     "categoryNameList": [
       "Dizi/Film"
     ],
-    "onGorselAdress": "assets/images/deck_images/deneme.jpg",
-    "arkaGorselAdress": "assets/images/deck_images/deneme.jpg",
+    "onGorselAdress": "assets/images/deck_images/aski_memnu.jpg",
+    "arkaGorselAdress": "assets/images/deck_images/aski_memnu_arka.jpg",
     "namesFilePath": "assets/data/names/aski_memnu_karakterleri_nameList.json",
     "deckTextColor": "0xFF5F919C",
     "deckDescription": "Bihter mi, Behlül mü?...\nAdnan mı, Nihal mi?...\nBu deste, Aşk-ı Memnu’nun en unutulmaz karakterlerini içeriyor.\nArkadaşların karakterleri  canlandırsın, sen de kimin olduğunu tahmin et!"
@@ -385,34 +385,24 @@
     "deckDescription": "Haluk mı, Meltem mi?...\nOrçun mu, Selami mi?...\nBu deste, Çocuklar Duymasın dizisinin unutulmaz karakterlerini içeriyor.\nArkadaşların karakterleri  canlandırsın, sen de kimin olduğunu tahmin et!"
   },
   {
-    "deckName": "Türk Pop \nMüzik",
+    "deckName": "Türk Pop & Rock \nMüzik",
     "categoryNameList": [
       "Müzik"
     ],
-    "onGorselAdress": "assets/images/deck_images/deneme.jpg",
-    "arkaGorselAdress": "assets/images/deck_images/deneme.jpg",
-    "namesFilePath": "assets/data/names/pop_müzik_nameList.json",
+    "onGorselAdress": "assets/images/deck_images/turk_pop_rock.jpg",
+    "arkaGorselAdress": "assets/images/deck_images/turk_pop_rock_arka.jpg",
+    "namesFilePath": "assets/data/names/pop_rock_müzik_nameList.json",
     "deckTextColor": "0xFF5F919C",
-    "deckDescription": "Na na na, da na na, hey!\nBu deste, Türkiye'nin en hareketli ve neşeli pop hitlerini içeriyor.\nArkadaşların müzikleri hiç kelime kullanmadan mırıldanacak.\nSen de ipuçlarından hangi müzik olduğunu tahmin et."
+    "deckDescription": "Na na na, da na na, hey!\nBu deste, Türkiye'nin en hareketli ve neşeli pop ve rock hitlerini içeriyor.\nArkadaşların müzikleri hiç kelime kullanmadan mırıldanacak.\nSen de ipuçlarından hangi müzik olduğunu tahmin et."
   },
-  {
-    "deckName": "Türk Rock \nMüzik",
-    "categoryNameList": [
-      "Müzik"
-    ],
-    "onGorselAdress": "assets/images/deck_images/deneme.jpg",
-    "arkaGorselAdress": "assets/images/deck_images/deneme.jpg",
-    "namesFilePath": "assets/data/names/rock_müzik_nameList.json",
-    "deckTextColor": "0xFF5F919C",
-    "deckDescription": "Na na na, da na na, hey!\nBu deste, Türkiye'nin en hareketli ve neşeli pop hitlerini içeriyor.\nArkadaşlarına müzikleri hiç kelime kullanmadan mırıldanacak.\nSen de ipuçlarından hangi müzik olduğunu tahmin et."
-  },
+  
   {
     "deckName": "Türk Arabesk \nMüzik",
     "categoryNameList": [
       "Müzik"
     ],
-    "onGorselAdress": "assets/images/deck_images/deneme.jpg",
-    "arkaGorselAdress": "assets/images/deck_images/deneme.jpg",
+    "onGorselAdress": "assets/images/deck_images/turk_arabesk.jpg",
+    "arkaGorselAdress": "assets/images/deck_images/turk_arabesk_arka.jpg",
     "namesFilePath": "assets/data/names/arabesk_müzik_nameList.json",
     "deckTextColor": "0xFF5F919C",
     "deckDescription": "Aah ulen aah, of of, ne çektik...\nBu deste, damar, isyan ve büyük aşkların acısıyla yoğrulmuş arabesk klasikleri içeriyor.\nArkadaşların müzikleri hiç kelime kullanmadan mırıldanacak.\nSen de ipuçlarından hangi müzik olduğunu tahmin et."
@@ -467,7 +457,7 @@
       "Canlandır"
     ],
     "onGorselAdress": "assets/images/deck_images/canlandir_2_kisilik.jpg",
-    "arkaGorselAdress": "assets/images/deck_images/canlandir.jpg",
+    "arkaGorselAdress": "assets/images/deck_images/canlandir_arka.jpg",
     "namesFilePath": "assets/data/names/canlandir_2_kisilik_nameList.json",
     "deckTextColor": "0xFF5F919C",
     "deckDescription": "Polisin Hırsızı Yakalaması mı? Evlenme Teklifi Anı mı?...\nBu deste, iki kişi tarafından canlandırılabilecek en popüler durumları ve olayları içeriyor.\nİki arkadaşın bu olayı ses çıkarmadan canlandırsın, sen ne olduğunu tahmin et."

@@ -62,19 +62,38 @@ class DeckCover extends StatelessWidget {
               child: Material(
                 color: Colors.transparent,
                 child: Container(
-                  alignment: Alignment.topCenter, // Üst merkez
-                  child: Text(
-                    deck.deckName,
-                    textAlign: TextAlign.center, // Ortalanmış text
-                    maxLines: 2, // 2 satıra izin
-                    overflow: TextOverflow.ellipsis, // Taşarsa … göster
-                    style: TextStyle(
-                      fontSize: 19,
-                      fontWeight: FontWeight.bold,
-                      color: deck.deckTextColor,
-                    ),
-                  ),
-                ),
+                    alignment: Alignment.topCenter, // Üst merkez
+                    child: Stack(
+                      children: [
+                        // Siyah kenarlık (arka katman)
+                        Text(
+                          deck.deckName,
+                          textAlign: TextAlign.center,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: 19,
+                            fontWeight: FontWeight.bold,
+                            foreground: Paint()
+                              ..style = PaintingStyle.stroke
+                              ..strokeWidth = 3
+                              ..color = Colors.black, // Kenarlık rengi
+                          ),
+                        ),
+                        // Ana renkli yazı (üst katman)
+                        Text(
+                          deck.deckName,
+                          textAlign: TextAlign.center,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: 19,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white, // Orijinal renk
+                          ),
+                        ),
+                      ],
+                    )),
               ),
             ),
           ),

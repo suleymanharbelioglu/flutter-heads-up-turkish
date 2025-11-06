@@ -86,13 +86,32 @@ class _DeckFlipState extends State<DeckFlip>
             child: Material(
               color: Colors.transparent,
               child: Center(
-                child: Text(
-                  widget.deck.deckName,
-                  style: TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold,
-                    color: widget.deck.deckTextColor,
-                  ),
+                child: Stack(
+                  children: [
+                    // SİYAH DIŞ ÇİZGİ
+                    Text(
+                      widget.deck.deckName,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 32,
+                        fontWeight: FontWeight.bold,
+                        foreground: Paint()
+                          ..style = PaintingStyle.stroke
+                          ..strokeWidth = 4
+                          ..color = Colors.black,
+                      ),
+                    ),
+                    // BEYAZ İÇ DOLGU
+                    Text(
+                      widget.deck.deckName,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 32,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -113,14 +132,32 @@ class _DeckFlipState extends State<DeckFlip>
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 20),
-              child: Text(
-                widget.deck.deckName,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                  color: widget.deck.deckTextColor,
-                ),
+              child: Stack(
+                children: [
+                  // SİYAH DIŞ ÇİZGİ
+                  Text(
+                    widget.deck.deckName,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                      foreground: Paint()
+                        ..style = PaintingStyle.stroke
+                        ..strokeWidth = 4
+                        ..color = Colors.black,
+                    ),
+                  ),
+                  // BEYAZ İÇ DOLGU
+                  Text(
+                    widget.deck.deckName,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
               ),
             ),
             const SizedBox(height: 20),
@@ -129,14 +166,33 @@ class _DeckFlipState extends State<DeckFlip>
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
                   children: [
-                    Text(
-                      widget.deck.deckDescription,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: widget.deck.deckTextColor,
-                        fontWeight: FontWeight.w600,
-                      ),
+                    Stack(
+                      children: [
+                        // SİYAH DIŞ ÇİZGİ
+                        Text(
+                          widget.deck.deckDescription,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
+                            foreground: Paint()
+                              ..style = PaintingStyle.stroke
+                              ..strokeWidth =
+                                  3 // Kontur kalınlığı (istersen 2 veya 4 yapabilirsin)
+                              ..color = Colors.black,
+                          ),
+                        ),
+                        // BEYAZ İÇ DOLGU
+                        Text(
+                          widget.deck.deckDescription,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 20),
 
