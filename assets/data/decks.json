@@ -291,7 +291,7 @@
       "Dizi/Film"
     ],
     "onGorselAdress": "assets/images/deck_images/ezel.png",
-    "arkaGorselAdress": "assets/images/deck_images/ezel_arka.jpg",
+    "arkaGorselAdress": "assets/images/deck_images/ezel_arka.png",
     "namesFilePath": "assets/data/names/ezel_karakterleri_nameList.json",
     "deckTextColor": "0xFF5F919C",
     "deckDescription": "Ramiz mi, Ezel mi?...\nEyşan mı, Cengiz mi?...\nBu deste, Ezel dizisinin unutulmaz karakterlerini içeriyor.\nArkadaşların karakterleri  canlandırsın, sen de kimin olduğunu tahmin et!"
