@@ -290,7 +290,7 @@
     "categoryNameList": [
       "Dizi/Film"
     ],
-    "onGorselAdress": "assets/images/deck_images/ezel.jpg",
+    "onGorselAdress": "assets/images/deck_images/ezel.png",
     "arkaGorselAdress": "assets/images/deck_images/ezel_arka.jpg",
     "namesFilePath": "assets/data/names/ezel_karakterleri_nameList.json",
     "deckTextColor": "0xFF5F919C",
@@ -301,8 +301,8 @@
     "categoryNameList": [
       "Dizi/Film"
     ],
-    "onGorselAdress": "assets/images/deck_images/kv.jpg",
-    "arkaGorselAdress": "assets/images/deck_images/kv.jpg",
+    "onGorselAdress": "assets/images/deck_images/kurtlar_vadisi.png",
+    "arkaGorselAdress": "assets/images/deck_images/kurtlar_vadisi_arka.png",
     "namesFilePath": "assets/data/names/kv_karakterleri_nameList.json",
     "deckTextColor": "0xFF5F919C",
     "deckDescription": "Polat mı, Memati mi?...\nÇakır mı, Abdülhey mi?...\nBu deste, Kurtlar Vadisi'nin efsane karakterlerini içeriyor.\nArkadaşların bu karakterleri  canlandırsın, sen de kim olduğunu tahmin et!"
@@ -323,8 +323,8 @@
     "categoryNameList": [
       "Dizi/Film"
     ],
-    "onGorselAdress": "assets/images/deck_images/deneme.jpg",
-    "arkaGorselAdress": "assets/images/deck_images/deneme.jpg",
+    "onGorselAdress": "assets/images/deck_images/leylayla_mecunun.jpeg",
+    "arkaGorselAdress": "assets/images/deck_images/leylayla_mecunun_arka.jpg",
     "namesFilePath": "assets/data/names/leylayla_mecnun_karakterleri_nameList.json",
     "deckTextColor": "0xFF5F919C",
     "deckDescription": "Mecnun mu, Leyla mı? İsmail Abi mi?...\nBu deste, Leyla ile Mecnun’un unutulmaz karakterlerini içeriyor.\nArkadaşların karakterleri  canlandırsın, sen de kimin olduğunu tahmin et!"
@@ -334,8 +334,8 @@
     "categoryNameList": [
       "Dizi/Film"
     ],
-    "onGorselAdress": "assets/images/deck_images/deneme.jpg",
-    "arkaGorselAdress": "assets/images/deck_images/deneme.jpg",
+    "onGorselAdress": "assets/images/deck_images/oyle_bir_gecer_zaman_ki.png",
+    "arkaGorselAdress": "assets/images/deck_images/oyle_bir_gecer_zaman_ki_arka.png",
     "namesFilePath": "assets/data/names/obgzk_karakterleri_nameList.json",
     "deckTextColor": "0xFF5F919C",
     "deckDescription": "Ali mi, Zeynep mi?...\nMete mi, Osman mı?...\nBu deste, Öyle Bir Geçer Zaman Ki dizisinin unutulmaz karakterlerini içeriyor.\nArkadaşların karakterleri  canlandırsın, sen de kimin olduğunu tahmin et!"
@@ -345,8 +345,8 @@
     "categoryNameList": [
       "Dizi/Film"
     ],
-    "onGorselAdress": "assets/images/deck_images/deneme.jpg",
-    "arkaGorselAdress": "assets/images/deck_images/deneme.jpg",
+    "onGorselAdress": "assets/images/deck_images/muhtesem_yuzyil.png",
+    "arkaGorselAdress": "assets/images/deck_images/muhtesem_yuzyil_arka.png",
     "namesFilePath": "assets/data/names/muhtesem_yuzyil_karakterleri_nameList.json",
     "deckTextColor": "0xFF5F919C",
     "deckDescription": "Sultan Süleyman mı, Hürrem mi?...Bu deste, Muhteşem Yüzyıl’ın ana ve yan karakterlerini içeriyor.\nArkadaşların karakterleri  canlandırsın, sen de kimin olduğunu tahmin et!"
@@ -356,8 +356,8 @@
     "categoryNameList": [
       "Dizi/Film"
     ],
-    "onGorselAdress": "assets/images/deck_images/deneme.jpg",
-    "arkaGorselAdress": "assets/images/deck_images/deneme.jpg",
+    "onGorselAdress": "assets/images/deck_images/avrupa_yakasi.png",
+    "arkaGorselAdress": "assets/images/deck_images/avrupa_yakasi_arka.png",
     "namesFilePath": "assets/data/names/avrupa_yakasi_karakterleri_nameList.json",
     "deckTextColor": "0xFF5F919C",
     "deckDescription": "Burhan mı, Aslı mı?...\nŞahika mı, Fatoş mu?...\nBu deste, Avrupa Yakası dizisinin unutulmaz karakterlerini içeriyor.\nArkadaşların karakterleri  canlandırsın, sen de kimin olduğunu tahmin et!"
@@ -367,8 +367,8 @@
     "categoryNameList": [
       "Dizi/Film"
     ],
-    "onGorselAdress": "assets/images/deck_images/deneme.jpg",
-    "arkaGorselAdress": "assets/images/deck_images/deneme.jpg",
+    "onGorselAdress": "assets/images/deck_images/yaprak_dokumu.png",
+    "arkaGorselAdress": "assets/images/deck_images/yaprak_dokumu_arka.png",
     "namesFilePath": "assets/data/names/yaprak_dokumu_karakterleri_nameList.json",
     "deckTextColor": "0xFF5F919C",
     "deckDescription": "Ali Rıza mı, Ferhunde mi?...\nLeyla mı, Necla mı?...\nBu deste, Yaprak Dökümü dizisinin unutulmaz karakterlerini içeriyor.\nArkadaşların karakterleri  canlandırsın, sen de kimin olduğunu tahmin et!"
@@ -378,8 +378,8 @@
     "categoryNameList": [
       "Dizi/Film"
     ],
-    "onGorselAdress": "assets/images/deck_images/deneme.jpg",
-    "arkaGorselAdress": "assets/images/deck_images/deneme.jpg",
+    "onGorselAdress": "assets/images/deck_images/cocuklar_duymasin.png",
+    "arkaGorselAdress": "assets/images/deck_images/cocuklar_duymasin_arka.png",
     "namesFilePath": "assets/data/names/cocuklar_dymasin_karakterleri_nameList.json",
     "deckTextColor": "0xFF5F919C",
     "deckDescription": "Haluk mı, Meltem mi?...\nOrçun mu, Selami mi?...\nBu deste, Çocuklar Duymasın dizisinin unutulmaz karakterlerini içeriyor.\nArkadaşların karakterleri  canlandırsın, sen de kimin olduğunu tahmin et!"
@@ -395,7 +395,6 @@
     "deckTextColor": "0xFF5F919C",
     "deckDescription": "Na na na, da na na, hey!\nBu deste, Türkiye'nin en hareketli ve neşeli pop ve rock hitlerini içeriyor.\nArkadaşların müzikleri hiç kelime kullanmadan mırıldanacak.\nSen de ipuçlarından hangi müzik olduğunu tahmin et."
   },
-  
   {
     "deckName": "Türk Arabesk \nMüzik",
     "categoryNameList": [
@@ -412,8 +411,8 @@
     "categoryNameList": [
       "Müzik"
     ],
-    "onGorselAdress": "assets/images/deck_images/deneme.jpg",
-    "arkaGorselAdress": "assets/images/deck_images/deneme.jpg",
+    "onGorselAdress": "assets/images/deck_images/turk_sanat.jpg",
+    "arkaGorselAdress": "assets/images/deck_images/turk_sanat_arka.jpg",
     "namesFilePath": "assets/data/names/turk_sanat_müzik_nameList.json",
     "deckTextColor": "0xFF5F919C",
     "deckDescription": "Hım nağmeler, tırı tı tı, ooof...\nBu deste, gazinoların kadife sesleri ve zengin makamlarıyla bezenmiş TSM şaheserlerini içeriyor.\nArkadaşlarınıza müzikleri hiç kelime kullanmadan mırıldanacak.\nSen de ipuçlarından hangi müzik olduğunu tahmin et."
@@ -423,8 +422,8 @@
     "categoryNameList": [
       "Müzik"
     ],
-    "onGorselAdress": "assets/images/deck_images/deneme.jpg",
-    "arkaGorselAdress": "assets/images/deck_images/deneme.jpg",
+    "onGorselAdress": "assets/images/deck_images/turk_rap_hiphop.jpg",
+    "arkaGorselAdress": "assets/images/deck_images/turk_rap_hiphop_arka.jpg",
     "namesFilePath": "assets/data/names/rep_hiphop_müzik_nameList.json",
     "deckTextColor": "0xFF5F919C",
     "deckDescription": "Tık tık bum, tışş, vız vız!\nBu deste, Türkçe Rap'in en popüler ve ikonik eserlerini içeriyor.\nArkadaşlarınıza müzikleri hiç kelime kullanmadan mırıldanacak.\nSen de ipuçlarından hangi müzik olduğunu tahmin et."
