@@ -8,7 +8,7 @@
     "arkaGorselAdress": "assets/images/deck_images/hayvanlar_arka.jpg",
     "namesFilePath": "assets/data/names/hayvanlar_nameList.json",
     "deckTextColor": "0xFF372C2F",
-    "deckDescription": "Dört ayaklı mı? Evcil hayvan olabilir mi? Hortumu var mı?...\nBu deste, çevrende görebileceğin veya yaban hayatında yaşayan hayvanları içeriyor.\nArkadaşların hayvanları hiçbir kelime kullanmadan canlandırsın; sen de hangisi olduğunu tahmin et."
+    "deckDescription": "Dört ayaklı mı? Evcil hayvan olabilir mi? Hortumu var mı?...\nBu deste, çevrende görebileceğin veya yaban hayatında yaşayan hayvanları içeriyor.\nArkadaşların hayvanları hiçbir kelime kullanmadan canlandırsın, sen de hangisi olduğunu tahmin et."
   },
   {
     "deckName": "Meyveler \n& Sebzeler",
@@ -41,7 +41,7 @@
     "arkaGorselAdress": "assets/images/deck_images/dunya_mutfagi_arka.jpg",
     "namesFilePath": "assets/data/names/dunya_mutfagi_nameList.json",
     "deckTextColor": "0xFF28400D",
-    "deckDescription": "Etli mi? Sıcak mı yersin?...\nBu deste, Türkiye'nin en popüler yemeklerini içeriyor.\nArkadaşlarına sorular sor ve ipuçlarından yola çıkarak hangi yemek olduğunu tahmin et"
+    "deckDescription": "Kore yemeği mi? Çok mu baharatlı?...\nBu deste, Dünya'nın en popüler yemeklerini içeriyor.\nArkadaşlarına sorular sor ve ipuçlarından yola çıkarak hangi yemek olduğunu tahmin et"
   },
   {
     "deckName": "Ünlüler",
@@ -52,7 +52,7 @@
     "arkaGorselAdress": "assets/images/deck_images/unluler_arka.jpg",
     "namesFilePath": "assets/data/names/unluler_nameList.json",
     "deckTextColor": "0xFF8D1320",
-    "deckDescription": "Siyasi mi? Sanatçı mı?\nPopüler mi, bilim insanı mı?...\nBu deste, Türkiye’nin en ünlü isimlerini içeriyor.\nArkadaşlarına sorular sor; ipuçlarından ve küçük detaylardan yola çıkarak ünlüyü tahmin et."
+    "deckDescription": "Siyasetçi mi? Sanatçı mı?\nOyuncu mu, bilim insanı mı?...\nBu deste, Türkiye'de en çok tanınan Türk ve yabancı isimlerini içeriyor.\nArkadaşlarına sorular sor, ipuçlarından ve küçük detaylardan yola çıkarak ünlüyü tahmin et."
   },
   {
     "deckName": " Sinema Oyuncuları",
@@ -63,7 +63,7 @@
     "arkaGorselAdress": "assets/images/deck_images/oyuncular_arka.jpg",
     "namesFilePath": "assets/data/names/oyuncular_nameList.json",
     "deckTextColor": "0xFF5D2219",
-    "deckDescription": "Erkek mi? Kadın mı?...\nPopüler kültür ikonu mu? Sanat sineması ustası mı?...\nBu deste, Türkiye’nin en ünlü oyuncularını içeriyor.\nArkadaşlarına sorular sor, ipuçlarından hangi oyuncu olduğunu tahmin et."
+    "deckDescription": "Türk mü? Yabancı mı?...\nPopüler kültür ikonu mu? Sanat sineması ustası mı?...\nBu deste, Türkiye'de en çok tanınan Türk ve yabancı oyuncularını içeriyor.\nArkadaşlarına sorular sor, ipuçlarından hangi oyuncu olduğunu tahmin et."
   },
   {
     "deckName": "Türk Sineması",
@@ -74,7 +74,7 @@
     "arkaGorselAdress": "assets/images/deck_images/filmler_arka.jpg",
     "namesFilePath": "assets/data/names/turk_sinemasi_nameList.json",
     "deckTextColor": "0xFFCBA06A",
-    "deckDescription": "Komedi mi? Dram mı?...\nAksiyon mu, romantik mi?...\nBu deste, Türkiye’nin en ünlü dizi ve filmlerini içeriyor.\nArkadaşlarına sorular sor, ipuçlarından hangi film olduğunu tahmin et."
+    "deckDescription": "Komedi mi? Dram mı?...\nAksiyon mu, romantik mi?...\nBu deste, Türkiye’nin en popüler dizi ve filmlerini içeriyor.\nArkadaşlarına sorular sor, ipuçlarından hangi film/dizi olduğunu tahmin et."
   },
   {
     "deckName": "Dünya Sineması",
@@ -85,7 +85,7 @@
     "arkaGorselAdress": "assets/images/deck_images/yabanci_filmler_arka.jpg",
     "namesFilePath": "assets/data/names/dunya_sinemasi_nameList.json",
     "deckTextColor": "0xFFCBA06A",
-    "deckDescription": "Komedi mi? Dram mı?...\nAksiyon mu, romantik mi?...\nBu deste, Dünya'non en ünlü dizi ve filmlerini içeriyor.\nArkadaşlarına sorular sor, ipuçlarından hangi film olduğunu tahmin et."
+    "deckDescription": "Komedi mi? Dram mı?...\nAksiyon mu, romantik mi?...\nBu deste, Dünya'non en ünlü dizi ve filmlerini içeriyor.\nArkadaşlarına sorular sor, ipuçlarından hangi film/dizi olduğunu tahmin et."
   },
   {
     "deckName": "Futbol Efsaneleri",
@@ -129,7 +129,7 @@
     "arkaGorselAdress": "assets/images/deck_images/canlandir_arka.jpg",
     "namesFilePath": "assets/data/names/canlandir_1_nameList.json",
     "deckTextColor": "0xFF212224",
-    "deckDescription": "Koşmak mı? Yemek yemek mi?...\nBu deste, hayatın her anından farklı durumları içeriyor.\nArkadaşların ses çıkarmadan canlandırsın, sen ne olduğunu tahmin et."
+    "deckDescription": "Koşmak mı? Yemek yemek mi?...\nBu deste, hayatın her anından farklı durumları içeriyor.\nArkadaşların ses çıkarmadan canlandırsın, sen de ne olduğunu tahmin et."
   },
   {
     "deckName": "Oyunlar",
@@ -151,7 +151,7 @@
     "arkaGorselAdress": "assets/images/deck_images/ulkeler_arka.jpg",
     "namesFilePath": "assets/data/names/ulkeler_nameList.json",
     "deckTextColor": "0xFFCE5D39",
-    "deckDescription": "Kahvesiyle mi meşhur,?...\nAsya mı, Avrupa mı?...\nBu deste, dünyanın en tanınmış 100 ülkesini içeriyor.\nArkadaşlarınıza sorular sor ve ipuçlarından hangi ülke olduğunu tahmin et!"
+    "deckDescription": "Kahvesiyle mi meşhur,?...\nAsya mı, Avrupa mı?...\nBu deste, ülkeleri içeriyor.\nArkadaşlarınıza sorular sor ve ipuçlarından hangi ülke olduğunu tahmin et!"
   },
   {
     "deckName": "Nesneler",
@@ -162,7 +162,7 @@
     "arkaGorselAdress": "assets/images/deck_images/nesneler_arka.jpg",
     "namesFilePath": "assets/data/names/nesneler_nameList.json",
     "deckTextColor": "0xFF685745",
-    "deckDescription": "Elektrikle mi çalışır? Her gün yanında mı taşırsın?...\nBu deste, etrafımızda her gün gördüğümüz  nesneleri içeriyor.\nArkadaşlarına sorular sor ve ipuçlarından hangi ülke olduğunu tahmin et!"
+    "deckDescription": "Elektrikle mi çalışır? Her gün yanında mı taşırsın?...\nBu deste, etrafında her gün gördüğün nesneleri içeriyor.\nArkadaşlarına sorular sor ve ipuçlarından hangi nesne olduğunu tahmin et!"
   },
   {
     "deckName": "Başkentler",
@@ -173,7 +173,7 @@
     "arkaGorselAdress": "assets/images/deck_images/baskentler_arka.jpg",
     "namesFilePath": "assets/data/names/baskentler_nameList.json",
     "deckTextColor": "0xFFA36A52",
-    "deckDescription": "Çok kalabalık mı? Asya’da mı? Bu deste, dünyanın en bilinen  başkentleri içeriyor. Arkadaşlarınıza sorular sor ve ipuçlarından hangi başkent olduğunu tahmin et!"
+    "deckDescription": "Çok kalabalık mı? Asya’da mı? Bu deste,  başkentleri içeriyor. Arkadaşlarına sorular sor ve ipuçlarından hangi başkent olduğunu tahmin et!"
   },
   {
     "deckName": "Mimikler",
@@ -184,7 +184,7 @@
     "arkaGorselAdress": "assets/images/deck_images/mimikler_arka.jpg",
     "namesFilePath": "assets/data/names/mimikler_nameList.json",
     "deckTextColor": "0xFF2E1915",
-    "deckDescription": "Kızgın mı? Üzgün mü?...\nMutlu mu, şaşkın mı?...\nBu deste, hayatın içinden en tanıdık duyguları içeriyor.\nArkadaşların bu duyguları konuşmadan canlandırmaya çalışsın, sen de tahmin et."
+    "deckDescription": "Kaşları çatmak  mı? Göz devirmek mi?...\nBu deste, hayatın içinden mimikleri/hareketler  içeriyor.\nArkadaşların  ellerini ve ayaklarını hiç kullanmadan canlandırsın, sen de tahmin et."
   },
   {
     "deckName": "Meslekler",
@@ -195,7 +195,7 @@
     "arkaGorselAdress": "assets/images/deck_images/meslekler_arka.jpg",
     "namesFilePath": "assets/data/names/meslekler_nameList.json",
     "deckTextColor": "0xFF3D4D5D",
-    "deckDescription": "Doktor mu? Öğretmen mi?...\nPolis mi, aşçı mı?...\nBu deste, günlük hayatta en tanıdık  meslekleri içeriyor.\nArkadaşların bu meslekleri konuşmadan canlandırsın, sen de tahmin et."
+    "deckDescription": "Doktor mu? Öğretmen mi?...\nPolis mi, aşçı mı?...\nBu deste, günlük hayatta en tanıdık  meslekleri içeriyor.\nArkadaşların bu meslekleri  canlandırsın, sen de tahmin et."
   },
   {
     "deckName": "Aletler",

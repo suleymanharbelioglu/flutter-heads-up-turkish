@@ -1,6 +1,6 @@
 {
     "names": [
-        "Telefon",
+        "Ev Telefon",
         "Cep Telefonu",
         "Kulaklık",
         "Bilgisayar",
@@ -122,6 +122,5 @@
         "Tabela",
         "Posta Kutusu",
         "Valiz"
-    ],
-    "count": 123
+    ]
 }
