@@ -18,16 +18,17 @@ class GamePage extends StatefulWidget {
   const GamePage({super.key});
 
   @override
-  State<GamePage> createState() => _GamePageState(); // Stateful widget için state oluşturuyor
+  State<GamePage> createState() =>
+      _GamePageState(); // Stateful widget için state oluşturuyor
 }
 
 class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
   // Animasyonlar için controller
   late AnimationController _controller;
   late Animation<Offset>
-  _oldOffsetAnimation; // Eski kartın yukarı kayma animasyonu
+      _oldOffsetAnimation; // Eski kartın yukarı kayma animasyonu
   late Animation<Offset>
-  _newOffsetAnimation; // Yeni kartın aşağıdan gelme animasyonu
+      _newOffsetAnimation; // Yeni kartın aşağıdan gelme animasyonu
 
   // Kart bilgilerinin saklanması
   String? _oldName; // Önceki kartın ismi
@@ -202,9 +203,8 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     if (from == "play" && (to == "pass" || to == "correct")) {
       setState(() {
         _currentZone = to;
-        _oldCardColor = to == "pass"
-            ? AppColors.pass
-            : AppColors.correct; // Renk değişimi
+        _oldCardColor =
+            to == "pass" ? AppColors.pass : AppColors.correct; // Renk değişimi
         _oldCardText = to == "pass" ? "PASS" : "DOĞRU"; // Kart üzerindeki metin
       });
 
@@ -266,16 +266,22 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Stack(
-          children: [
-            _buildAnimatedNames(), // Kart animasyonları
-            _buildBackButton(), // Geri butonu
-            _buildScore(), // Skor
-            _buildTimer(), // Zamanlayıcı
-            if (_isTimeOver) _buildTimeOverOverlay(), // Süre bitti overlay
-          ],
+    return WillPopScope(
+      onWillPop: () async {
+        // Geri tuşuna basıldığında hiçbir şey olmasın
+        return false;
+      },
+      child: Scaffold(
+        body: SafeArea(
+          child: Stack(
+            children: [
+              _buildAnimatedNames(), // Kart animasyonları
+              _buildBackButton(), // Özel oyun içi geri butonu
+              _buildScore(), // Skor
+              _buildTimer(), // Zamanlayıcı
+              if (_isTimeOver) _buildTimeOverOverlay(), // Süre bitti overlay
+            ],
+          ),
         ),
       ),
     );

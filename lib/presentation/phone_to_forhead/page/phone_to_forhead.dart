@@ -32,7 +32,8 @@ class _PhoneToForeheadPageState extends State<PhoneToForeheadPage> {
   @override
   void initState() {
     super.initState();
-
+    countdown = 4;
+    countdownStarted = false; // Her sayfa açılışında sıfırlanıyor
     // Yatay mod kilidi
     SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft]);
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
@@ -40,8 +41,7 @@ class _PhoneToForeheadPageState extends State<PhoneToForeheadPage> {
     // Telefon pozisyonunu dinle
     _accelerometerSubscription = accelerometerEvents.listen((event) {
       if (!countdownStarted) {
-        bool inPosition =
-            event.x >= minX &&
+        bool inPosition = event.x >= minX &&
             event.x <= maxX &&
             event.y >= minY &&
             event.y <= maxY &&
@@ -67,8 +67,13 @@ class _PhoneToForeheadPageState extends State<PhoneToForeheadPage> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async => false, // geri tuşunu devre dışı bırak
+    print("countdown started $countdownStarted");
+    return PopScope(
+      canPop: false, // 🔒 Tüm "pop" işlemlerini (geri çıkma) engeller
+      onPopInvoked: (didPop) {
+        // Buraya hiçbir şey yazma veya log bile atma
+        // Fiziksel geri tuşu dahil hiçbir şey sayfayı kapatamayacak
+      },
       child: Scaffold(
         backgroundColor: AppColors.primary,
         body: Center(

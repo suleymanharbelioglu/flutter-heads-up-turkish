@@ -198,7 +198,7 @@
     "deckDescription": "Doktor mu? Öğretmen mi?...\nPolis mi, aşçı mı?...\nBu deste, günlük hayatta en tanıdık  meslekleri içeriyor.\nArkadaşların bu meslekleri  canlandırsın, sen de tahmin et."
   },
   {
-    "deckName": "Aletler",
+    "deckName": "Malzemeler & Aletler",
     "categoryNameList": [
       "Günlük Yaşam"
     ],
@@ -206,7 +206,7 @@
     "arkaGorselAdress": "assets/images/deck_images/aletler_arka.jpg",
     "namesFilePath": "assets/data/names/aletler_nameList.json",
     "deckTextColor": "0xFF3D4D5D",
-    "deckDescription": "Çekiç mi? Tornavida mı?...\nMatkap mı, pense mi?...\nBu deste, günlük hayatta sıkça gördüğümüz aletleri içeriyor.\nArkadaşların aleti konumaşdan  anlatsın, sen de hangi alet olduğunu tahmin et."
+    "deckDescription": "Çekiç mi? Tornavida mı?...\nMeve soyacağı mi, delgeç mi?...\nBu deste, günlük hayatta sıkça gördüğümüz aletleri/malzemeleri içeriyor.\nArkadaşların aleti konumaşdan  anlatsın, sen de hangi alet olduğunu tahmin et."
   },
   {
     "deckName": "BAkım & Makyaj",

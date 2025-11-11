@@ -37,32 +37,38 @@ class _BottomNavPageState extends State<BottomNavPage> {
   Widget build(BuildContext context) {
     final primaryColor = Theme.of(context).primaryColor;
 
-    return Scaffold(
-      body: _pages[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.white,
-        currentIndex: _currentIndex,
-        onTap: _onTap,
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: primaryColor, // seçili renk (primaryColor)
-        unselectedItemColor: Colors.grey, // seçilmemiş renk (gri)
-        iconSize: 28, // ikon boyutu
-        selectedFontSize: 14,
-        unselectedFontSize: 13,
-        items: const [
-          BottomNavigationBarItem(
-            icon: FaIcon(FontAwesomeIcons.crown),
-            label: 'VIP',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.style_outlined),
-            label: 'Desteler',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.help_outline),
-            label: 'Nasıl Oynanır',
-          ),
-        ],
+    return WillPopScope(
+      onWillPop: () async {
+        // Telefonun geri tuşuna basıldığında hiçbir şey olmasın
+        return false;
+      },
+      child: Scaffold(
+        body: _pages[_currentIndex],
+        bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: Colors.white,
+          currentIndex: _currentIndex,
+          onTap: _onTap,
+          type: BottomNavigationBarType.fixed,
+          selectedItemColor: primaryColor, // seçili renk
+          unselectedItemColor: Colors.grey, // seçilmemiş renk
+          iconSize: 28,
+          selectedFontSize: 14,
+          unselectedFontSize: 13,
+          items: const [
+            BottomNavigationBarItem(
+              icon: FaIcon(FontAwesomeIcons.crown),
+              label: 'VIP',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.style_outlined),
+              label: 'Desteler',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.help_outline),
+              label: 'Nasıl Oynanır',
+            ),
+          ],
+        ),
       ),
     );
   }
