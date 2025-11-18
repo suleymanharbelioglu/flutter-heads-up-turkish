@@ -14,7 +14,6 @@
         "Dans etmek",
         "Şarkı söylemek",
         "Gitar çalmak",
-        "Piyano çalmak",
         "Resim yapmak",
         "Makyaj yapmak",
         "Saç taramak",
@@ -107,6 +106,10 @@
         "Parfüm sıkmak",
         "Kask takmak",
         "El bombası atmak",
-        "Sarma Sarmak"
+        "Sarma Sarmak",
+        "Piyano çalmak",
+        "Saz çalmak",
+        "Keman çalmak",
+        "Flüt çalmak"
     ]
 }
