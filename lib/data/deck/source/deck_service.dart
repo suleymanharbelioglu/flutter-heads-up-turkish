@@ -14,6 +14,9 @@ abstract class DeckService {
   Future<Either<String, List<DeckEntity>>> getGunlukYasamDecks();
   Future<Either<String, List<DeckEntity>>> getBilimVeGenelKDecks();
   Future<Either<String, List<DeckEntity>>> getCizDecks();
+  Future<Either<String, List<DeckEntity>>> getUnlulerDecks();
+  Future<Either<String, List<DeckEntity>>> getYemeklerDecks();
+  Future<Either<String, List<DeckEntity>>> getCizgiFilmAnimeDecks();
 }
 
 class DeckServiceImpl extends DeckService {
@@ -142,19 +145,61 @@ class DeckServiceImpl extends DeckService {
       return const Left("Günlük Yaşam deck list problem");
     }
   }
-  
+
   @override
   Future<Either<String, List<DeckEntity>>> getCizDecks() async {
     print("Ciz deck start");
     try {
       final result = await _loadDecks();
-      final list = result
-          .where((d) => d.categoryNameList.contains('Ciz'))
-          .toList();
+      final list =
+          result.where((d) => d.categoryNameList.contains('Ciz')).toList();
       print("Ciz deck count: ${list.length}");
       return Right(list);
     } catch (e) {
       return const Left("Ciz deck list problem");
+    }
+  }
+
+  @override
+  Future<Either<String, List<DeckEntity>>> getCizgiFilmAnimeDecks() async {
+    print("CizgiFilmAnime deck start");
+    try {
+      final result = await _loadDecks();
+      final list = result
+          .where((d) => d.categoryNameList.contains('CizgiFilmAnime'))
+          .toList();
+      print("CizgiFilmAnime deck count: ${list.length}");
+      return Right(list);
+    } catch (e) {
+      return const Left("CizgiFilmAnime deck list problem");
+    }
+  }
+
+  @override
+  Future<Either<String, List<DeckEntity>>> getUnlulerDecks() async {
+    print("Unluler deck start");
+    try {
+      final result = await _loadDecks();
+      final list =
+          result.where((d) => d.categoryNameList.contains('Unluler')).toList();
+      print("Unluler deck count: ${list.length}");
+      return Right(list);
+    } catch (e) {
+      return const Left("Unluler deck list problem");
+    }
+  }
+
+  @override
+  Future<Either<String, List<DeckEntity>>> getYemeklerDecks() async {
+    print("Yemekler deck start");
+    try {
+      final result = await _loadDecks();
+      final list =
+          result.where((d) => d.categoryNameList.contains('Yemekler')).toList();
+      print("Yemekler deck count: ${list.length}");
+      return Right(list);
+    } catch (e) {
+      return const Left("Yemekler deck list problem");
     }
   }
 }

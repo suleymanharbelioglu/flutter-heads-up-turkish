@@ -2,11 +2,14 @@ import 'package:ben_kimim/core/configs/theme/app_theme.dart';
 import 'package:ben_kimim/presentation/all_decks/bloc/bilim_ve_genelk_decks_cubit.dart';
 import 'package:ben_kimim/presentation/all_decks/bloc/canlandir_decks_cubit.dart';
 import 'package:ben_kimim/presentation/all_decks/bloc/ciz_decks_cubit.dart';
+import 'package:ben_kimim/presentation/all_decks/bloc/cizgifilm_anime_decks_cubit.dart';
 import 'package:ben_kimim/presentation/all_decks/bloc/dizi_film_decks_cubit.dart';
 import 'package:ben_kimim/presentation/all_decks/bloc/gunluk_yasam_decks_cubit.dart';
 import 'package:ben_kimim/presentation/all_decks/bloc/muzik_decks_cubit.dart';
 import 'package:ben_kimim/presentation/all_decks/bloc/popular_decks_cubit.dart';
 import 'package:ben_kimim/presentation/all_decks/bloc/spor_decks_cubit.dart';
+import 'package:ben_kimim/presentation/all_decks/bloc/unluler_decks_cubit.dart';
+import 'package:ben_kimim/presentation/all_decks/bloc/yemeker_decks_cubit.dart';
 import 'package:ben_kimim/presentation/game/bloc/current_name_cubit.dart';
 import 'package:ben_kimim/presentation/game/bloc/display_current_card_list_cubit.dart';
 import 'package:ben_kimim/presentation/game/bloc/score_cubit.dart';
@@ -64,8 +67,17 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => BilimVeGenelKDecksCubit(),
         ),
-         BlocProvider(
+        BlocProvider(
           create: (context) => CizDecksCubit(),
+        ),
+        BlocProvider(
+          create: (context) => UnlulerDecksCubit(),
+        ),
+        BlocProvider(
+          create: (context) => YemeklerDecksCubit(),
+        ),
+        BlocProvider(
+          create: (context) => CizgiFilmAnimeDecksCubit(),
         ),
       ],
       child: MaterialApp(

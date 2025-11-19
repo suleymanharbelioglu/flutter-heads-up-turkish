@@ -23,6 +23,7 @@ class SplashPage extends StatelessWidget {
       listener: (context, state) {
         if (state is SplashNavigate) {
           // Yükleme bitti, BottomNavPage'e geçiş yap
+          print("bottom Nav page geçiş ...........");
           AppNavigator.pushAndRemove(context, const BottomNavPage());
         }
       },
@@ -46,7 +47,7 @@ class SplashPage extends StatelessWidget {
                 ), // Alttan biraz yukarı it
                 child: CircularProgressIndicator(
                   // Bu rengi beyaz bıraktık, böylece arka planda görünür.
-                  color: Colors.white, 
+                  color: Colors.white,
                 ),
               ),
             ),

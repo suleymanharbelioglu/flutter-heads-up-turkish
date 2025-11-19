@@ -37,8 +37,8 @@
     "categoryNameList": [
       "Ciz"
     ],
-    "onGorselAdress": "assets/images/deck_images/deneme.jpg",
-    "arkaGorselAdress": "assets/images/deck_images/deneme.jpg",
+    "onGorselAdress": "assets/images/deck_images/ciz.jpg",
+    "arkaGorselAdress": "assets/images/deck_images/ciz_arka.jpg",
     "namesFilePath": "assets/data/names/ciz_nameList.json",
     "deckTextColor": "0xFF344F2B",
     "deckDescription": "Emzik? Muz mu?...\nBu deste, populer markaları içeriyor.\nArkadaşlarına sorular sor ve ipuçlarından yola çıkarak hangi marka olduğunu tahmin et."
@@ -48,8 +48,8 @@
     "categoryNameList": [
       "Ciz"
     ],
-    "onGorselAdress": "assets/images/deck_images/deneme.jpg",
-    "arkaGorselAdress": "assets/images/deck_images/deneme.jpg",
+    "onGorselAdress": "assets/images/deck_images/ciz2.jpg",
+    "arkaGorselAdress": "assets/images/deck_images/ciz_arka.jpg",
     "namesFilePath": "assets/data/names/ciz_2_nameList.json",
     "deckTextColor": "0xFF344F2B",
     "deckDescription": "Emzik? Muz mu?...\nBu deste, populer markaları içeriyor.\nArkadaşlarına sorular sor ve ipuçlarından yola çıkarak hangi marka olduğunu tahmin et."
@@ -57,10 +57,10 @@
   {
     "deckName": "Animeler",
     "categoryNameList": [
-      "Popular"
+      "CizgiFilmAnime"
     ],
-    "onGorselAdress": "assets/images/deck_images/deneme.jpg",
-    "arkaGorselAdress": "assets/images/deck_images/deneme.jpg",
+    "onGorselAdress": "assets/images/deck_images/animeler.jpg",
+    "arkaGorselAdress": "assets/images/deck_images/animeler_arka.jpg",
     "namesFilePath": "assets/data/names/animeler_nameList.json",
     "deckTextColor": "0xFF344F2B",
     "deckDescription": "Emzik? Muz mu?...\nBu deste, populer markaları içeriyor.\nArkadaşlarına sorular sor ve ipuçlarından yola çıkarak hangi marka olduğunu tahmin et."
@@ -68,10 +68,10 @@
   {
     "deckName": "İnternet Ünlüleri",
     "categoryNameList": [
-      "Popular"
+      "Unluler"
     ],
-    "onGorselAdress": "assets/images/deck_images/deneme.jpg",
-    "arkaGorselAdress": "assets/images/deck_images/deneme.jpg",
+    "onGorselAdress": "assets/images/deck_images/internet_unluleri.jpg",
+    "arkaGorselAdress": "assets/images/deck_images/internet_unluleri_arka.jpg",
     "namesFilePath": "assets/data/names/internet_ünlüleri_nameList.json",
     "deckTextColor": "0xFF344F2B",
     "deckDescription": "Emzik? Muz mu?...\nBu deste, populer markaları içeriyor.\nArkadaşlarına sorular sor ve ipuçlarından yola çıkarak hangi marka olduğunu tahmin et."
@@ -81,8 +81,8 @@
     "categoryNameList": [
       "Popular"
     ],
-    "onGorselAdress": "assets/images/deck_images/deneme.jpg",
-    "arkaGorselAdress": "assets/images/deck_images/deneme.jpg",
+    "onGorselAdress": "assets/images/deck_images/super_kahramanlar.jpg",
+    "arkaGorselAdress": "assets/images/deck_images/super_kahramanlar_arka.jpg",
     "namesFilePath": "assets/data/names/super_kahramanlar_nameList.json",
     "deckTextColor": "0xFF344F2B",
     "deckDescription": "Emzik? Muz mu?...\nBu deste, populer markaları içeriyor.\nArkadaşlarına sorular sor ve ipuçlarından yola çıkarak hangi marka olduğunu tahmin et."
@@ -92,8 +92,8 @@
     "categoryNameList": [
       "Bilim & Genel Kültür"
     ],
-    "onGorselAdress": "assets/images/deck_images/deneme.jpg",
-    "arkaGorselAdress": "assets/images/deck_images/deneme.jpg",
+    "onGorselAdress": "assets/images/deck_images/insan_bedeni.jpg",
+    "arkaGorselAdress": "assets/images/deck_images/insan_bedeni_arka.jpg",
     "namesFilePath": "assets/data/names/insan_bedeni_nameList.json",
     "deckTextColor": "0xFF344F2B",
     "deckDescription": "Emzik? Muz mu?...\nBu deste, populer markaları içeriyor.\nArkadaşlarına sorular sor ve ipuçlarından yola çıkarak hangi marka olduğunu tahmin et."
@@ -103,8 +103,8 @@
     "categoryNameList": [
       "Canlandır"
     ],
-    "onGorselAdress": "assets/images/deck_images/deneme.jpg",
-    "arkaGorselAdress": "assets/images/deck_images/deneme.jpg",
+    "onGorselAdress": "assets/images/deck_images/hisler.jpg",
+    "arkaGorselAdress": "assets/images/deck_images/hisler_arka.jpg",
     "namesFilePath": "assets/data/names/hisler_nameList.json",
     "deckTextColor": "0xFF344F2B",
     "deckDescription": "Emzik? Muz mu?...\nBu deste, populer markaları içeriyor.\nArkadaşlarına sorular sor ve ipuçlarından yola çıkarak hangi marka olduğunu tahmin et."
@@ -112,10 +112,10 @@
   {
     "deckName": "Cizgi Filmler",
     "categoryNameList": [
-      "Dizi/Film"
+      "CizgiFilmAnime"
     ],
-    "onGorselAdress": "assets/images/deck_images/deneme.jpg",
-    "arkaGorselAdress": "assets/images/deck_images/deneme.jpg",
+    "onGorselAdress": "assets/images/deck_images/cizgi_fimler.jpg",
+    "arkaGorselAdress": "assets/images/deck_images/cizgi_fimler_arka.jpg",
     "namesFilePath": "assets/data/names/cizgi_filmler_nameList.json",
     "deckTextColor": "0xFF344F2B",
     "deckDescription": "Emzik? Muz mu?...\nBu deste, populer markaları içeriyor.\nArkadaşlarına sorular sor ve ipuçlarından yola çıkarak hangi marka olduğunu tahmin et."
@@ -125,8 +125,8 @@
     "categoryNameList": [
       "Popular"
     ],
-    "onGorselAdress": "assets/images/deck_images/deneme.jpg",
-    "arkaGorselAdress": "assets/images/deck_images/deneme.jpg",
+    "onGorselAdress": "assets/images/deck_images/uygulamalar.jpg",
+    "arkaGorselAdress": "assets/images/deck_images/uygulamalar_arka.jpg",
     "namesFilePath": "assets/data/names/uygulamalar_nameList.json",
     "deckTextColor": "0xFF344F2B",
     "deckDescription": "Emzik? Muz mu?...\nBu deste, populer markaları içeriyor.\nArkadaşlarına sorular sor ve ipuçlarından yola çıkarak hangi marka olduğunu tahmin et."
@@ -134,7 +134,7 @@
   {
     "deckName": "Türk Mutfağı",
     "categoryNameList": [
-      "Popular"
+      "Yemekler"
     ],
     "onGorselAdress": "assets/images/deck_images/yemekler.jpg",
     "arkaGorselAdress": "assets/images/deck_images/yemekler_arka.jpg",
@@ -145,7 +145,7 @@
   {
     "deckName": "Dünya Mütfağı",
     "categoryNameList": [
-      "Popular"
+      "Yemekler"
     ],
     "onGorselAdress": "assets/images/deck_images/dunya_mutfagi.jpg",
     "arkaGorselAdress": "assets/images/deck_images/dunya_mutfagi_arka.jpg",
@@ -156,7 +156,7 @@
   {
     "deckName": "Ünlüler",
     "categoryNameList": [
-      "Popular"
+      "Unluler"
     ],
     "onGorselAdress": "assets/images/deck_images/unluler.jpg",
     "arkaGorselAdress": "assets/images/deck_images/unluler_arka.jpg",
@@ -167,7 +167,7 @@
   {
     "deckName": "Sinema Oyuncuları",
     "categoryNameList": [
-      "Popular"
+      "Unluler"
     ],
     "onGorselAdress": "assets/images/deck_images/oyuncular.jpg",
     "arkaGorselAdress": "assets/images/deck_images/oyuncular_arka.jpg",
