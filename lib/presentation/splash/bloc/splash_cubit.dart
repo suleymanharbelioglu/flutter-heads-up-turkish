@@ -1,10 +1,12 @@
 import 'package:ben_kimim/presentation/all_decks/bloc/bilim_ve_genelk_decks_cubit.dart';
 import 'package:ben_kimim/presentation/all_decks/bloc/canlandir_decks_cubit.dart';
+import 'package:ben_kimim/presentation/all_decks/bloc/ciz_decks_cubit.dart';
 import 'package:ben_kimim/presentation/all_decks/bloc/dizi_film_decks_cubit.dart';
 import 'package:ben_kimim/presentation/all_decks/bloc/gunluk_yasam_decks_cubit.dart';
 import 'package:ben_kimim/presentation/all_decks/bloc/muzik_decks_cubit.dart';
 import 'package:ben_kimim/presentation/all_decks/bloc/popular_decks_cubit.dart';
 import 'package:ben_kimim/presentation/all_decks/bloc/spor_decks_cubit.dart';
+import 'package:ben_kimim/presentation/all_decks/widgets/ciz_decks.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'splash_state.dart';
@@ -32,6 +34,7 @@ class SplashCubit extends Cubit<SplashState> {
       final canlandirDecksCubit = context.read<CanlandirDecksCubit>();
       final gunlukYasamDecksCubit = context.read<GunlukYasamDecksCubit>();
       final bilimVeGenelKDecksCubit = context.read<BilimVeGenelKDecksCubit>();
+      final cizDecksCubit = context.read<CizDecksCubit>();
 
       // DÜZELTME BURADA: Hata nedeniyle Future.wait'in tip parametresi <void> olarak ayarlandı.
       await Future.wait<void>([
@@ -41,7 +44,8 @@ class SplashCubit extends Cubit<SplashState> {
         diziFilmDecksCubit.loadDiziFilmDecks(),
         canlandirDecksCubit.loadCanlandirDecks(),
         gunlukYasamDecksCubit.loadGunlukYasamDecks(),
-        bilimVeGenelKDecksCubit.loadBilimVeGenelKDecks()
+        bilimVeGenelKDecksCubit.loadBilimVeGenelKDecks(),
+        cizDecksCubit.loadCizDecks()
       ]);
 
       // Minimum yükleme süresi bekle (kullanıcı deneyimi için)

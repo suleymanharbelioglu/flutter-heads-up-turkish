@@ -8,4 +8,5 @@ abstract class DeckRepo {
   Future<Either> getDiziFilmDecks();
   Future<Either> getGunlukYasamDecks();
   Future<Either> getBilimVeGenelKDecks();
+  Future<Either> getCizDecks();
 }

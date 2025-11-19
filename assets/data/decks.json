@@ -26,22 +26,110 @@
     "categoryNameList": [
       "Popular"
     ],
-    "onGorselAdress": "assets/images/deck_images/deneme.jpg",
-    "arkaGorselAdress": "assets/images/deck_images/deneme.jpg",
+    "onGorselAdress": "assets/images/deck_images/markalar.jpg",
+    "arkaGorselAdress": "assets/images/deck_images/markalar_arka.jpg",
     "namesFilePath": "assets/data/names/markalar_nameList.json",
     "deckTextColor": "0xFF344F2B",
     "deckDescription": "Araba mı üretiyor? Yerli bir marka mı?...\nBu deste, populer markaları içeriyor.\nArkadaşlarına sorular sor ve ipuçlarından yola çıkarak hangi marka olduğunu tahmin et."
   },
   {
-    "deckName": "Ciz",
+    "deckName": "Çiz",
     "categoryNameList": [
-      "Popular"
+      "Ciz"
     ],
     "onGorselAdress": "assets/images/deck_images/deneme.jpg",
     "arkaGorselAdress": "assets/images/deck_images/deneme.jpg",
     "namesFilePath": "assets/data/names/ciz_nameList.json",
     "deckTextColor": "0xFF344F2B",
-    "deckDescription": "Araba mı üretiyor? Yerli bir marka mı?...\nBu deste, populer markaları içeriyor.\nArkadaşlarına sorular sor ve ipuçlarından yola çıkarak hangi marka olduğunu tahmin et."
+    "deckDescription": "Emzik? Muz mu?...\nBu deste, populer markaları içeriyor.\nArkadaşlarına sorular sor ve ipuçlarından yola çıkarak hangi marka olduğunu tahmin et."
+  },
+  {
+    "deckName": "Çiz 2",
+    "categoryNameList": [
+      "Ciz"
+    ],
+    "onGorselAdress": "assets/images/deck_images/deneme.jpg",
+    "arkaGorselAdress": "assets/images/deck_images/deneme.jpg",
+    "namesFilePath": "assets/data/names/ciz_2_nameList.json",
+    "deckTextColor": "0xFF344F2B",
+    "deckDescription": "Emzik? Muz mu?...\nBu deste, populer markaları içeriyor.\nArkadaşlarına sorular sor ve ipuçlarından yola çıkarak hangi marka olduğunu tahmin et."
+  },
+  {
+    "deckName": "Animeler",
+    "categoryNameList": [
+      "Popular"
+    ],
+    "onGorselAdress": "assets/images/deck_images/deneme.jpg",
+    "arkaGorselAdress": "assets/images/deck_images/deneme.jpg",
+    "namesFilePath": "assets/data/names/animeler_nameList.json",
+    "deckTextColor": "0xFF344F2B",
+    "deckDescription": "Emzik? Muz mu?...\nBu deste, populer markaları içeriyor.\nArkadaşlarına sorular sor ve ipuçlarından yola çıkarak hangi marka olduğunu tahmin et."
+  },
+  {
+    "deckName": "İnternet Ünlüleri",
+    "categoryNameList": [
+      "Popular"
+    ],
+    "onGorselAdress": "assets/images/deck_images/deneme.jpg",
+    "arkaGorselAdress": "assets/images/deck_images/deneme.jpg",
+    "namesFilePath": "assets/data/names/internet_ünlüleri_nameList.json",
+    "deckTextColor": "0xFF344F2B",
+    "deckDescription": "Emzik? Muz mu?...\nBu deste, populer markaları içeriyor.\nArkadaşlarına sorular sor ve ipuçlarından yola çıkarak hangi marka olduğunu tahmin et."
+  },
+  {
+    "deckName": "Süper Kahramanlar",
+    "categoryNameList": [
+      "Popular"
+    ],
+    "onGorselAdress": "assets/images/deck_images/deneme.jpg",
+    "arkaGorselAdress": "assets/images/deck_images/deneme.jpg",
+    "namesFilePath": "assets/data/names/super_kahramanlar_nameList.json",
+    "deckTextColor": "0xFF344F2B",
+    "deckDescription": "Emzik? Muz mu?...\nBu deste, populer markaları içeriyor.\nArkadaşlarına sorular sor ve ipuçlarından yola çıkarak hangi marka olduğunu tahmin et."
+  },
+  {
+    "deckName": "İnsan Bedeni",
+    "categoryNameList": [
+      "Bilim & Genel Kültür"
+    ],
+    "onGorselAdress": "assets/images/deck_images/deneme.jpg",
+    "arkaGorselAdress": "assets/images/deck_images/deneme.jpg",
+    "namesFilePath": "assets/data/names/insan_bedeni_nameList.json",
+    "deckTextColor": "0xFF344F2B",
+    "deckDescription": "Emzik? Muz mu?...\nBu deste, populer markaları içeriyor.\nArkadaşlarına sorular sor ve ipuçlarından yola çıkarak hangi marka olduğunu tahmin et."
+  },
+  {
+    "deckName": "Hisler",
+    "categoryNameList": [
+      "Canlandır"
+    ],
+    "onGorselAdress": "assets/images/deck_images/deneme.jpg",
+    "arkaGorselAdress": "assets/images/deck_images/deneme.jpg",
+    "namesFilePath": "assets/data/names/hisler_nameList.json",
+    "deckTextColor": "0xFF344F2B",
+    "deckDescription": "Emzik? Muz mu?...\nBu deste, populer markaları içeriyor.\nArkadaşlarına sorular sor ve ipuçlarından yola çıkarak hangi marka olduğunu tahmin et."
+  },
+  {
+    "deckName": "Cizgi Filmler",
+    "categoryNameList": [
+      "Dizi/Film"
+    ],
+    "onGorselAdress": "assets/images/deck_images/deneme.jpg",
+    "arkaGorselAdress": "assets/images/deck_images/deneme.jpg",
+    "namesFilePath": "assets/data/names/cizgi_filmler_nameList.json",
+    "deckTextColor": "0xFF344F2B",
+    "deckDescription": "Emzik? Muz mu?...\nBu deste, populer markaları içeriyor.\nArkadaşlarına sorular sor ve ipuçlarından yola çıkarak hangi marka olduğunu tahmin et."
+  },
+  {
+    "deckName": "Uygulamalar",
+    "categoryNameList": [
+      "Popular"
+    ],
+    "onGorselAdress": "assets/images/deck_images/deneme.jpg",
+    "arkaGorselAdress": "assets/images/deck_images/deneme.jpg",
+    "namesFilePath": "assets/data/names/uygulamalar_nameList.json",
+    "deckTextColor": "0xFF344F2B",
+    "deckDescription": "Emzik? Muz mu?...\nBu deste, populer markaları içeriyor.\nArkadaşlarına sorular sor ve ipuçlarından yola çıkarak hangi marka olduğunu tahmin et."
   },
   {
     "deckName": "Türk Mutfağı",

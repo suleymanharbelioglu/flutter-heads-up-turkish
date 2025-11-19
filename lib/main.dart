@@ -1,6 +1,7 @@
 import 'package:ben_kimim/core/configs/theme/app_theme.dart';
 import 'package:ben_kimim/presentation/all_decks/bloc/bilim_ve_genelk_decks_cubit.dart';
 import 'package:ben_kimim/presentation/all_decks/bloc/canlandir_decks_cubit.dart';
+import 'package:ben_kimim/presentation/all_decks/bloc/ciz_decks_cubit.dart';
 import 'package:ben_kimim/presentation/all_decks/bloc/dizi_film_decks_cubit.dart';
 import 'package:ben_kimim/presentation/all_decks/bloc/gunluk_yasam_decks_cubit.dart';
 import 'package:ben_kimim/presentation/all_decks/bloc/muzik_decks_cubit.dart';
@@ -62,6 +63,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => BilimVeGenelKDecksCubit(),
+        ),
+         BlocProvider(
+          create: (context) => CizDecksCubit(),
         ),
       ],
       child: MaterialApp(

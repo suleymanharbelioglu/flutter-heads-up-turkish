@@ -13,6 +13,7 @@ abstract class DeckService {
   Future<Either<String, List<DeckEntity>>> getDiziFilmDecks();
   Future<Either<String, List<DeckEntity>>> getGunlukYasamDecks();
   Future<Either<String, List<DeckEntity>>> getBilimVeGenelKDecks();
+  Future<Either<String, List<DeckEntity>>> getCizDecks();
 }
 
 class DeckServiceImpl extends DeckService {
@@ -139,6 +140,21 @@ class DeckServiceImpl extends DeckService {
       return Right(list);
     } catch (e) {
       return const Left("Günlük Yaşam deck list problem");
+    }
+  }
+  
+  @override
+  Future<Either<String, List<DeckEntity>>> getCizDecks() async {
+    print("Ciz deck start");
+    try {
+      final result = await _loadDecks();
+      final list = result
+          .where((d) => d.categoryNameList.contains('Ciz'))
+          .toList();
+      print("Ciz deck count: ${list.length}");
+      return Right(list);
+    } catch (e) {
+      return const Left("Ciz deck list problem");
     }
   }
 }
