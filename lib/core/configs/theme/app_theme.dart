@@ -7,19 +7,18 @@ class AppTheme {
     scaffoldBackgroundColor: Colors.white,
     primaryColor: AppColors.primary,
     appBarTheme: AppBarTheme(
-      
       backgroundColor: AppColors.primary,
       centerTitle: true,
-      titleTextStyle: GoogleFonts.fredoka(
+      titleTextStyle: GoogleFonts.nunito(
         color: Colors.white,
         fontSize: 30,
         fontWeight: FontWeight.w700,
       ),
     ),
-    textTheme: GoogleFonts.fredokaTextTheme(), // 🎨 Tüm metinlere uygula
+    textTheme: GoogleFonts.nunitoTextTheme(), // 🎨 Tüm metinlere uygula
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        textStyle: GoogleFonts.fredoka(
+        textStyle: GoogleFonts.nunito(
           fontSize: 18,
           fontWeight: FontWeight.w700,
         ),
