@@ -39,7 +39,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        // startSplash() çağrısı SplashPage'e taşındı. Sadece Cubit oluşturuluyor.
         BlocProvider(create: (context) => SplashCubit()),
         BlocProvider(create: (context) => TimerCubit()),
         BlocProvider(create: (context) => DisplayCurrentCardListCubit()),
@@ -49,7 +48,6 @@ class MyApp extends StatelessWidget {
           create: (context) =>
               CurrentNameCubit(context.read<DisplayCurrentCardListCubit>()),
         ),
-        // KRİTİK DEĞİŞİKLİK: TÜM YÜKLEME ÇAĞRILARI BURADAN KALDIRILDI.
         BlocProvider(
           create: (context) => PopularDecksCubit(),
         ),
@@ -82,8 +80,6 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        // Projenizdeki temanın doğru yolu: lib/config/theme.dart'ı referans alarak import etmelisiniz.
-        // Konuşma geçmişine göre: import 'package:ben_kimim/core/configs/theme/app_theme.dart';
         theme: AppTheme.appTheme,
         title: 'Ben Kimim',
         home: SplashPage(),
