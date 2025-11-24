@@ -88,7 +88,6 @@ class _DeckFlipState extends State<DeckFlip>
               child: Center(
                 child: Stack(
                   children: [
-                    // SİYAH DIŞ ÇİZGİ
                     Text(
                       widget.deck.deckName,
                       textAlign: TextAlign.center,
@@ -101,7 +100,6 @@ class _DeckFlipState extends State<DeckFlip>
                           ..color = Colors.black,
                       ),
                     ),
-                    // BEYAZ İÇ DOLGU
                     Text(
                       widget.deck.deckName,
                       textAlign: TextAlign.center,
@@ -134,7 +132,6 @@ class _DeckFlipState extends State<DeckFlip>
               padding: const EdgeInsets.only(top: 20),
               child: Stack(
                 children: [
-                  // SİYAH DIŞ ÇİZGİ
                   Text(
                     widget.deck.deckName,
                     textAlign: TextAlign.center,
@@ -147,7 +144,6 @@ class _DeckFlipState extends State<DeckFlip>
                         ..color = Colors.black,
                     ),
                   ),
-                  // BEYAZ İÇ DOLGU
                   Text(
                     widget.deck.deckName,
                     textAlign: TextAlign.center,
@@ -168,7 +164,6 @@ class _DeckFlipState extends State<DeckFlip>
                   children: [
                     Stack(
                       children: [
-                        // SİYAH DIŞ ÇİZGİ
                         Text(
                           widget.deck.deckDescription,
                           textAlign: TextAlign.center,
@@ -177,12 +172,10 @@ class _DeckFlipState extends State<DeckFlip>
                             fontWeight: FontWeight.w600,
                             foreground: Paint()
                               ..style = PaintingStyle.stroke
-                              ..strokeWidth =
-                                  3 // Kontur kalınlığı (istersen 2 veya 4 yapabilirsin)
+                              ..strokeWidth = 3
                               ..color = Colors.black,
                           ),
                         ),
-                        // BEYAZ İÇ DOLGU
                         Text(
                           widget.deck.deckDescription,
                           textAlign: TextAlign.center,
@@ -195,15 +188,13 @@ class _DeckFlipState extends State<DeckFlip>
                       ],
                     ),
                     const SizedBox(height: 20),
-
-                    // Timer kontrol alanı
                     BlocBuilder<TimerCubit, int>(
                       builder: (context, state) {
                         return Padding(
                           padding: const EdgeInsets.only(
                             top: 40,
                             bottom: 30,
-                          ), // alta yakın konum
+                          ),
                           child: Align(
                             alignment: Alignment.bottomCenter,
                             child: Container(
@@ -219,20 +210,18 @@ class _DeckFlipState extends State<DeckFlip>
                                 width: 160,
                                 height: 35,
                                 decoration: BoxDecoration(
-                                  color: Colors
-                                      .white, // mavi arka plan (görseldeki gibi)
+                                  color: Colors.white,
                                   borderRadius: BorderRadius.circular(25),
                                 ),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    // - butonu
                                     Container(
                                       width: 50,
                                       height: 50,
                                       decoration: const BoxDecoration(
-                                        color: Color(0xFF339CFF), // yeşil ton
+                                        color: Color(0xFF339CFF),
                                         borderRadius: BorderRadius.only(
                                           topLeft: Radius.circular(25),
                                           bottomLeft: Radius.circular(25),
@@ -249,8 +238,6 @@ class _DeckFlipState extends State<DeckFlip>
                                             .decrease(),
                                       ),
                                     ),
-
-                                    // Süre metni
                                     Expanded(
                                       child: Center(
                                         child: Text(
@@ -263,8 +250,6 @@ class _DeckFlipState extends State<DeckFlip>
                                         ),
                                       ),
                                     ),
-
-                                    // + butonu
                                     Container(
                                       width: 50,
                                       height: 50,
@@ -294,7 +279,6 @@ class _DeckFlipState extends State<DeckFlip>
                         );
                       },
                     ),
-
                     const SizedBox(height: 16),
                   ],
                 ),
@@ -327,7 +311,6 @@ class _DeckFlipState extends State<DeckFlip>
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // 🔹 Geri butonu — ok şeklinde arka plan
           GestureDetector(
             onTap: _flipBackAndClose,
             child: CustomPaint(
@@ -345,8 +328,6 @@ class _DeckFlipState extends State<DeckFlip>
               ),
             ),
           ),
-
-          // 🔹 Oyna butonu (mavi, beyaz kenarlıklı)
           GestureDetector(
             onTap: () async {
               await context.read<DisplayCurrentCardListCubit>().loadCardNames(

@@ -30,7 +30,6 @@ class DeckServiceImpl extends DeckService {
 
   Future<List<DeckEntity>> _loadDecks() async {
     if (_cachedDecks != null) {
-      print("Decks loaded from cache");
       return _cachedDecks!;
     }
 
@@ -40,10 +39,8 @@ class DeckServiceImpl extends DeckService {
       // ✅ JSON parsing işlemini başka isolate’ta yapıyoruz
       _cachedDecks = await compute(_parseDecks, jsonString);
 
-      print("Decks loaded from JSON file");
       return _cachedDecks!;
     } catch (e) {
-      print("json file problem: $e");
       rethrow;
     }
   }
@@ -54,7 +51,6 @@ class DeckServiceImpl extends DeckService {
       final result = await _loadDecks();
       final list =
           result.where((d) => d.categoryNameList.contains('Popular')).toList();
-      print("Popular deck count: ${list.length}");
       return Right(list);
     } catch (e) {
       return const Left("Popular deck list problem");
@@ -67,7 +63,6 @@ class DeckServiceImpl extends DeckService {
       final result = await _loadDecks();
       final list =
           result.where((d) => d.categoryNameList.contains('Müzik')).toList();
-      print("Müzik deck count: ${list.length}");
       return Right(list);
     } catch (e) {
       return const Left("Müzik deck list problem");
@@ -81,7 +76,6 @@ class DeckServiceImpl extends DeckService {
       final list = result
           .where((d) => d.categoryNameList.contains('Canlandır'))
           .toList();
-      print("Canlandır deck count: ${list.length}");
       return Right(list);
     } catch (e) {
       return const Left("Canlandır deck list problem");
@@ -95,7 +89,6 @@ class DeckServiceImpl extends DeckService {
       final list = result
           .where((d) => d.categoryNameList.contains('Dizi/Film'))
           .toList();
-      print("Dizi/Film deck count: ${list.length}");
       return Right(list);
     } catch (e) {
       return const Left("Dizi/Film deck list problem");
@@ -104,12 +97,10 @@ class DeckServiceImpl extends DeckService {
 
   @override
   Future<Either<String, List<DeckEntity>>> getSporDecks() async {
-    print("Spor deck start");
     try {
       final result = await _loadDecks();
       final list =
           result.where((d) => d.categoryNameList.contains('Spor')).toList();
-      print("Spor deck count: ${list.length}");
       return Right(list);
     } catch (e) {
       return const Left("Spor deck list problem");
@@ -118,13 +109,11 @@ class DeckServiceImpl extends DeckService {
 
   @override
   Future<Either<String, List<DeckEntity>>> getBilimVeGenelKDecks() async {
-    print("Bilim & Genel Kültür deck start");
     try {
       final result = await _loadDecks();
       final list = result
           .where((d) => d.categoryNameList.contains('Bilim & Genel Kültür'))
           .toList();
-      print("Bilim & Genel Kültür deck count: ${list.length}");
       return Right(list);
     } catch (e) {
       return const Left("Bilim & Genel Kültür deck list problem");
@@ -133,13 +122,11 @@ class DeckServiceImpl extends DeckService {
 
   @override
   Future<Either<String, List<DeckEntity>>> getGunlukYasamDecks() async {
-    print("Günlük Yaşam deck start");
     try {
       final result = await _loadDecks();
       final list = result
           .where((d) => d.categoryNameList.contains('Günlük Yaşam'))
           .toList();
-      print("Günlük Yaşam deck count: ${list.length}");
       return Right(list);
     } catch (e) {
       return const Left("Günlük Yaşam deck list problem");
@@ -148,12 +135,10 @@ class DeckServiceImpl extends DeckService {
 
   @override
   Future<Either<String, List<DeckEntity>>> getCizDecks() async {
-    print("Ciz deck start");
     try {
       final result = await _loadDecks();
       final list =
           result.where((d) => d.categoryNameList.contains('Ciz')).toList();
-      print("Ciz deck count: ${list.length}");
       return Right(list);
     } catch (e) {
       return const Left("Ciz deck list problem");
@@ -162,13 +147,11 @@ class DeckServiceImpl extends DeckService {
 
   @override
   Future<Either<String, List<DeckEntity>>> getCizgiFilmAnimeDecks() async {
-    print("CizgiFilmAnime deck start");
     try {
       final result = await _loadDecks();
       final list = result
           .where((d) => d.categoryNameList.contains('CizgiFilmAnime'))
           .toList();
-      print("CizgiFilmAnime deck count: ${list.length}");
       return Right(list);
     } catch (e) {
       return const Left("CizgiFilmAnime deck list problem");
@@ -177,12 +160,10 @@ class DeckServiceImpl extends DeckService {
 
   @override
   Future<Either<String, List<DeckEntity>>> getUnlulerDecks() async {
-    print("Unluler deck start");
     try {
       final result = await _loadDecks();
       final list =
           result.where((d) => d.categoryNameList.contains('Unluler')).toList();
-      print("Unluler deck count: ${list.length}");
       return Right(list);
     } catch (e) {
       return const Left("Unluler deck list problem");
@@ -191,12 +172,10 @@ class DeckServiceImpl extends DeckService {
 
   @override
   Future<Either<String, List<DeckEntity>>> getYemeklerDecks() async {
-    print("Yemekler deck start");
     try {
       final result = await _loadDecks();
       final list =
           result.where((d) => d.categoryNameList.contains('Yemekler')).toList();
-      print("Yemekler deck count: ${list.length}");
       return Right(list);
     } catch (e) {
       return const Left("Yemekler deck list problem");

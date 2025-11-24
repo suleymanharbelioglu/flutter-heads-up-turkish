@@ -46,7 +46,6 @@ class _GameResultPageState extends State<GameResultPage> {
     super.dispose();
   }
 
-  // 🔹 Sayfa Yapısı
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -78,7 +77,6 @@ class _GameResultPageState extends State<GameResultPage> {
     );
   }
 
-  // 🔸 Üst Bar
   Widget _buildTopBar(BuildContext context) {
     return Container(
       width: double.infinity,
@@ -96,7 +94,6 @@ class _GameResultPageState extends State<GameResultPage> {
     );
   }
 
-  // 🔸 Başlık (Toplam kelime sayısı)
   Widget _buildHeader(int correctCount) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
@@ -114,7 +111,6 @@ class _GameResultPageState extends State<GameResultPage> {
     );
   }
 
-  // 🔸 Liste + Scroll Bar
   Widget _buildScrollableResultList(List<CardResultModel> resultList) {
     return Expanded(
       child: LayoutBuilder(
@@ -136,7 +132,6 @@ class _GameResultPageState extends State<GameResultPage> {
     );
   }
 
-  // 🔹 Liste görünümü
   Widget _buildResultListView(List<CardResultModel> resultList) {
     return ListView.builder(
       controller: _scrollController,
@@ -149,7 +144,6 @@ class _GameResultPageState extends State<GameResultPage> {
     );
   }
 
-  // 🔹 Scroll Bar (hareket eden beyaz çubuk)
   Widget _buildScrollIndicator(double thumbTop, double thumbHeight) {
     return Positioned(
       right: 10,
@@ -165,7 +159,6 @@ class _GameResultPageState extends State<GameResultPage> {
     );
   }
 
-  // 🔸 Tekrar Oyna Butonu
   Widget _buildPlayAgainButton(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
@@ -193,13 +186,12 @@ class _GameResultPageState extends State<GameResultPage> {
     );
   }
 
-  // 🔹 Tekrar Oyna Butonu Fonksiyonu
   Future<void> _onPlayAgainPressed(BuildContext context) async {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (_) => const PhoneToForeheadPage()),
     );
-    // Navigasyon tamamlandıktan sonra cubitleri sıfırla
+
     await Future.delayed(const Duration(milliseconds: 200));
 
     if (mounted) {
@@ -207,14 +199,13 @@ class _GameResultPageState extends State<GameResultPage> {
     }
   }
 
-  // 🔹 Cubit Resetleme
   void _resetCubits(BuildContext context) {
+    print("reset cubits**************");
     context.read<CurrentNameCubit>().reset();
     context.read<ScoreCubit>().reset();
     context.read<ResultCubit>().reset();
   }
 
-  // 🔹 Anasayfaya Dön
   void _navigateToHome(BuildContext context) {
     _resetCubits(context);
     Navigator.pushReplacement(
@@ -224,7 +215,6 @@ class _GameResultPageState extends State<GameResultPage> {
   }
 }
 
-// 🔸 Liste Elemanı Widget’ı
 class _ResultListItem extends StatelessWidget {
   final CardResultModel result;
   const _ResultListItem({required this.result});

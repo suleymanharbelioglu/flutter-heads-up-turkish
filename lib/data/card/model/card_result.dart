@@ -1,6 +1,6 @@
 class CardResultModel {
-  final String word; // kelime
-  final bool isCorrect; // doğru mu (true) yoksa pass mi (false)
+  final String word; 
+  final bool isCorrect; 
 
   CardResultModel({required this.word, required this.isCorrect});
 }

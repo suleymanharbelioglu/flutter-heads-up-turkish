@@ -20,7 +20,6 @@ class DeckCover extends StatelessWidget {
       },
       child: Stack(
         children: [
-          // Görsel Hero
           Hero(
             tag: "image_${deck.deckName}",
             child: ClipRRect(
@@ -30,7 +29,6 @@ class DeckCover extends StatelessWidget {
                 fit: BoxFit.cover,
                 width: double.infinity,
                 height: double.infinity,
-                // Resim yüklenene kadar animasyon
                 frameBuilder: (BuildContext context, Widget child, int? frame,
                     bool wasSynchronouslyLoaded) {
                   if (wasSynchronouslyLoaded) {
@@ -52,9 +50,8 @@ class DeckCover extends StatelessWidget {
               ),
             ),
           ),
-          // Başlık Hero
           Positioned(
-            top: 8, // Üstten mesafe
+            top: 8,
             left: 0,
             right: 0,
             child: Hero(
@@ -62,10 +59,9 @@ class DeckCover extends StatelessWidget {
               child: Material(
                 color: Colors.transparent,
                 child: Container(
-                    alignment: Alignment.topCenter, // Üst merkez
+                    alignment: Alignment.topCenter,
                     child: Stack(
                       children: [
-                        // Siyah kenarlık (arka katman)
                         Text(
                           deck.deckName,
                           textAlign: TextAlign.center,
@@ -77,10 +73,9 @@ class DeckCover extends StatelessWidget {
                             foreground: Paint()
                               ..style = PaintingStyle.stroke
                               ..strokeWidth = 3
-                              ..color = Colors.black, // Kenarlık rengi
+                              ..color = Colors.black,
                           ),
                         ),
-                        // Ana renkli yazı (üst katman)
                         Text(
                           deck.deckName,
                           textAlign: TextAlign.center,
@@ -89,7 +84,7 @@ class DeckCover extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 19,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white, // Orijinal renk
+                            color: Colors.white,
                           ),
                         ),
                       ],
