@@ -286,7 +286,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
           text,
           textAlign: TextAlign.center,
           style: const TextStyle(
-            fontSize: 72,
+            fontSize: 70,
             fontWeight: FontWeight.bold,
             color: Colors.white,
           ),
