@@ -1,6 +1,4 @@
-import 'package:ben_kimim/common/navigator/app_navigator.dart';
 import 'package:ben_kimim/core/configs/assets/app_images.dart';
-import 'package:ben_kimim/presentation/all_decks/pages/all_decks.dart';
 import 'package:flutter/material.dart';
 
 class HowToPlayPage extends StatelessWidget {
@@ -22,52 +20,53 @@ class HowToPlayPage extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.fromLTRB(16, 40, 16, 16),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             InstructionItem(
               description:
-                  "Telefonu alnınıza yerleştirin. Arkadaşlarınızın verdiği ipuçları veya taklitlerden yararlanarak kelimeyi tahmin etmeye çalışın.",
+                  "  Oynamak istediğin desteyi seç. Telefonu alnın yerşeltir. Deste kartındaki kurallara göre kelimeyi tahim et!",
               imagePath: AppImages.game,
             ),
             const SizedBox(height: 40),
             InstructionItem(
               description:
-                  "Kelimeyi doğru bildiğinizde telefonu aşağı doğru eğin.",
+                  "  Kelimeyi doğru bilirsen telefonu ekranını aşağı doğru cevir.",
               imagePath: AppImages.correct,
             ),
             const SizedBox(height: 40),
             InstructionItem(
               description:
-                  "Pass geçmek isterseniz telefonu yukarı doğru kaldırın.",
+                  " Pass geçmek için telefonu ekranını yukarı doğru çevir.",
               imagePath: AppImages.pass,
             ),
-            const Spacer(),
-            Center(
-              child: SizedBox(
-                width: 240,
-                height: 70,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.green,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    elevation: 5,
-                  ),
-                  onPressed: () {
-                    AppNavigator.push(context, AllDecksPage());
-                  },
-                  child: const Text(
-                    "Devam Et",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 0.5,
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            // const Spacer(),
+            // Center(
+            //   child: SizedBox(
+            //     width: 240,
+            //     height: 70,
+            //     child: ElevatedButton(
+            //       style: ElevatedButton.styleFrom(
+            //         backgroundColor: Colors.green,
+            //         shape: RoundedRectangleBorder(
+            //           borderRadius: BorderRadius.circular(16),
+            //         ),
+            //         elevation: 5,
+            //       ),
+            //       onPressed: () {
+            //         AppNavigator.push(context, AllDecksPage());
+            //       },
+            //       child: const Text(
+            //         "Devam Et",
+            //         style: TextStyle(
+            //           color: Colors.white,
+            //           fontSize: 28,
+            //           fontWeight: FontWeight.bold,
+            //           letterSpacing: 0.5,
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),
