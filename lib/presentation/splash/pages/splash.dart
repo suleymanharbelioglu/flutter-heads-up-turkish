@@ -23,7 +23,6 @@ class SplashPage extends StatelessWidget {
       listener: (context, state) {
         if (state is SplashNavigate) {
           // Yükleme bitti, BottomNavPage'e geçiş yap
-          print("bottom Nav page geçiş ...........");
           AppNavigator.pushAndRemove(context, const BottomNavPage());
         }
       },

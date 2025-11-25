@@ -21,12 +21,15 @@ import 'package:ben_kimim/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await MobileAds.instance.initialize(); // AdMob başlat
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp, // varsayılan dikey
   ]);
+
   await initializeDependencies();
 
   runApp(const MyApp());

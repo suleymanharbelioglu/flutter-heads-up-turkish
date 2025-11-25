@@ -40,14 +40,11 @@ class DisplayCurrentCardListCubit extends Cubit<DisplayCurrentCardListState> {
     final index = _random.nextInt(_availableNames.length);
     final name = _availableNames[index];
     _availableNames.removeAt(index);
-    print("${_availableNames.length} ...............");
-    print("${_availableNames.toString()} ...............");
     return name;
   }
 
   /// Cubit ve listeleri tamamen resetle
   void reset() {
-    print("isim lsitsi resetlendi.............. ");
     _allNames.clear();
     _availableNames.clear();
     emit(DisplayCurrentCardListInitial());

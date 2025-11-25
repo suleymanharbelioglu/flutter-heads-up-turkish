@@ -8,6 +8,7 @@ import 'package:ben_kimim/presentation/phone_to_forhead/page/phone_to_forhead.da
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class GameResultPage extends StatefulWidget {
   const GameResultPage({super.key});
@@ -21,12 +22,50 @@ class _GameResultPageState extends State<GameResultPage> {
   double _scrollPosition = 0.0;
   double _scrollMax = 1.0;
 
+  BannerAd? _bannerAd;
+  bool _isAdLoaded = false;
+  AdSize? _adSize;
+
   @override
   void initState() {
     super.initState();
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
     _scrollController.addListener(_onScroll);
+
+    // Adaptive Banner yükleme
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _loadAdaptiveBanner();
+    });
+  }
+
+  Future<void> _loadAdaptiveBanner() async {
+    final double width = MediaQuery.of(context).size.width;
+
+    final AnchoredAdaptiveBannerAdSize? size =
+        await AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
+      width.truncate(),
+    );
+
+    if (size == null) return;
+
+    _adSize = size;
+
+    _bannerAd = BannerAd(
+      adUnitId: 'ca-app-pub-6970688308215711/7606026846', // Senin Banner ID
+      size: size,
+      request: const AdRequest(),
+      listener: BannerAdListener(
+        onAdLoaded: (_) {
+          setState(() {
+            _isAdLoaded = true;
+          });
+        },
+        onAdFailedToLoad: (ad, error) {
+          ad.dispose();
+        },
+      ),
+    )..load();
   }
 
   void _onScroll() {
@@ -43,6 +82,7 @@ class _GameResultPageState extends State<GameResultPage> {
   void dispose() {
     _scrollController.removeListener(_onScroll);
     _scrollController.dispose();
+    _bannerAd?.dispose();
     super.dispose();
   }
 
@@ -68,6 +108,14 @@ class _GameResultPageState extends State<GameResultPage> {
                   const SizedBox(height: 8),
                   _buildScrollableResultList(resultList),
                   _buildPlayAgainButton(context),
+
+                  // ✅ Adaptive Banner (Ekran genişliğini kaplar)
+                  if (_isAdLoaded && _bannerAd != null && _adSize != null)
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      height: _adSize!.height.toDouble(),
+                      child: AdWidget(ad: _bannerAd!),
+                    ),
                 ],
               );
             },
@@ -200,7 +248,6 @@ class _GameResultPageState extends State<GameResultPage> {
   }
 
   void _resetCubits(BuildContext context) {
-    print("reset cubits**************");
     context.read<CurrentNameCubit>().reset();
     context.read<ScoreCubit>().reset();
     context.read<ResultCubit>().reset();

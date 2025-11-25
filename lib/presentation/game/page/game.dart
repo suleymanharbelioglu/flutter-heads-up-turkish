@@ -307,7 +307,6 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
   }
 
   void _onBackPressed() {
-    print("on back pressed ..............");
     setState(() => _isPaused = true);
     _showPauseDialog();
     SoundHelper.pauseLastSeconds();

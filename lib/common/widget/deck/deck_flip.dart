@@ -6,6 +6,7 @@ import 'package:ben_kimim/presentation/game/bloc/display_current_card_list_cubit
 import 'package:ben_kimim/presentation/game/bloc/timer_cubit.dart';
 import 'package:ben_kimim/presentation/phone_to_forhead/page/phone_to_forhead.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ben_kimim/domain/deck/entity/deck.dart';
 
@@ -28,6 +29,10 @@ class _DeckFlipState extends State<DeckFlip>
   void initState() {
     super.initState();
     _initAnimation();
+    // Yalnızca dikey (portrait) mod
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
     _autoFlip();
   }
 
@@ -298,10 +303,21 @@ class _DeckFlipState extends State<DeckFlip>
       height: MediaQuery.of(context).size.width * 1.5,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        image: DecorationImage(image: AssetImage(imagePath), fit: BoxFit.cover),
         boxShadow: const [BoxShadow(color: Colors.black38, blurRadius: 20)],
       ),
-      child: child,
+      clipBehavior: Clip.hardEdge, // borderRadius ile uyumlu kesme
+      child: Stack(
+        children: [
+          Image.asset(
+            imagePath,
+            fit: BoxFit.cover,
+            width: double.infinity,
+            height: double.infinity,
+            gaplessPlayback: true, // Hero animasyonu sorunsuz olur
+          ),
+          if (child != null) child,
+        ],
+      ),
     );
   }
 

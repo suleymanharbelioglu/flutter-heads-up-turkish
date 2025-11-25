@@ -67,7 +67,6 @@ class _PhoneToForeheadPageState extends State<PhoneToForeheadPage> {
 
   @override
   Widget build(BuildContext context) {
-    print("countdown started $countdownStarted");
     return PopScope(
       canPop: false, // 🔒 Tüm "pop" işlemlerini (geri çıkma) engeller
       onPopInvoked: (didPop) {

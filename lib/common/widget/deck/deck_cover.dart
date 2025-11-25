@@ -9,7 +9,9 @@ class DeckCover extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
+      onTap: () async {
+        await precacheImage(AssetImage(deck.onGorselAdress), context);
+        await precacheImage(AssetImage(deck.arkaGorselAdress), context);
         Navigator.of(context).push(
           PageRouteBuilder(
             pageBuilder: (_, __, ___) => DeckFlip(deck: deck),
@@ -29,24 +31,7 @@ class DeckCover extends StatelessWidget {
                 fit: BoxFit.cover,
                 width: double.infinity,
                 height: double.infinity,
-                frameBuilder: (BuildContext context, Widget child, int? frame,
-                    bool wasSynchronouslyLoaded) {
-                  if (wasSynchronouslyLoaded) {
-                    return child;
-                  }
-                  return AnimatedOpacity(
-                    opacity: frame == null ? 0 : 1,
-                    duration: const Duration(milliseconds: 500),
-                    curve: Curves.easeOut,
-                    child: frame == null
-                        ? Center(
-                            child: CircularProgressIndicator(
-                              color: Colors.white,
-                            ),
-                          )
-                        : child,
-                  );
-                },
+                gaplessPlayback: true, // Hero animasyonunu sorunsuz yapar
               ),
             ),
           ),

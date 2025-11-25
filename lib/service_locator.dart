@@ -17,9 +17,6 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<DeckRepo>(DeckRepoImpl());
   sl.registerSingleton<CardRepo>(CardRepoImpl());
 
-  // usecase
-  // sl.registerSingleton<GetPopularDecksUseCase>(GetPopularDecksUseCase());
-  // sl.registerSingleton<GetMuzikDecksUseCase>(GetMuzikDecksUseCase());
 
   sl.registerSingleton<GetCurrentCardNameListUseCase>(
     GetCurrentCardNameListUseCase(),
