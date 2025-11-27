@@ -1,3 +1,4 @@
+import 'package:ben_kimim/common/navigator/app_navigator.dart';
 import 'package:ben_kimim/core/configs/theme/app_color.dart';
 import 'package:ben_kimim/data/card/model/card_result.dart';
 import 'package:ben_kimim/presentation/bottom_nav/page/bottom_nav.dart';
@@ -25,6 +26,8 @@ class _GameResultPageState extends State<GameResultPage> {
   BannerAd? _bannerAd;
   bool _isAdLoaded = false;
   AdSize? _adSize;
+  InterstitialAd? _interstitialAd;
+  bool _isAdReady = false;
 
   @override
   void initState() {
@@ -36,6 +39,52 @@ class _GameResultPageState extends State<GameResultPage> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _loadBanner();
     });
+    _loadInterstitial();
+  }
+
+  void _loadInterstitial() {
+    InterstitialAd.load(
+      adUnitId: 'ca-app-pub-6970688308215711/5433027759', // Test ID
+      request: const AdRequest(),
+      adLoadCallback: InterstitialAdLoadCallback(
+        onAdLoaded: (ad) {
+          _interstitialAd = ad;
+          _isAdReady = true;
+          _interstitialAd?.fullScreenContentCallback =
+              FullScreenContentCallback(
+            onAdDismissedFullScreenContent: (ad) {
+              ad.dispose();
+              _navigateToGamePage();
+            },
+            onAdFailedToShowFullScreenContent: (ad, error) {
+              ad.dispose();
+              _navigateToGamePage();
+            },
+          );
+        },
+        onAdFailedToLoad: (error) {
+          _isAdReady = false;
+          print("Interstitial failed to load: $error");
+        },
+      ),
+    );
+  }
+
+  Future<void> _showInterstitialThenNavigate() async {
+    // Reklam yüklenene kadar bekle
+    while (_interstitialAd == null) {
+      await Future.delayed(const Duration(milliseconds: 100));
+    }
+
+    if (_interstitialAd != null && _isAdReady) {
+      _interstitialAd?.show();
+    } else {
+      _navigateToGamePage();
+    }
+  }
+
+  void _navigateToGamePage() {
+    AppNavigator.pushReplacement(context, PhoneToForeheadPage());
   }
 
   Future<void> _loadBanner() async {
@@ -101,10 +150,7 @@ class _GameResultPageState extends State<GameResultPage> {
   }
 
   Future<void> _onPlayAgainPressed(BuildContext context) async {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (_) => const PhoneToForeheadPage()),
-    );
+    await _showInterstitialThenNavigate();
 
     await Future.delayed(const Duration(milliseconds: 200));
     if (mounted) _resetCubits(context);

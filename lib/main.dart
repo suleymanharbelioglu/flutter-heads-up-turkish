@@ -10,13 +10,14 @@ import 'package:ben_kimim/presentation/all_decks/bloc/popular_decks_cubit.dart';
 import 'package:ben_kimim/presentation/all_decks/bloc/spor_decks_cubit.dart';
 import 'package:ben_kimim/presentation/all_decks/bloc/unluler_decks_cubit.dart';
 import 'package:ben_kimim/presentation/all_decks/bloc/yemeker_decks_cubit.dart';
+import 'package:ben_kimim/presentation/bottom_nav/bloc/bottom_nav_cubit.dart';
 import 'package:ben_kimim/presentation/game/bloc/current_name_cubit.dart';
 import 'package:ben_kimim/presentation/game/bloc/display_current_card_list_cubit.dart';
 import 'package:ben_kimim/presentation/game/bloc/score_cubit.dart';
 import 'package:ben_kimim/presentation/game/bloc/timer_cubit.dart';
 import 'package:ben_kimim/presentation/game_result/bloc/result_cubit.dart';
 import 'package:ben_kimim/presentation/premium/bloc/plan_cubit.dart';
-import 'package:ben_kimim/presentation/premium/is_user_premium_cubit.dart';
+import 'package:ben_kimim/presentation/premium/bloc/is_user_premium_cubit.dart';
 import 'package:ben_kimim/presentation/splash/bloc/splash_cubit.dart';
 import 'package:ben_kimim/presentation/splash/pages/splash.dart';
 import 'package:ben_kimim/service_locator.dart';
@@ -89,6 +90,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => IsUserPremiumCubit(),
+        ),
+        BlocProvider(
+          create: (context) => BottomNavCubit(),
         ),
       ],
       child: MaterialApp(

@@ -2,9 +2,11 @@ import 'dart:math';
 import 'dart:ui';
 import 'package:ben_kimim/common/navigator/app_navigator.dart';
 import 'package:ben_kimim/core/configs/theme/app_color.dart';
+import 'package:ben_kimim/presentation/bottom_nav/bloc/bottom_nav_cubit.dart';
 import 'package:ben_kimim/presentation/game/bloc/display_current_card_list_cubit.dart';
 import 'package:ben_kimim/presentation/game/bloc/timer_cubit.dart';
 import 'package:ben_kimim/presentation/phone_to_forhead/page/phone_to_forhead.dart';
+import 'package:ben_kimim/presentation/premium/bloc/is_user_premium_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -168,6 +170,37 @@ class _DeckFlipState extends State<DeckFlip>
             ),
           ),
         ),
+        BlocBuilder<IsUserPremiumCubit, bool>(
+          builder: (context, userIsPremium) {
+            // Kilit gösterme koşulları
+            if (!widget.deck.isPremium ||
+                (widget.deck.isPremium && userIsPremium)) {
+              return const SizedBox.shrink();
+            }
+
+            // Kilit gösterilecek durum: deck premium ve kullanıcı premium değil
+            return Positioned(
+              right: 8,
+              bottom: 8,
+              child: Hero(
+                tag: "lock_${widget.deck.deckName}",
+                child: Container(
+                  width: 72,
+                  height: 72,
+                  decoration: BoxDecoration(
+                    color: Colors.black.withOpacity(0.5),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(
+                    Icons.lock,
+                    color: Colors.white,
+                    size: 40,
+                  ),
+                ),
+              ),
+            );
+          },
+        ),
       ],
     );
   }
@@ -241,94 +274,182 @@ class _DeckFlipState extends State<DeckFlip>
                       ],
                     ),
                     const SizedBox(height: 20),
-                    BlocBuilder<TimerCubit, int>(
-                      builder: (context, state) {
-                        return Padding(
-                          padding: const EdgeInsets.only(
-                            top: 40,
-                            bottom: 30,
-                          ),
-                          child: Align(
-                            alignment: Alignment.bottomCenter,
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 8,
-                                vertical: 4,
-                              ),
-                              decoration: BoxDecoration(
-                                color: Colors.transparent,
-                                borderRadius: BorderRadius.circular(30),
-                              ),
-                              child: Container(
-                                width: 160,
-                                height: 35,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(25),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                      width: 50,
-                                      height: 50,
-                                      decoration: const BoxDecoration(
-                                        color: Color(0xFF339CFF),
-                                        borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(25),
-                                          bottomLeft: Radius.circular(25),
-                                        ),
+                    BlocBuilder<IsUserPremiumCubit, bool>(
+                      builder: (context, userIsPremium) {
+                        // Eğer deck premium değilse Timer göster
+                        if (!widget.deck.isPremium) {
+                          return BlocBuilder<TimerCubit, int>(
+                            builder: (context, state) {
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.only(top: 40, bottom: 30),
+                                child: Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8, vertical: 4),
+                                    decoration: BoxDecoration(
+                                      color: Colors.transparent,
+                                      borderRadius: BorderRadius.circular(30),
+                                    ),
+                                    child: Container(
+                                      width: 160,
+                                      height: 35,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(25),
                                       ),
-                                      child: IconButton(
-                                        icon: const Icon(
-                                          Icons.remove,
-                                          color: Colors.white,
-                                          size: 24,
-                                        ),
-                                        onPressed: () => context
-                                            .read<TimerCubit>()
-                                            .decrease(),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Container(
+                                            width: 50,
+                                            height: 50,
+                                            decoration: const BoxDecoration(
+                                              color: Color(0xFF339CFF),
+                                              borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(25),
+                                                bottomLeft: Radius.circular(25),
+                                              ),
+                                            ),
+                                            child: IconButton(
+                                              icon: const Icon(Icons.remove,
+                                                  color: Colors.white,
+                                                  size: 24),
+                                              onPressed: () => context
+                                                  .read<TimerCubit>()
+                                                  .decrease(),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Center(
+                                              child: Text(
+                                                "${state}s",
+                                                style: const TextStyle(
+                                                  fontSize: 22,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Color(0xFF339CFF),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            width: 50,
+                                            height: 50,
+                                            decoration: const BoxDecoration(
+                                              color: Color(0xFF339CFF),
+                                              borderRadius: BorderRadius.only(
+                                                topRight: Radius.circular(25),
+                                                bottomRight:
+                                                    Radius.circular(25),
+                                              ),
+                                            ),
+                                            child: IconButton(
+                                              icon: const Icon(Icons.add,
+                                                  color: Colors.white,
+                                                  size: 24),
+                                              onPressed: () => context
+                                                  .read<TimerCubit>()
+                                                  .increase(),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                    Expanded(
-                                      child: Center(
-                                        child: Text(
-                                          "${state}s",
-                                          style: const TextStyle(
-                                            fontSize: 22,
-                                            fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              );
+                            },
+                          );
+                        }
+
+                        // Deck premium ve kullanıcı premium değilse Timer yok
+                        if (widget.deck.isPremium && !userIsPremium) {
+                          return const SizedBox.shrink();
+                        }
+
+                        // Deck premium ve kullanıcı premium ise Timer göster
+                        return BlocBuilder<TimerCubit, int>(
+                          builder: (context, state) {
+                            return Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 40, bottom: 30),
+                              child: Align(
+                                alignment: Alignment.bottomCenter,
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8, vertical: 4),
+                                  decoration: BoxDecoration(
+                                    color: Colors.transparent,
+                                    borderRadius: BorderRadius.circular(30),
+                                  ),
+                                  child: Container(
+                                    width: 160,
+                                    height: 35,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(25),
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          width: 50,
+                                          height: 50,
+                                          decoration: const BoxDecoration(
                                             color: Color(0xFF339CFF),
+                                            borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(25),
+                                              bottomLeft: Radius.circular(25),
+                                            ),
+                                          ),
+                                          child: IconButton(
+                                            icon: const Icon(Icons.remove,
+                                                color: Colors.white, size: 24),
+                                            onPressed: () => context
+                                                .read<TimerCubit>()
+                                                .decrease(),
                                           ),
                                         ),
-                                      ),
-                                    ),
-                                    Container(
-                                      width: 50,
-                                      height: 50,
-                                      decoration: const BoxDecoration(
-                                        color: Color(0xFF339CFF),
-                                        borderRadius: BorderRadius.only(
-                                          topRight: Radius.circular(25),
-                                          bottomRight: Radius.circular(25),
+                                        Expanded(
+                                          child: Center(
+                                            child: Text(
+                                              "${state}s",
+                                              style: const TextStyle(
+                                                fontSize: 22,
+                                                fontWeight: FontWeight.bold,
+                                                color: Color(0xFF339CFF),
+                                              ),
+                                            ),
+                                          ),
                                         ),
-                                      ),
-                                      child: IconButton(
-                                        icon: const Icon(
-                                          Icons.add,
-                                          color: Colors.white,
-                                          size: 24,
+                                        Container(
+                                          width: 50,
+                                          height: 50,
+                                          decoration: const BoxDecoration(
+                                            color: Color(0xFF339CFF),
+                                            borderRadius: BorderRadius.only(
+                                              topRight: Radius.circular(25),
+                                              bottomRight: Radius.circular(25),
+                                            ),
+                                          ),
+                                          child: IconButton(
+                                            icon: const Icon(Icons.add,
+                                                color: Colors.white, size: 24),
+                                            onPressed: () => context
+                                                .read<TimerCubit>()
+                                                .increase(),
+                                          ),
                                         ),
-                                        onPressed: () => context
-                                            .read<TimerCubit>()
-                                            .increase(),
-                                      ),
+                                      ],
                                     ),
-                                  ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          ),
+                            );
+                          },
                         );
                       },
                     ),
@@ -375,59 +496,97 @@ class _DeckFlipState extends State<DeckFlip>
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+          // Geri buton
           GestureDetector(
             onTap: _flipBackAndClose,
-            child: CustomPaint(
-              painter: _ArrowBackgroundPainter(),
-              child: const SizedBox(
-                width: 60,
-                height: 45,
-                child: Center(
-                  child: Icon(
-                    Icons.arrow_back_ios_new_rounded,
-                    color: Colors.white,
-                    size: 20,
+            child: BlocBuilder<IsUserPremiumCubit, bool>(
+              builder: (context, userIsPremium) {
+                Color backgroundColor;
+
+                // deck.isPremium false → mavi
+                // deck.isPremium true & userIsPremium false → yeşil
+                // diğer durumlar → mavi
+                if (!widget.deck.isPremium ||
+                    (widget.deck.isPremium && userIsPremium)) {
+                  backgroundColor = AppColors.primary; // mavi
+                } else {
+                  backgroundColor = const Color(0xFF28A745); // yeşil
+                }
+
+                return CustomPaint(
+                  painter:
+                      _ArrowBackgroundPainter(backgroundColor: backgroundColor),
+                  child: const SizedBox(
+                    width: 60,
+                    height: 45,
+                    child: Center(
+                      child: Icon(
+                        Icons.arrow_back_ios_new_rounded,
+                        color: Colors.white, // ok hep beyaz
+                        size: 20,
+                      ),
+                    ),
                   ),
-                ),
-              ),
+                );
+              },
             ),
           ),
-          GestureDetector(
-            onTap: () async {
-              await context.read<DisplayCurrentCardListCubit>().loadCardNames(
-                    widget.deck.namesFilePath,
-                  );
 
-              await _showInterstitialThenNavigate();
-            },
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [Color(0xFF007BFF), Color(0xFF339CFF)],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: Colors.white, width: 2),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.blueAccent.withOpacity(0.4),
-                    blurRadius: 8,
-                    offset: const Offset(0, 3),
+          // Oyna / VIP butonu
+          BlocBuilder<IsUserPremiumCubit, bool>(
+            builder: (context, userIsPremium) {
+              bool showVIP = widget.deck.isPremium && !userIsPremium;
+              Color gradientStart =
+                  showVIP ? const Color(0xFF28A745) : const Color(0xFF007BFF);
+              Color gradientEnd =
+                  showVIP ? const Color(0xFF2ECC71) : const Color(0xFF339CFF);
+
+              return GestureDetector(
+                onTap: () async {
+                  if (showVIP) {
+                    context.read<BottomNavCubit>().changePage(0);
+                    Navigator.of(context)
+                        .pop(); // DeckFlip'i kapat // 0 → PremiumPage
+                  } else {
+                    await context
+                        .read<DisplayCurrentCardListCubit>()
+                        .loadCardNames(widget.deck.namesFilePath);
+                    await _showInterstitialThenNavigate();
+                  }
+                },
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [gradientStart, gradientEnd],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: Colors.white, width: 2),
+                    boxShadow: [
+                      BoxShadow(
+                        color:
+                            (showVIP ? Colors.greenAccent : Colors.blueAccent)
+                                .withOpacity(0.4),
+                        blurRadius: 8,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              child: const Text(
-                "Oyna!",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                  letterSpacing: 0.5,
+                  child: Text(
+                    showVIP ? "VIP" : "Oyna!",
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                      letterSpacing: 0.5,
+                    ),
+                  ),
                 ),
-              ),
-            ),
+              );
+            },
           ),
         ],
       ),
@@ -473,10 +632,13 @@ class _DeckFlipState extends State<DeckFlip>
 }
 
 class _ArrowBackgroundPainter extends CustomPainter {
+  final Color backgroundColor;
+  _ArrowBackgroundPainter({this.backgroundColor = AppColors.primary});
+
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = AppColors.primary.withOpacity(0.5)
+      ..color = backgroundColor.withOpacity(0.5) // sadece arka plan rengi
       ..style = PaintingStyle.fill;
 
     final path = Path();
