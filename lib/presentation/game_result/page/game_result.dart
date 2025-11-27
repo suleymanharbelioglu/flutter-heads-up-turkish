@@ -33,26 +33,25 @@ class _GameResultPageState extends State<GameResultPage> {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
     _scrollController.addListener(_onScroll);
 
-    // Adaptive Banner yükleme
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _loadAdaptiveBanner();
+      _loadBanner();
     });
   }
 
-  Future<void> _loadAdaptiveBanner() async {
-    final double width = MediaQuery.of(context).size.width;
+  Future<void> _loadBanner() async {
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double width = screenWidth.clamp(320.0, 600.0);
 
     final AnchoredAdaptiveBannerAdSize? size =
         await AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
-      width.truncate(),
-    );
+            width.truncate());
 
     if (size == null) return;
 
     _adSize = size;
 
     _bannerAd = BannerAd(
-      adUnitId: 'ca-app-pub-6970688308215711/7606026846', // Senin Banner ID
+      adUnitId: 'ca-app-pub-6970688308215711/4715714592', // test ID
       size: size,
       request: const AdRequest(),
       listener: BannerAdListener(
@@ -62,6 +61,7 @@ class _GameResultPageState extends State<GameResultPage> {
           });
         },
         onAdFailedToLoad: (ad, error) {
+          print("Banner failed to load: $error");
           ad.dispose();
         },
       ),
@@ -86,6 +86,30 @@ class _GameResultPageState extends State<GameResultPage> {
     super.dispose();
   }
 
+  void _navigateToHome(BuildContext context) {
+    _resetCubits(context);
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (_) => const BottomNavPage()),
+    );
+  }
+
+  void _resetCubits(BuildContext context) {
+    context.read<CurrentNameCubit>().reset();
+    context.read<ScoreCubit>().reset();
+    context.read<ResultCubit>().reset();
+  }
+
+  Future<void> _onPlayAgainPressed(BuildContext context) async {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (_) => const PhoneToForeheadPage()),
+    );
+
+    await Future.delayed(const Duration(milliseconds: 200));
+    if (mounted) _resetCubits(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -101,15 +125,16 @@ class _GameResultPageState extends State<GameResultPage> {
               final correctCount = resultList.where((r) => r.isCorrect).length;
 
               return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _buildTopBar(context),
                   _buildHeader(correctCount),
                   const SizedBox(height: 8),
-                  _buildScrollableResultList(resultList),
+                  // List ve scroll indicator Expanded içinde
+                  Expanded(
+                    child: _buildScrollableResultList(resultList),
+                  ),
                   _buildPlayAgainButton(context),
-
-                  // ✅ Adaptive Banner (Ekran genişliğini kaplar)
+                  // Banner burada
                   if (_isAdLoaded && _bannerAd != null && _adSize != null)
                     SizedBox(
                       width: MediaQuery.of(context).size.width,
@@ -160,23 +185,21 @@ class _GameResultPageState extends State<GameResultPage> {
   }
 
   Widget _buildScrollableResultList(List<CardResultModel> resultList) {
-    return Expanded(
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          final double trackHeight = constraints.maxHeight;
-          final double thumbHeight =
-              trackHeight * (trackHeight / (_scrollMax + trackHeight));
-          final double thumbTop =
-              (_scrollPosition / _scrollMax) * (trackHeight - thumbHeight);
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final double trackHeight = constraints.maxHeight;
+        final double thumbHeight =
+            trackHeight * (trackHeight / (_scrollMax + trackHeight));
+        final double thumbTop =
+            (_scrollPosition / _scrollMax) * (trackHeight - thumbHeight);
 
-          return Stack(
-            children: [
-              _buildResultListView(resultList),
-              _buildScrollIndicator(thumbTop, thumbHeight),
-            ],
-          );
-        },
-      ),
+        return Stack(
+          children: [
+            _buildResultListView(resultList),
+            _buildScrollIndicator(thumbTop, thumbHeight),
+          ],
+        );
+      },
     );
   }
 
@@ -231,33 +254,6 @@ class _GameResultPageState extends State<GameResultPage> {
           ),
         ),
       ),
-    );
-  }
-
-  Future<void> _onPlayAgainPressed(BuildContext context) async {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (_) => const PhoneToForeheadPage()),
-    );
-
-    await Future.delayed(const Duration(milliseconds: 200));
-
-    if (mounted) {
-      _resetCubits(context);
-    }
-  }
-
-  void _resetCubits(BuildContext context) {
-    context.read<CurrentNameCubit>().reset();
-    context.read<ScoreCubit>().reset();
-    context.read<ResultCubit>().reset();
-  }
-
-  void _navigateToHome(BuildContext context) {
-    _resetCubits(context);
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (_) => const BottomNavPage()),
     );
   }
 }

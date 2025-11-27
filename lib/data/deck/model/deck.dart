@@ -9,6 +9,7 @@ class DeckModel {
   final String namesFilePath;
   final String deckDescription;
   final Color deckTextColor;
+  final bool isPremium; // ✅ premium alanı eklendi
 
   DeckModel({
     required this.deckName,
@@ -18,6 +19,7 @@ class DeckModel {
     required this.namesFilePath,
     required this.deckDescription,
     required this.deckTextColor,
+    this.isPremium = false, // default ücretsiz
   });
 
   factory DeckModel.fromJson(Map<String, dynamic> json) {
@@ -31,6 +33,7 @@ class DeckModel {
       deckTextColor: Color(
         int.parse(json['deckTextColor'] as String),
       ),
+      isPremium: json['isPremium'] as bool? ?? false, // json’dan al, yoksa false
     );
   }
 
@@ -43,6 +46,7 @@ class DeckModel {
       namesFilePath: namesFilePath,
       deckDescription: deckDescription,
       deckTextColor: deckTextColor,
+      isPremium: isPremium, // ✅ entity’ye geçir
     );
   }
 }

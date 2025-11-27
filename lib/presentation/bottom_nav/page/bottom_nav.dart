@@ -29,30 +29,27 @@ class _BottomNavPageState extends State<BottomNavPage> {
   @override
   void initState() {
     super.initState();
-
-    // Portrait modunu kilitle
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
-    // Adaptive Banner yükleme
+    // Banner yükleme
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _loadAdaptiveBanner();
+      _loadBanner();
     });
   }
 
-  Future<void> _loadAdaptiveBanner() async {
+  Future<void> _loadBanner() async {
     final double width = MediaQuery.of(context).size.width;
 
     final AnchoredAdaptiveBannerAdSize? size =
         await AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
-      width.truncate(),
-    );
+            width.truncate());
 
     if (size == null) return;
 
     _adSize = size;
 
     _bannerAd = BannerAd(
-      adUnitId: 'ca-app-pub-6970688308215711/7606026846',
+      adUnitId: 'ca-app-pub-6970688308215711/7606026846', // test banner ID
       size: size,
       request: const AdRequest(),
       listener: BannerAdListener(
@@ -88,43 +85,46 @@ class _BottomNavPageState extends State<BottomNavPage> {
       onWillPop: () async => false,
       child: Scaffold(
         body: _pages[_currentIndex],
-        bottomNavigationBar: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            BottomNavigationBar(
-              backgroundColor: Colors.white,
-              currentIndex: _currentIndex,
-              onTap: _onTap,
-              type: BottomNavigationBarType.fixed,
-              selectedItemColor: primaryColor,
-              unselectedItemColor: Colors.grey,
-              iconSize: 28,
-              selectedFontSize: 14,
-              unselectedFontSize: 13,
-              items: const [
-                BottomNavigationBarItem(
-                  icon: FaIcon(FontAwesomeIcons.crown),
-                  label: 'VIP',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.style_outlined),
-                  label: 'Desteler',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.help_outline),
-                  label: 'Nasıl Oynanır',
-                ),
-              ],
-            ),
-
-            // ✅ Adaptive Banner (ekran genişliğini kaplar)
-            if (_isAdLoaded && _bannerAd != null && _adSize != null)
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: _adSize!.height.toDouble(),
-                child: AdWidget(ad: _bannerAd!),
+        // BottomNavigationBar ve banner reklamın birlikte sabit görünmesi
+        bottomNavigationBar: SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // BottomNavigationBar
+              BottomNavigationBar(
+                backgroundColor: Colors.white,
+                currentIndex: _currentIndex,
+                onTap: _onTap,
+                type: BottomNavigationBarType.fixed,
+                selectedItemColor: primaryColor,
+                unselectedItemColor: Colors.grey,
+                iconSize: 28,
+                selectedFontSize: 14,
+                unselectedFontSize: 13,
+                items: const [
+                  BottomNavigationBarItem(
+                    icon: FaIcon(FontAwesomeIcons.crown),
+                    label: 'VIP',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.style_outlined),
+                    label: 'Desteler',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.help_outline),
+                    label: 'Nasıl Oynanır',
+                  ),
+                ],
               ),
-          ],
+              // Banner reklam
+              if (_isAdLoaded && _bannerAd != null && _adSize != null)
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: _adSize!.height.toDouble(),
+                  child: AdWidget(ad: _bannerAd!),
+                ),
+            ],
+          ),
         ),
       ),
     );

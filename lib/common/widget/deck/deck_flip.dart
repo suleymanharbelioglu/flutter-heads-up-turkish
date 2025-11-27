@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ben_kimim/domain/deck/entity/deck.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class DeckFlip extends StatefulWidget {
   final DeckEntity deck;
@@ -25,20 +26,67 @@ class _DeckFlipState extends State<DeckFlip>
   bool isFront = true;
   bool canTap = false;
 
+  InterstitialAd? _interstitialAd;
+  bool _isAdReady = false;
+
   @override
   void initState() {
     super.initState();
     _initAnimation();
-    // Yalnızca dikey (portrait) mod
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-    ]);
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     _autoFlip();
+    _loadInterstitial();
+  }
+
+  void _loadInterstitial() {
+    InterstitialAd.load(
+      adUnitId: 'ca-app-pub-6970688308215711/3866393700', // Test ID
+      request: const AdRequest(),
+      adLoadCallback: InterstitialAdLoadCallback(
+        onAdLoaded: (ad) {
+          _interstitialAd = ad;
+          _isAdReady = true;
+          _interstitialAd?.fullScreenContentCallback =
+              FullScreenContentCallback(
+            onAdDismissedFullScreenContent: (ad) {
+              ad.dispose();
+              _navigateToGamePage();
+            },
+            onAdFailedToShowFullScreenContent: (ad, error) {
+              ad.dispose();
+              _navigateToGamePage();
+            },
+          );
+        },
+        onAdFailedToLoad: (error) {
+          _isAdReady = false;
+          print("Interstitial failed to load: $error");
+        },
+      ),
+    );
+  }
+
+  Future<void> _showInterstitialThenNavigate() async {
+    // Reklam yüklenene kadar bekle
+    while (_interstitialAd == null) {
+      await Future.delayed(const Duration(milliseconds: 100));
+    }
+
+    if (_interstitialAd != null && _isAdReady) {
+      _interstitialAd?.show();
+    } else {
+      _navigateToGamePage();
+    }
+  }
+
+  void _navigateToGamePage() {
+    AppNavigator.push(context, PhoneToForeheadPage());
   }
 
   @override
   void dispose() {
     _controller.dispose();
+    _interstitialAd?.dispose();
     super.dispose();
   }
 
@@ -305,7 +353,7 @@ class _DeckFlipState extends State<DeckFlip>
         borderRadius: BorderRadius.circular(20),
         boxShadow: const [BoxShadow(color: Colors.black38, blurRadius: 20)],
       ),
-      clipBehavior: Clip.hardEdge, // borderRadius ile uyumlu kesme
+      clipBehavior: Clip.hardEdge,
       child: Stack(
         children: [
           Image.asset(
@@ -313,7 +361,7 @@ class _DeckFlipState extends State<DeckFlip>
             fit: BoxFit.cover,
             width: double.infinity,
             height: double.infinity,
-            gaplessPlayback: true, // Hero animasyonu sorunsuz olur
+            gaplessPlayback: true,
           ),
           if (child != null) child,
         ],
@@ -349,7 +397,8 @@ class _DeckFlipState extends State<DeckFlip>
               await context.read<DisplayCurrentCardListCubit>().loadCardNames(
                     widget.deck.namesFilePath,
                   );
-              AppNavigator.push(context, PhoneToForeheadPage());
+
+              await _showInterstitialThenNavigate();
             },
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),

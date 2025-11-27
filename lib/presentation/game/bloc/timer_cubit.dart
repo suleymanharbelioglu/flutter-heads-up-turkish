@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 
 class TimerCubit extends Cubit<int> {
-  TimerCubit() : super(60); // Default değer 60 saniye
+  TimerCubit() : super(5); // Default değer 60 saniye
 
   /// 15 saniye artır. Maksimum 180
   void increase() {

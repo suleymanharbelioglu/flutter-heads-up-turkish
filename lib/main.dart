@@ -15,6 +15,8 @@ import 'package:ben_kimim/presentation/game/bloc/display_current_card_list_cubit
 import 'package:ben_kimim/presentation/game/bloc/score_cubit.dart';
 import 'package:ben_kimim/presentation/game/bloc/timer_cubit.dart';
 import 'package:ben_kimim/presentation/game_result/bloc/result_cubit.dart';
+import 'package:ben_kimim/presentation/premium/bloc/plan_cubit.dart';
+import 'package:ben_kimim/presentation/premium/is_user_premium_cubit.dart';
 import 'package:ben_kimim/presentation/splash/bloc/splash_cubit.dart';
 import 'package:ben_kimim/presentation/splash/pages/splash.dart';
 import 'package:ben_kimim/service_locator.dart';
@@ -26,6 +28,8 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await MobileAds.instance.initialize(); // AdMob başlat
+  // ✅ TEST DEVICE ID EKLE
+
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp, // varsayılan dikey
   ]);
@@ -79,6 +83,12 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => CizgiFilmAnimeDecksCubit(),
+        ),
+        BlocProvider(
+          create: (context) => PlanCubit(),
+        ),
+        BlocProvider(
+          create: (context) => IsUserPremiumCubit(),
         ),
       ],
       child: MaterialApp(
