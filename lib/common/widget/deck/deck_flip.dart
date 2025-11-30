@@ -42,7 +42,7 @@ class _DeckFlipState extends State<DeckFlip>
 
   void _loadInterstitial() {
     InterstitialAd.load(
-      adUnitId: 'ca-app-pub-6970688308215711/3866393700', // Test ID
+      adUnitId: 'ca-app-pub-3940256099942544/1033173712', // Test ID
       request: const AdRequest(),
       adLoadCallback: InterstitialAdLoadCallback(
         onAdLoaded: (ad) {
@@ -69,6 +69,11 @@ class _DeckFlipState extends State<DeckFlip>
   }
 
   Future<void> _showInterstitialThenNavigate() async {
+    if (context.read<IsUserPremiumCubit>().state) {
+      _navigateToGamePage();
+      return;
+    }
+
     // Reklam yüklenene kadar bekle
     while (_interstitialAd == null) {
       await Future.delayed(const Duration(milliseconds: 100));
@@ -100,10 +105,6 @@ class _DeckFlipState extends State<DeckFlip>
         backgroundColor: Colors.black.withOpacity(0.2),
         body: Stack(
           children: [
-            BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
-              child: Container(color: Colors.black.withOpacity(0)),
-            ),
             Center(
               child: AnimatedBuilder(
                 animation: _flipAnim,

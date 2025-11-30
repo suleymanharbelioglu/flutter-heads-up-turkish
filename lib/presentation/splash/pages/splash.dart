@@ -12,40 +12,31 @@ class SplashPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Portrait modunu kilitle (main.dart'ta da olduğu için burada tekrar olmasına gerek yok, ama dursun.)
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
-    // KRİTİK DEĞİŞİKLİK: Yükleme işlemini buradan başlatıyoruz.
-    // Cubit'in asenkron yükleme görevini (startSplash) bu noktada tetikliyoruz.
     context.read<SplashCubit>().startSplash(context);
 
     return BlocListener<SplashCubit, SplashState>(
       listener: (context, state) {
         if (state is SplashNavigate) {
-          // Yükleme bitti, BottomNavPage'e geçiş yap
           AppNavigator.pushAndRemove(context, const BottomNavPage());
         }
       },
       child: Scaffold(
         body: Stack(
-          fit: StackFit.expand, // Stack'i ekran boyutuna genişlet
+          fit: StackFit.expand,
           children: [
-            // 1. Arka Plan Görseli
-            // Not: AppImages.splashBackground tanımlı olmalıdır.
             Image.asset(
               AppImages.splashBackground,
-              fit: BoxFit.cover, // Görselin tüm ekranı kaplamasını sağlar
+              fit: BoxFit.cover,
             ),
-
-            // 2. Yükleme Göstergesi (Alt Orta Kısım)
             Align(
-              alignment: Alignment.bottomCenter, // Alt ortaya hizala
+              alignment: Alignment.bottomCenter,
               child: Padding(
                 padding: const EdgeInsets.only(
-                  bottom: 50.0,
-                ), // Alttan biraz yukarı it
+                  bottom: 100.0,
+                ),
                 child: CircularProgressIndicator(
-                  // Bu rengi beyaz bıraktık, böylece arka planda görünür.
                   color: Colors.white,
                 ),
               ),

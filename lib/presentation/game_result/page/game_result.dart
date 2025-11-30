@@ -6,6 +6,7 @@ import 'package:ben_kimim/presentation/game/bloc/current_name_cubit.dart';
 import 'package:ben_kimim/presentation/game/bloc/score_cubit.dart';
 import 'package:ben_kimim/presentation/game_result/bloc/result_cubit.dart';
 import 'package:ben_kimim/presentation/phone_to_forhead/page/phone_to_forhead.dart';
+import 'package:ben_kimim/presentation/premium/bloc/is_user_premium_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -38,13 +39,16 @@ class _GameResultPageState extends State<GameResultPage> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _loadBanner();
+      _loadInterstitial();
     });
-    _loadInterstitial();
   }
 
   void _loadInterstitial() {
+    final isPremium = context.read<IsUserPremiumCubit>().state;
+    if (isPremium) return; // Premium kullanıcıya reklam yok
+
     InterstitialAd.load(
-      adUnitId: 'ca-app-pub-6970688308215711/5433027759', // Test ID
+      adUnitId: 'ca-app-pub-3940256099942544/1033173712',
       request: const AdRequest(),
       adLoadCallback: InterstitialAdLoadCallback(
         onAdLoaded: (ad) {
@@ -64,14 +68,18 @@ class _GameResultPageState extends State<GameResultPage> {
         },
         onAdFailedToLoad: (error) {
           _isAdReady = false;
-          print("Interstitial failed to load: $error");
         },
       ),
     );
   }
 
   Future<void> _showInterstitialThenNavigate() async {
-    // Reklam yüklenene kadar bekle
+    final isPremium = context.read<IsUserPremiumCubit>().state;
+    if (isPremium) {
+      _navigateToGamePage();
+      return;
+    }
+
     while (_interstitialAd == null) {
       await Future.delayed(const Duration(milliseconds: 100));
     }
@@ -84,23 +92,26 @@ class _GameResultPageState extends State<GameResultPage> {
   }
 
   void _navigateToGamePage() {
+    
     AppNavigator.pushReplacement(context, PhoneToForeheadPage());
   }
 
   Future<void> _loadBanner() async {
+    final isPremium = context.read<IsUserPremiumCubit>().state;
+    if (isPremium) return; // Premium kullanıcıya banner yok
+
     final double screenWidth = MediaQuery.of(context).size.width;
     final double width = screenWidth.clamp(320.0, 600.0);
 
     final AnchoredAdaptiveBannerAdSize? size =
         await AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
             width.truncate());
-
     if (size == null) return;
 
     _adSize = size;
 
     _bannerAd = BannerAd(
-      adUnitId: 'ca-app-pub-6970688308215711/4715714592', // test ID
+      adUnitId: 'ca-app-pub-3940256099942544/6300978111',
       size: size,
       request: const AdRequest(),
       listener: BannerAdListener(
@@ -110,7 +121,6 @@ class _GameResultPageState extends State<GameResultPage> {
           });
         },
         onAdFailedToLoad: (ad, error) {
-          print("Banner failed to load: $error");
           ad.dispose();
         },
       ),
@@ -151,13 +161,14 @@ class _GameResultPageState extends State<GameResultPage> {
 
   Future<void> _onPlayAgainPressed(BuildContext context) async {
     await _showInterstitialThenNavigate();
-
     await Future.delayed(const Duration(milliseconds: 200));
     if (mounted) _resetCubits(context);
   }
 
   @override
   Widget build(BuildContext context) {
+    final isPremium = context.watch<IsUserPremiumCubit>().state;
+
     return WillPopScope(
       onWillPop: () async {
         _navigateToHome(context);
@@ -175,13 +186,13 @@ class _GameResultPageState extends State<GameResultPage> {
                   _buildTopBar(context),
                   _buildHeader(correctCount),
                   const SizedBox(height: 8),
-                  // List ve scroll indicator Expanded içinde
-                  Expanded(
-                    child: _buildScrollableResultList(resultList),
-                  ),
+                  Expanded(child: _buildScrollableResultList(resultList)),
                   _buildPlayAgainButton(context),
-                  // Banner burada
-                  if (_isAdLoaded && _bannerAd != null && _adSize != null)
+                  // Banner
+                  if (!isPremium &&
+                      _isAdLoaded &&
+                      _bannerAd != null &&
+                      _adSize != null)
                     SizedBox(
                       width: MediaQuery.of(context).size.width,
                       height: _adSize!.height.toDouble(),

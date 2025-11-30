@@ -19,14 +19,11 @@ class SplashCubit extends Cubit<SplashState> {
   // Context, MultiBlocProvider'da oluşturulan diğer Cubit'lere erişim için gereklidir.
   void startSplash(BuildContext context) async {
     try {
-      print("Splash Cubit: Başlatılıyor.");
-
       // 1. Durumu Yükleniyor olarak ayarla
       // SplashState.dart dosyasının SplashLoading durumunu içerdiğinden emin olun.
       emit(SplashLoading());
 
       // 2. TÜM DECK YÜKLEME İŞLEMLERİNİ ASENKRON OLARAK BAŞLAT VE BEKLE
-      print("Tüm oyun desteleri yükleniyor... (Asenkron)");
 
       // Cubit'lere erişim
       final popularDecksCubit = context.read<PopularDecksCubit>();
@@ -57,13 +54,11 @@ class SplashCubit extends Cubit<SplashState> {
       ]);
 
       // Minimum yükleme süresi bekle (kullanıcı deneyimi için)
-      await Future.delayed(const Duration(microseconds: 1));
+      await Future.delayed(const Duration(milliseconds: 1));
 
       // 3. Başarılı, navigasyon durumunu yay
       emit(SplashNavigate());
-      print("Splash Cubit: Başlatma tamamlandı, navigasyona hazır.");
     } catch (e) {
-      print("Uygulama başlatma hatası: $e");
       // Hata olsa bile navigasyon durumunu yayınla
       emit(SplashNavigate());
     }

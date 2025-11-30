@@ -1,14 +1,35 @@
 import 'package:ben_kimim/presentation/all_decks/pages/all_decks.dart';
 import 'package:ben_kimim/presentation/bottom_nav/bloc/bottom_nav_cubit.dart';
 import 'package:ben_kimim/presentation/how_to_play/page/how_to_play.dart';
+import 'package:ben_kimim/presentation/no_internet/bloc/internet_connection_state.dart';
+import 'package:ben_kimim/presentation/no_internet/page/no_internet.dart';
+import 'package:ben_kimim/presentation/premium/bloc/is_user_premium_cubit.dart';
 import 'package:ben_kimim/presentation/premium/page/premium.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ben_kimim/presentation/no_internet/bloc/internet_connection_cubit.dart';
 
-class BottomNavPage extends StatelessWidget {
+class BottomNavPage extends StatefulWidget {
   const BottomNavPage({super.key});
+
+  @override
+  State<BottomNavPage> createState() => _BottomNavPageState();
+}
+
+class _BottomNavPageState extends State<BottomNavPage> {
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      SystemChrome.setPreferredOrientations([
+        DeviceOrientation.portraitUp,
+      ]);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,45 +39,71 @@ class BottomNavPage extends StatelessWidget {
       HowToPlayPage(),
     ];
 
-    return BlocProvider(
-      create: (_) => BottomNavCubit(),
+    return BlocListener<InternetConnectionCubit, InternetConnectionState>(
+      listener: (context, state) {
+        print(
+            "------------------------------------------- $state -----------------------");
+        if (state is InternetDisConnected) {
+          print("go to No internet page ---------------------");
+          // İnternet yoksa NoInternetPage'e yönlendir
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (_) => const NoInternetPage(),
+            ),
+          );
+        }
+      },
       child: BlocBuilder<BottomNavCubit, int>(
         builder: (context, currentIndex) {
-          return Scaffold(
-            body: pages[currentIndex],
-            bottomNavigationBar: SafeArea(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  BottomNavigationBar(
-                    backgroundColor: Colors.white,
-                    currentIndex: currentIndex,
-                    onTap: (index) =>
-                        context.read<BottomNavCubit>().changePage(index),
-                    type: BottomNavigationBarType.fixed,
-                    selectedItemColor: Theme.of(context).primaryColor,
-                    unselectedItemColor: Colors.grey,
-                    iconSize: 28,
-                    selectedFontSize: 14,
-                    unselectedFontSize: 13,
-                    items: const [
-                      BottomNavigationBarItem(
-                        icon: FaIcon(FontAwesomeIcons.crown),
-                        label: 'VIP',
-                      ),
-                      BottomNavigationBarItem(
-                        icon: Icon(Icons.style_outlined),
-                        label: 'Desteler',
-                      ),
-                      BottomNavigationBarItem(
-                        icon: Icon(Icons.help_outline),
-                        label: 'Nasıl Oynanır',
-                      ),
-                    ],
-                  ),
-                  // Banner reklam
-                  BannerContainer(),
-                ],
+          final pageController = PageController(initialPage: currentIndex);
+
+          return BlocListener<BottomNavCubit, int>(
+            listener: (context, index) {
+              pageController.animateToPage(
+                index,
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeInOut,
+              );
+            },
+            child: Scaffold(
+              body: PageView(
+                controller: pageController,
+                physics: const NeverScrollableScrollPhysics(),
+                children: pages,
+              ),
+              bottomNavigationBar: SafeArea(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    BottomNavigationBar(
+                      backgroundColor: Colors.white,
+                      currentIndex: currentIndex,
+                      onTap: (index) =>
+                          context.read<BottomNavCubit>().changePage(index),
+                      type: BottomNavigationBarType.fixed,
+                      selectedItemColor: Theme.of(context).primaryColor,
+                      unselectedItemColor: Colors.grey,
+                      iconSize: 28,
+                      selectedFontSize: 14,
+                      unselectedFontSize: 13,
+                      items: const [
+                        BottomNavigationBarItem(
+                          icon: FaIcon(FontAwesomeIcons.crown),
+                          label: 'VIP',
+                        ),
+                        BottomNavigationBarItem(
+                          icon: Icon(Icons.style_outlined),
+                          label: 'Desteler',
+                        ),
+                        BottomNavigationBarItem(
+                          icon: Icon(Icons.help_outline),
+                          label: 'Nasıl Oynanır',
+                        ),
+                      ],
+                    ),
+                    const BannerContainer(),
+                  ],
+                ),
               ),
             ),
           );
@@ -81,29 +128,43 @@ class _BannerContainerState extends State<BannerContainer> {
   @override
   void initState() {
     super.initState();
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _loadBanner();
     });
   }
 
   Future<void> _loadBanner() async {
+    final isPremium = context.read<IsUserPremiumCubit>().state;
+    if (isPremium) return;
+
     final width = MediaQuery.of(context).size.width;
     final size = await AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
         width.truncate());
     if (size == null) return;
 
-    _adSize = size;
+    if (mounted) {
+      setState(() {
+        _adSize = size;
+      });
+    }
 
     _bannerAd = BannerAd(
-      adUnitId: 'ca-app-pub-6970688308215711/7606026846',
+      adUnitId: 'ca-app-pub-3940256099942544/6300978111',
       size: size,
       request: const AdRequest(),
       listener: BannerAdListener(
         onAdLoaded: (_) {
-          setState(() => _isAdLoaded = true);
+          if (mounted) {
+            setState(() => _isAdLoaded = true);
+          }
         },
         onAdFailedToLoad: (ad, error) {
           ad.dispose();
+
+          if (mounted) {
+            setState(() => _isAdLoaded = false);
+          }
         },
       ),
     )..load();
@@ -117,8 +178,12 @@ class _BannerContainerState extends State<BannerContainer> {
 
   @override
   Widget build(BuildContext context) {
-    if (!_isAdLoaded || _bannerAd == null || _adSize == null)
+    final isPremium = context.watch<IsUserPremiumCubit>().state;
+
+    if (isPremium || !_isAdLoaded || _bannerAd == null || _adSize == null) {
       return const SizedBox.shrink();
+    }
+
     return SizedBox(
       width: MediaQuery.of(context).size.width,
       height: _adSize!.height.toDouble(),

@@ -17,29 +17,41 @@ class AllDecksPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Tüm değişmez widget'ları bir listede toplayarak kod tekrarını azaltıyoruz.
+    // Listeyi const yapamıyoruz çünkü içindeki özel widget'ların const constructor'ı olmayabilir
+    // (örneğin stateful ise veya dışarıdan veri alıyorsa).
+    // Ancak tek tek widget'ları const yapabiliriz.
+    final List<Widget> deckWidgets = const [
+      // OPTİMİZASYON 1: Tüm statik widget'lara const eklenmiştir.
+      // Bu, build() çağrılsa bile bu widget'ların yeniden oluşturulmasını önler.
+      PopularDecks(),
+      MuzikDecks(),
+      DiziFilmDecks(),
+      CanlandirDecks(),
+      SporDecks(),
+      GunlukYasamDecks(),
+      BilimVeGenelKDecks(),
+      CizDecks(),
+      UnlulerDecks(),
+      YemeklerDecks(),
+      CizgiFilmAnimeDecks(),
+    ];
+
     return Scaffold(
       backgroundColor: AppColors.allDecksBackground,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text("Tahmin Et!"),
-        actions: [],
+        title: const Text(
+            "Tahmin Et!"), // OPTİMİZASYON 2: Text widget'ı const yapıldı.
+        actions: const [], // OPTİMİZASYON 3: Boş actions listesi const yapıldı.
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            PopularDecks(),
-            MuzikDecks(),
-            DiziFilmDecks(),
-            CanlandirDecks(),
-            SporDecks(),
-            GunlukYasamDecks(),
-            BilimVeGenelKDecks(),
-            CizDecks(),
-            UnlulerDecks(),
-            YemeklerDecks(),
-            CizgiFilmAnimeDecks()
-          ],
-        ),
+      // OPTİMİZASYON 4: SingleChildScrollView yerine ListView kullanılır.
+      // ListView, elemanları ekranda göründükçe oluşturma (lazy building) konusunda
+      // SingleChildScrollView + Column kombinasyonundan daha verimli çalışır.
+      body: ListView(
+        padding: EdgeInsets
+            .zero, // Eğer varsayılan padding istenmiyorsa eklenebilir.
+        children: deckWidgets,
       ),
     );
   }

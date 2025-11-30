@@ -7,12 +7,13 @@ class GameScore extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ScoreCubit'ten gelen int tipindeki skoru dinler.
     return BlocBuilder<ScoreCubit, int>(
       builder: (context, score) {
         return Padding(
           padding: const EdgeInsets.only(bottom: 10),
           child: Text(
-            "$score DOĞRU", // Skor artık dinamik
+            "$score DOĞRU", // Dinamik skor gösterimi
             style: const TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,

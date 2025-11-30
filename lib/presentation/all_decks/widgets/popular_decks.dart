@@ -10,59 +10,76 @@ class PopularDecks extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Statik Padding const yapıldı.
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: BlocBuilder<PopularDecksCubit, PopularDecksState>(
         builder: (context, state) {
           if (state is PopularDecksLoading) {
-            return Center(
-              child: CircularProgressIndicator(color: Colors.black),
+            // Yükleme göstergesi const yapıldı ve renk güncellendi.
+            return const Center(
+              child: CircularProgressIndicator(color: Colors.blueAccent),
             );
           }
           if (state is PopularDecksLoaded) {
-            return _decksLoaded(state.decks);
+            // Veri yüklendiğinde GridView'i döndür.
+            return _buildDeckList(state.decks);
           }
           if (state is PopularDecksLoadFailure) {
+            // Hata mesajı stili önceki widget'larla tutarlı hale getirildi.
             return Center(
-              child: Text(
-                "Popular laod failure ${state.errorMessage}",
-                style: TextStyle(color: Colors.black, fontSize: 40),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  // Daha açıklayıcı hata mesajı.
+                  "Desteler yüklenirken hata oluştu: ${state.errorMessage}",
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    color: Colors.red, // Hata için kırmızı tercih edildi.
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
               ),
             );
           }
-          return Container();
+          // Initial veya bilinmeyen durumlar için boş container const yapıldı.
+          return const SizedBox.shrink();
         },
       ),
     );
   }
 
-  // DeckEntity'nin DeckModel olduğunu ve import'ların yapıldığını varsayıyoruz.
+  // Deck listesini GridView olarak oluşturan metot.
+  Widget _buildDeckList(List<DeckEntity> deckList) {
+    if (deckList.isEmpty) {
+      return const Center(
+        child: Text(
+          'Popüler deste bulunmamaktadır.',
+          style: TextStyle(color: Colors.grey, fontSize: 14),
+        ),
+      );
+    }
 
-  Widget _decksLoaded(List<DeckEntity> deckList) {
-    // 0.6 En/Boy Oranı: Width / Height = 1 / 0.6 ≈ 1.67
-
-    // Eğer bu widget, Column, ListView veya Container gibi
-    // dikey kısıtlı bir alanda kullanılıyorsa, Expanded içine alınmalıdır.
-    // Bu örnekte, dış dekorasyonları kaldırıp doğrudan GridView'i döndürüyorum.
-
+    // 0.65 En/Boy Oranı (Genişlik/Yükseklik)
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0), // Kenar boşlukları
       child: GridView.builder(
-        // Bu GridView'i bir Column'un ana gövdesi olarak kullanıyorsanız bu önemlidir:
+        // Dikey sarmalama: Listeyi dikey alanda kısıtlamak için gereklidir.
         shrinkWrap: true,
-        physics:
-            const NeverScrollableScrollPhysics(), // İç içe kaydırmayı engeller
+        // Dış kaydırma widget'ları (örn. SingleChildScrollView) ile çakışmayı engeller.
+        physics: const NeverScrollableScrollPhysics(),
 
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2, // İki sütun
           crossAxisSpacing: 10.0, // Yatay boşluk
           mainAxisSpacing: 10.0, // Dikey boşluk
-          // Her bir kartın en/boy oranı (Genişlik/Yükseklik)
+          // Her bir kartın en/boy oranı (Genişlik / Yükseklik = 0.65)
           childAspectRatio: 0.65,
         ),
         itemCount: deckList.length,
         itemBuilder: (context, index) {
-          // Sadece DeckCover listeleniyor
+          // Her bir öge için DeckCover widget'ı.
           return DeckCover(deck: deckList[index]);
         },
       ),

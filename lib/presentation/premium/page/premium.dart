@@ -1,3 +1,4 @@
+import 'package:ben_kimim/presentation/premium/bloc/is_user_premium_cubit.dart';
 import 'package:ben_kimim/presentation/premium/bloc/plan_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -196,7 +197,16 @@ class _StartButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: () {
+        // PlanCubit'ten seçili planı al
+        final selectedPlan = context.read<PlanCubit>().state;
+
+        // IsUserPremiumCubit ile kullanıcıyı premium yap
+        context.read<IsUserPremiumCubit>().setPremium(true);
+
+        // Terminale yazdır
+        print("Kullanıcı premium oldu! Seçilen plan: $selectedPlan");
+      },
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.green,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),

@@ -7,14 +7,35 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DeckCover extends StatelessWidget {
   final DeckEntity deck;
+  // Widget'ın kendisi const olarak tanımlandı.
   const DeckCover({super.key, required this.deck});
+
+  // Performans Optimizasyonu 1: Statik Stilleri build dışına taşıyıp const yapmak.
+  // Bu, her build'de Paint ve TextStyle objelerinin yeniden oluşturulmasını engeller.
+  static final TextStyle _baseTitleStyle = const TextStyle(
+    fontSize: 19,
+    fontWeight: FontWeight.bold,
+  );
+
+  static final TextStyle _strokeTitleStyle = _baseTitleStyle.copyWith(
+    foreground: Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 3
+      ..color = Colors.black,
+  );
+
+  static final TextStyle _fillTitleStyle = _baseTitleStyle.copyWith(
+    color: Colors.white,
+  );
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
+        // Görüntüleri önbelleğe almak, geçiş sırasındaki kasılmayı engeller (iyi pratik).
         await precacheImage(AssetImage(deck.onGorselAdress), context);
         await precacheImage(AssetImage(deck.arkaGorselAdress), context);
+
         Navigator.of(context).push(
           PageRouteBuilder(
             pageBuilder: (_, __, ___) => BlocProvider.value(
@@ -22,26 +43,33 @@ class DeckCover extends StatelessWidget {
               child: DeckFlip(deck: deck),
             ),
             opaque: false,
-            barrierColor: Colors.black.withOpacity(0.3),
+            // Performans Optimizasyonu 2: Const Color kullanımı.
+            barrierColor:
+                const Color(0x4D000000), // Colors.black.withOpacity(0.3)
           ),
         );
       },
       child: Stack(
         children: [
+          // Arka Plan Resmi (Hero)
           Hero(
             tag: "image_${deck.deckName}",
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(16),
+              // Performans Optimizasyonu 3: Const BorderRadius.
+              borderRadius: const BorderRadius.all(Radius.circular(16)),
               child: Image.asset(
                 deck.onGorselAdress,
                 fit: BoxFit.cover,
                 width: double.infinity,
                 height: double.infinity,
-                gaplessPlayback: true, // Hero animasyonunu sorunsuz yapar
+                gaplessPlayback: true,
               ),
             ),
           ),
+
+          // Başlık (Hero)
           Positioned(
+            // Performans Optimizasyonu 4: Const Positioned değerleri.
             top: 8,
             left: 0,
             right: 0,
@@ -50,46 +78,38 @@ class DeckCover extends StatelessWidget {
               child: Material(
                 color: Colors.transparent,
                 child: Container(
-                    alignment: Alignment.topCenter,
-                    child: Stack(
-                      children: [
-                        Text(
-                          deck.deckName,
-                          textAlign: TextAlign.center,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            fontSize: 19,
-                            fontWeight: FontWeight.bold,
-                            foreground: Paint()
-                              ..style = PaintingStyle.stroke
-                              ..strokeWidth = 3
-                              ..color = Colors.black,
-                          ),
-                        ),
-                        Text(
-                          deck.deckName,
-                          textAlign: TextAlign.center,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            fontSize: 19,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
-                    )),
+                  alignment: Alignment.topCenter,
+                  child: Stack(
+                    children: [
+                      // Başlık Gölge/Kontur (Stroke)
+                      Text(
+                        deck.deckName,
+                        textAlign: TextAlign.center,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        // Statik stil kullanımı
+                        style: _strokeTitleStyle,
+                      ),
+                      // Başlık Dolgu (Fill)
+                      Text(
+                        deck.deckName,
+                        textAlign: TextAlign.center,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        // Statik stil kullanımı
+                        style: _fillTitleStyle,
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
           ),
+
+          // Premium Kilit Simgesi
           BlocBuilder<IsUserPremiumCubit, bool>(
             builder: (context, userIsPremium) {
-              // Deck premium değilse kilit yok
-              if (!deck.isPremium) return const SizedBox.shrink();
-
-              // Deck premium ve kullanıcı premium değilse kilit göster
-              if (!userIsPremium) {
+              if (deck.isPremium && !userIsPremium) {
                 return Positioned(
                   right: 8,
                   bottom: 8,
@@ -99,9 +119,12 @@ class DeckCover extends StatelessWidget {
                       width: 36,
                       height: 36,
                       decoration: BoxDecoration(
+                        // Renk dinamik olduğu için (withOpacity) const olamaz.
                         color: Colors.black.withOpacity(0.5),
+                        // Performans Optimizasyonu 5: Const BoxShape.
                         shape: BoxShape.circle,
                       ),
+                      // Performans Optimizasyonu 6: Const Icon.
                       child: const Icon(
                         Icons.lock,
                         color: Colors.white,
@@ -111,8 +134,7 @@ class DeckCover extends StatelessWidget {
                   ),
                 );
               }
-
-              // Kullanıcı premium ise kilit yok
+              // Performans Optimizasyonu 7: Const SizedBox.shrink().
               return const SizedBox.shrink();
             },
           ),
