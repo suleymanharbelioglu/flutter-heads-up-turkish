@@ -5,7 +5,10 @@ import 'package:ben_kimim/presentation/bottom_nav/page/bottom_nav.dart';
 import 'package:ben_kimim/presentation/game/bloc/current_name_cubit.dart';
 import 'package:ben_kimim/presentation/game/bloc/score_cubit.dart';
 import 'package:ben_kimim/presentation/game_result/bloc/result_cubit.dart';
+import 'package:ben_kimim/presentation/no_internet/page/no_internet.dart';
 import 'package:ben_kimim/presentation/phone_to_forhead/page/phone_to_forhead.dart';
+import 'package:ben_kimim/presentation/no_internet/bloc/internet_connection_cubit.dart';
+import 'package:ben_kimim/presentation/no_internet/bloc/internet_connection_state.dart';
 import 'package:ben_kimim/presentation/premium/bloc/is_user_premium_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -24,9 +27,6 @@ class _GameResultPageState extends State<GameResultPage> {
   double _scrollPosition = 0.0;
   double _scrollMax = 1.0;
 
-  BannerAd? _bannerAd;
-  bool _isAdLoaded = false;
-  AdSize? _adSize;
   InterstitialAd? _interstitialAd;
   bool _isAdReady = false;
 
@@ -35,20 +35,43 @@ class _GameResultPageState extends State<GameResultPage> {
     super.initState();
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+
     _scrollController.addListener(_onScroll);
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _loadBanner();
-      _loadInterstitial();
-    });
+    // Test cihazı ekle
+    MobileAds.instance.updateRequestConfiguration(
+      RequestConfiguration(testDeviceIds: ["D09DE3465F0FF17A7C7AA0997E40DFCA"]),
+    );
+
+    // Interstitial yükle
+    WidgetsBinding.instance.addPostFrameCallback((_) => _loadInterstitial());
+  }
+
+  Widget _withInternetListener(Widget child) {
+    return BlocListener<InternetConnectionCubit, InternetConnectionState>(
+      listener: (context, state) {
+        if (state is InternetDisConnected) {
+          Navigator.of(context).push(
+            PageRouteBuilder(
+              opaque: false,
+              barrierColor: Colors.black.withOpacity(0.3),
+              pageBuilder: (_, __, ___) => const NoInternetPage(),
+              transitionsBuilder: (_, animation, __, child) {
+                return FadeTransition(opacity: animation, child: child);
+              },
+            ),
+          );
+        }
+      },
+      child: child,
+    );
   }
 
   void _loadInterstitial() {
-    final isPremium = context.read<IsUserPremiumCubit>().state;
-    if (isPremium) return; // Premium kullanıcıya reklam yok
+    if (context.read<IsUserPremiumCubit>().state) return;
 
     InterstitialAd.load(
-      adUnitId: 'ca-app-pub-3940256099942544/1033173712',
+      adUnitId: 'ca-app-pub-6970688308215711/5433027759', // Test ID
       request: const AdRequest(),
       adLoadCallback: InterstitialAdLoadCallback(
         onAdLoaded: (ad) {
@@ -66,65 +89,44 @@ class _GameResultPageState extends State<GameResultPage> {
             },
           );
         },
-        onAdFailedToLoad: (error) {
-          _isAdReady = false;
-        },
+        onAdFailedToLoad: (_) => _isAdReady = false,
       ),
     );
   }
 
   Future<void> _showInterstitialThenNavigate() async {
-    final isPremium = context.read<IsUserPremiumCubit>().state;
-    if (isPremium) {
-      _navigateToGamePage();
-      return;
-    }
+    if (context.read<IsUserPremiumCubit>().state) return _navigateToGamePage();
 
-    while (_interstitialAd == null) {
+    int attempts = 0;
+    while (_interstitialAd == null && attempts < 20) {
       await Future.delayed(const Duration(milliseconds: 100));
+      attempts++;
     }
 
-    if (_interstitialAd != null && _isAdReady) {
+    if (_isAdReady)
       _interstitialAd?.show();
-    } else {
+    else
       _navigateToGamePage();
-    }
   }
 
-  void _navigateToGamePage() {
-    
-    AppNavigator.pushReplacement(context, PhoneToForeheadPage());
+  void _navigateToGamePage() =>
+      AppNavigator.pushReplacement(context, PhoneToForeheadPage());
+
+  void _navigateToHome(BuildContext context) {
+    _resetCubits(context);
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (_) => const BottomNavPage()));
   }
 
-  Future<void> _loadBanner() async {
-    final isPremium = context.read<IsUserPremiumCubit>().state;
-    if (isPremium) return; // Premium kullanıcıya banner yok
+  void _resetCubits(BuildContext context) {
+    context.read<CurrentNameCubit>().reset();
+    context.read<ScoreCubit>().reset();
+    context.read<ResultCubit>().reset();
+  }
 
-    final double screenWidth = MediaQuery.of(context).size.width;
-    final double width = screenWidth.clamp(320.0, 600.0);
-
-    final AnchoredAdaptiveBannerAdSize? size =
-        await AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
-            width.truncate());
-    if (size == null) return;
-
-    _adSize = size;
-
-    _bannerAd = BannerAd(
-      adUnitId: 'ca-app-pub-3940256099942544/6300978111',
-      size: size,
-      request: const AdRequest(),
-      listener: BannerAdListener(
-        onAdLoaded: (_) {
-          setState(() {
-            _isAdLoaded = true;
-          });
-        },
-        onAdFailedToLoad: (ad, error) {
-          ad.dispose();
-        },
-      ),
-    )..load();
+  Future<void> _onPlayAgainPressed(BuildContext context) async {
+    await _showInterstitialThenNavigate();
+    if (mounted) _resetCubits(context);
   }
 
   void _onScroll() {
@@ -139,68 +141,39 @@ class _GameResultPageState extends State<GameResultPage> {
 
   @override
   void dispose() {
-    _scrollController.removeListener(_onScroll);
     _scrollController.dispose();
-    _bannerAd?.dispose();
+    _interstitialAd?.dispose();
     super.dispose();
-  }
-
-  void _navigateToHome(BuildContext context) {
-    _resetCubits(context);
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (_) => const BottomNavPage()),
-    );
-  }
-
-  void _resetCubits(BuildContext context) {
-    context.read<CurrentNameCubit>().reset();
-    context.read<ScoreCubit>().reset();
-    context.read<ResultCubit>().reset();
-  }
-
-  Future<void> _onPlayAgainPressed(BuildContext context) async {
-    await _showInterstitialThenNavigate();
-    await Future.delayed(const Duration(milliseconds: 200));
-    if (mounted) _resetCubits(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    final isPremium = context.watch<IsUserPremiumCubit>().state;
-
     return WillPopScope(
       onWillPop: () async {
         _navigateToHome(context);
         return false;
       },
-      child: Scaffold(
-        backgroundColor: AppColors.primary,
-        body: SafeArea(
-          child: BlocBuilder<ResultCubit, List<CardResultModel>>(
-            builder: (context, resultList) {
-              final correctCount = resultList.where((r) => r.isCorrect).length;
-
-              return Column(
-                children: [
-                  _buildTopBar(context),
-                  _buildHeader(correctCount),
-                  const SizedBox(height: 8),
-                  Expanded(child: _buildScrollableResultList(resultList)),
-                  _buildPlayAgainButton(context),
-                  // Banner
-                  if (!isPremium &&
-                      _isAdLoaded &&
-                      _bannerAd != null &&
-                      _adSize != null)
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      height: _adSize!.height.toDouble(),
-                      child: AdWidget(ad: _bannerAd!),
-                    ),
-                ],
-              );
-            },
+      child: _withInternetListener(
+        Scaffold(
+          backgroundColor: AppColors.primary,
+          body: SafeArea(
+            child: BlocBuilder<ResultCubit, List<CardResultModel>>(
+              builder: (context, resultList) {
+                final correctCount =
+                    resultList.where((r) => r.isCorrect).length;
+                return Column(
+                  children: [
+                    _buildTopBar(context),
+                    _buildHeader(correctCount),
+                    const SizedBox(height: 8),
+                    Expanded(child: _buildScrollableResultList(resultList)),
+                    _buildPlayAgainButton(context),
+                    // BURAYA BANNER EKLENDİ
+                    const BannerContainer(),
+                  ],
+                );
+              },
+            ),
           ),
         ),
       ),
@@ -210,13 +183,13 @@ class _GameResultPageState extends State<GameResultPage> {
   Widget _buildTopBar(BuildContext context) {
     return Container(
       width: double.infinity,
-      color: AppColors.primary,
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+      color: AppColors.primary,
       child: Row(
         children: [
           IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.white, size: 28),
             onPressed: () => _navigateToHome(context),
+            icon: const Icon(Icons.arrow_back, color: Colors.white, size: 28),
           ),
           const Spacer(),
         ],
@@ -227,16 +200,11 @@ class _GameResultPageState extends State<GameResultPage> {
   Widget _buildHeader(int correctCount) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
-      child: Center(
-        child: Text(
-          "Toplam $correctCount kelime bildin!",
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 26,
-            fontWeight: FontWeight.w900,
-          ),
-        ),
+      child: Text(
+        "Toplam $correctCount kelime bildin!",
+        textAlign: TextAlign.center,
+        style: const TextStyle(
+            color: Colors.white, fontSize: 26, fontWeight: FontWeight.w900),
       ),
     );
   }
@@ -244,70 +212,56 @@ class _GameResultPageState extends State<GameResultPage> {
   Widget _buildScrollableResultList(List<CardResultModel> resultList) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final double trackHeight = constraints.maxHeight;
-        final double thumbHeight =
+        final trackHeight = constraints.maxHeight;
+        final thumbHeight =
             trackHeight * (trackHeight / (_scrollMax + trackHeight));
-        final double thumbTop =
+        final thumbTop =
             (_scrollPosition / _scrollMax) * (trackHeight - thumbHeight);
 
         return Stack(
           children: [
-            _buildResultListView(resultList),
-            _buildScrollIndicator(thumbTop, thumbHeight),
+            ListView.builder(
+              controller: _scrollController,
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+              itemCount: resultList.length,
+              itemBuilder: (context, index) =>
+                  _ResultListItem(result: resultList[index]),
+            ),
+            Positioned(
+              right: 10,
+              top: thumbTop.isNaN ? 0 : thumbTop,
+              child: Container(
+                width: 3,
+                height: thumbHeight,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(4),
+                ),
+              ),
+            ),
           ],
         );
       },
     );
   }
 
-  Widget _buildResultListView(List<CardResultModel> resultList) {
-    return ListView.builder(
-      controller: _scrollController,
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
-      itemCount: resultList.length,
-      itemBuilder: (context, index) {
-        final result = resultList[index];
-        return _ResultListItem(result: result);
-      },
-    );
-  }
-
-  Widget _buildScrollIndicator(double thumbTop, double thumbHeight) {
-    return Positioned(
-      right: 10,
-      top: thumbTop.isNaN ? 0 : thumbTop,
-      child: Container(
-        width: 3,
-        height: thumbHeight,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(4),
-        ),
-      ),
-    );
-  }
-
   Widget _buildPlayAgainButton(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(16),
       child: SizedBox(
-        width: double.infinity,
         height: 56,
+        width: double.infinity,
         child: ElevatedButton(
           onPressed: () => _onPlayAgainPressed(context),
           style: ElevatedButton.styleFrom(
             backgroundColor: AppColors.secondary,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           ),
           child: const Text(
             "Tekrar Oyna",
             style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
+                color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
           ),
         ),
       ),
@@ -334,6 +288,110 @@ class _ResultListItem extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class BannerContainer extends StatefulWidget {
+  const BannerContainer({super.key});
+
+  @override
+  State<BannerContainer> createState() => _BannerContainerState();
+}
+
+class _BannerContainerState extends State<BannerContainer> {
+  BannerAd? _bannerAd;
+  bool _isAdLoaded = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final internetState = context.read<InternetConnectionCubit>().state;
+
+      if (internetState is InternetConnected) {
+        _loadBanner();
+      }
+    });
+  }
+
+  Future<void> _loadBanner() async {
+    if (!mounted) return;
+    if (context.read<IsUserPremiumCubit>().state) return;
+
+    _bannerAd?.dispose();
+
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+// Küçük olanı al
+    final int width =
+        (screenWidth < screenHeight ? screenWidth : screenHeight).toInt();
+    print("wdith ---------------------------------------");
+    print(width);
+
+    // 🔥 getAnchoredAdaptiveBannerAdSize entegrasyonu
+    AdSize? size = await AdSize.getAnchoredAdaptiveBannerAdSize(
+      Orientation.portrait, // Çünkü uygulaman portrait locked
+      width,
+    );
+
+    if (size == null) {
+      print("Adaptive banner size is NULL → Skipping load");
+      return;
+    }
+
+    final BannerAd banner = BannerAd(
+      adUnitId: 'ca-app-pub-6970688308215711/4715714592',
+      size: size,
+      request: const AdRequest(),
+      listener: BannerAdListener(
+        onAdLoaded: (ad) {
+          if (!mounted) return;
+          setState(() {
+            _bannerAd = ad as BannerAd;
+            _isAdLoaded = true;
+          });
+        },
+        onAdFailedToLoad: (ad, error) {
+          print(
+              "Banner failed: $error ****************************************");
+          ad.dispose();
+        },
+      ),
+    );
+
+    await banner.load();
+  }
+
+  @override
+  void dispose() {
+    _bannerAd?.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocListener<InternetConnectionCubit, InternetConnectionState>(
+      listener: (context, state) {
+        if (state is InternetConnected) {
+          print("load banner *******************");
+          _loadBanner();
+        }
+      },
+      child: _isAdLoaded && _bannerAd != null
+          ? Align(
+              alignment: Alignment.bottomCenter,
+              child: SafeArea(
+                child: SizedBox(
+                  width: _bannerAd!.size.width.toDouble(),
+                  height: _bannerAd!.size.height.toDouble(),
+                  child: AdWidget(ad: _bannerAd!),
+                ),
+              ),
+            )
+          : const SizedBox.shrink(),
     );
   }
 }

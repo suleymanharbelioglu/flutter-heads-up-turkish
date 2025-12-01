@@ -42,7 +42,7 @@ class _DeckFlipState extends State<DeckFlip>
 
   void _loadInterstitial() {
     InterstitialAd.load(
-      adUnitId: 'ca-app-pub-3940256099942544/1033173712', // Test ID
+      adUnitId: 'ca-app-pub-6970688308215711/3866393700', // Test ID
       request: const AdRequest(),
       adLoadCallback: InterstitialAdLoadCallback(
         onAdLoaded: (ad) {
@@ -75,10 +75,12 @@ class _DeckFlipState extends State<DeckFlip>
     }
 
     // Reklam yüklenene kadar bekle
-    while (_interstitialAd == null) {
+    int attempts = 0;
+    while (_interstitialAd == null && attempts < 20) {
+      // max 5 saniye bekle
       await Future.delayed(const Duration(milliseconds: 100));
+      attempts++;
     }
-
     if (_interstitialAd != null && _isAdReady) {
       _interstitialAd?.show();
     } else {

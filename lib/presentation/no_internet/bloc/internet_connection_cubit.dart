@@ -22,7 +22,7 @@ class InternetConnectionCubit extends Cubit<InternetConnectionState> {
         emit(InternetConnected());
       }
     });
-  }d
+  }
 
   Future<void> _checkInitialConnection() async {
     final result = await Connectivity().checkConnectivity();

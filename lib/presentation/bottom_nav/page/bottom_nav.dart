@@ -47,8 +47,16 @@ class _BottomNavPageState extends State<BottomNavPage> {
           print("go to No internet page ---------------------");
           // İnternet yoksa NoInternetPage'e yönlendir
           Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (_) => const NoInternetPage(),
+            PageRouteBuilder(
+              opaque: false, // Arkadaki sayfa görünsün
+              barrierColor: Colors.black.withOpacity(0.3), // Arkayı karart
+              pageBuilder: (_, __, ___) => const NoInternetPage(),
+              transitionsBuilder: (_, animation, __, child) {
+                return FadeTransition(
+                  opacity: animation,
+                  child: child,
+                );
+              },
             ),
           );
         }
@@ -130,41 +138,41 @@ class _BannerContainerState extends State<BannerContainer> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _loadBanner();
+      final internetState = context.read<InternetConnectionCubit>().state;
+      final isPremium = context.read<IsUserPremiumCubit>().state;
+
+      // Sadece internet var ve kullanıcı premium değilse banner yükle
+      if (internetState is InternetConnected && !isPremium) {
+        _loadBanner();
+      }
     });
   }
 
   Future<void> _loadBanner() async {
     final isPremium = context.read<IsUserPremiumCubit>().state;
-    if (isPremium) return;
+    if (isPremium) return; // Premium kullanıcı için yükleme iptal
+
+    // Eski banner varsa temizle
+    _bannerAd?.dispose();
 
     final width = MediaQuery.of(context).size.width;
     final size = await AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
-        width.truncate());
-    if (size == null) return;
+        width.toInt());
+    if (size == null || !mounted) return;
 
-    if (mounted) {
-      setState(() {
-        _adSize = size;
-      });
-    }
+    setState(() => _adSize = size);
 
     _bannerAd = BannerAd(
-      adUnitId: 'ca-app-pub-3940256099942544/6300978111',
+      adUnitId: 'ca-app-pub-6970688308215711/4715714592',
       size: size,
       request: const AdRequest(),
       listener: BannerAdListener(
         onAdLoaded: (_) {
-          if (mounted) {
-            setState(() => _isAdLoaded = true);
-          }
+          if (mounted) setState(() => _isAdLoaded = true);
         },
         onAdFailedToLoad: (ad, error) {
           ad.dispose();
-
-          if (mounted) {
-            setState(() => _isAdLoaded = false);
-          }
+          if (mounted) setState(() => _isAdLoaded = false);
         },
       ),
     )..load();
@@ -180,14 +188,23 @@ class _BannerContainerState extends State<BannerContainer> {
   Widget build(BuildContext context) {
     final isPremium = context.watch<IsUserPremiumCubit>().state;
 
-    if (isPremium || !_isAdLoaded || _bannerAd == null || _adSize == null) {
-      return const SizedBox.shrink();
-    }
+    // Premium kullanıcı → banner gözükmesin
+    if (isPremium) return const SizedBox.shrink();
 
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      height: _adSize!.height.toDouble(),
-      child: AdWidget(ad: _bannerAd!),
+    return BlocListener<InternetConnectionCubit, InternetConnectionState>(
+      listener: (context, state) {
+        if (state is InternetConnected && !isPremium) {
+          print("laod banner ads*************************");
+          _loadBanner();
+        }
+      },
+      child: _isAdLoaded && _bannerAd != null && _adSize != null
+          ? SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: _adSize!.height.toDouble(),
+              child: AdWidget(ad: _bannerAd!),
+            )
+          : const SizedBox.shrink(),
     );
   }
 }
