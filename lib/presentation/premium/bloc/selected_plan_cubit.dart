@@ -1,3 +1,4 @@
+import 'package:ben_kimim/common/helper/sound/sound.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SelectedPlanCubit extends Cubit<String?> {
@@ -5,7 +6,9 @@ class SelectedPlanCubit extends Cubit<String?> {
       : super('weekly_premium'); // Başlangıçta haftalık plan seçili
 
   /// UI üzerinden seçilen planı set eder
-  void selectPlan(String productId) {
+  Future<void> selectPlan(String productId) async {
+    await SoundHelper.playClick();
+
     print("product id ....................$productId");
     emit(productId);
   }

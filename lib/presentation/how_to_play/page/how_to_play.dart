@@ -24,49 +24,21 @@ class HowToPlayPage extends StatelessWidget {
           children: [
             InstructionItem(
               description:
-                  "  Oynamak istediğin desteyi seç. Telefonu alnın yerşeltir. Deste kartındaki kurallara göre kelimeyi tahim et!",
+                  "  Oynamak istediğin desteyi seç. Telefonu alnına yerleştir. Deste kartındaki kurallara göre kelimeyi tahmin et!",
               imagePath: AppImages.game,
             ),
             const SizedBox(height: 40),
             InstructionItem(
               description:
-                  "  Kelimeyi doğru bilirsen telefonu ekranını aşağı doğru cevir.",
+                  "  Kelimeyi doğru bilirsen telefonun ekranını aşağı doğru çevir.",
               imagePath: AppImages.correct,
             ),
             const SizedBox(height: 40),
             InstructionItem(
               description:
-                  " Pass geçmek için telefonu ekranını yukarı doğru çevir.",
+                  "  Pass geçmek için telefonun ekranını yukarı doğru çevir.",
               imagePath: AppImages.pass,
             ),
-            // const Spacer(),
-            // Center(
-            //   child: SizedBox(
-            //     width: 240,
-            //     height: 70,
-            //     child: ElevatedButton(
-            //       style: ElevatedButton.styleFrom(
-            //         backgroundColor: Colors.green,
-            //         shape: RoundedRectangleBorder(
-            //           borderRadius: BorderRadius.circular(16),
-            //         ),
-            //         elevation: 5,
-            //       ),
-            //       onPressed: () {
-            //         AppNavigator.push(context, AllDecksPage());
-            //       },
-            //       child: const Text(
-            //         "Devam Et",
-            //         style: TextStyle(
-            //           color: Colors.white,
-            //           fontSize: 28,
-            //           fontWeight: FontWeight.bold,
-            //           letterSpacing: 0.5,
-            //         ),
-            //       ),
-            //     ),
-            //   ),
-            // ),
           ],
         ),
       ),

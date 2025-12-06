@@ -247,7 +247,7 @@ class PremiumInfoPage extends StatelessWidget {
                 children: const [
                   TextSpan(text: "Üyelik işlemlerini "),
                   TextSpan(
-                    text: "Google Üyelikler",
+                    text: "Google Play Üyelikler",
                     style: TextStyle(
                       decoration: TextDecoration.underline,
                       color: Colors.blue,

@@ -1,3 +1,4 @@
+import 'package:ben_kimim/common/helper/sound/sound.dart';
 import 'package:ben_kimim/common/widget/deck/deck_flip.dart';
 import 'package:ben_kimim/presentation/bottom_nav/bloc/bottom_nav_cubit.dart';
 import 'package:ben_kimim/presentation/premium/bloc/is_user_premium_cubit.dart';
@@ -35,7 +36,7 @@ class DeckCover extends StatelessWidget {
         // Görüntüleri önbelleğe almak, geçiş sırasındaki kasılmayı engeller (iyi pratik).
         await precacheImage(AssetImage(deck.onGorselAdress), context);
         await precacheImage(AssetImage(deck.arkaGorselAdress), context);
-
+        await SoundHelper.playClick();
         Navigator.of(context).push(
           PageRouteBuilder(
             pageBuilder: (_, __, ___) => BlocProvider.value(

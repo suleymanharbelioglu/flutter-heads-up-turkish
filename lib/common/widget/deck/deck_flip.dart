@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ben_kimim/domain/deck/entity/deck.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class DeckFlip extends StatefulWidget {
@@ -546,9 +547,14 @@ class _DeckFlipState extends State<DeckFlip>
               return GestureDetector(
                 onTap: () async {
                   if (showVIP) {
-                    context.read<BottomNavCubit>().changePage(0);
-                    Navigator.of(context)
-                        .pop(); // DeckFlip'i kapat // 0 → PremiumPage
+                    final cubit = context.read<BottomNavCubit>();
+
+                    Navigator.of(context).pop();
+
+                    await Future.delayed(const Duration(milliseconds: 300));
+
+// artık context silinmiş olsa bile sorun yok
+                    cubit.changePage(0);
                   } else {
                     await context
                         .read<DisplayCurrentCardListCubit>()
@@ -557,36 +563,47 @@ class _DeckFlipState extends State<DeckFlip>
                   }
                 },
                 child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [gradientStart, gradientEnd],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: Colors.white, width: 2),
-                    boxShadow: [
-                      BoxShadow(
-                        color:
-                            (showVIP ? Colors.greenAccent : Colors.blueAccent)
-                                .withOpacity(0.4),
-                        blurRadius: 8,
-                        offset: const Offset(0, 3),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 24, vertical: 10),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [gradientStart, gradientEnd],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
                       ),
-                    ],
-                  ),
-                  child: Text(
-                    showVIP ? "VIP" : "Oyna!",
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                      letterSpacing: 0.5,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: Colors.white, width: 2),
+                      boxShadow: [
+                        BoxShadow(
+                          color:
+                              (showVIP ? Colors.greenAccent : Colors.blueAccent)
+                                  .withOpacity(0.4),
+                          blurRadius: 8,
+                          offset: const Offset(0, 3),
+                        ),
+                      ],
                     ),
-                  ),
-                ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          showVIP ? "VIP Satın Al" : "Oyna!",
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                            letterSpacing: 0.5,
+                          ),
+                        ),
+                        if (showVIP) const SizedBox(width: 6),
+                        if (showVIP)
+                          const FaIcon(
+                            FontAwesomeIcons.crown,
+                            color: Colors.yellow,
+                            size: 20,
+                          ),
+                      ],
+                    )),
               );
             },
           ),
