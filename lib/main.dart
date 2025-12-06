@@ -17,8 +17,9 @@ import 'package:ben_kimim/presentation/game/bloc/score_cubit.dart';
 import 'package:ben_kimim/presentation/game/bloc/timer_cubit.dart';
 import 'package:ben_kimim/presentation/game_result/bloc/result_cubit.dart';
 import 'package:ben_kimim/presentation/no_internet/bloc/internet_connection_cubit.dart';
-import 'package:ben_kimim/presentation/premium/bloc/plan_cubit.dart';
 import 'package:ben_kimim/presentation/premium/bloc/is_user_premium_cubit.dart';
+import 'package:ben_kimim/presentation/premium/bloc/premium_status_cubit.dart';
+import 'package:ben_kimim/presentation/premium/bloc/purchase_cubit.dart';
 import 'package:ben_kimim/presentation/splash/bloc/splash_cubit.dart';
 import 'package:ben_kimim/presentation/splash/pages/splash.dart';
 import 'package:ben_kimim/service_locator.dart';
@@ -48,6 +49,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(create: (context) => PremiumStatusCubit()),
         BlocProvider(create: (context) => SplashCubit()),
         BlocProvider(create: (context) => TimerCubit()),
         BlocProvider(create: (context) => DisplayCurrentCardListCubit()),
@@ -86,17 +88,18 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => CizgiFilmAnimeDecksCubit(),
         ),
-        BlocProvider(
-          create: (context) => PlanCubit(),
-        ),
-        BlocProvider(
-          create: (context) => IsUserPremiumCubit(),
-        ),
+       BlocProvider(
+      create: (context) => IsUserPremiumCubit(
+        context.read<PremiumStatusCubit>(), // Ana Cubit'i okur ve IsUserPremiumCubit'e verir
+      ),),
         BlocProvider(
           create: (context) => BottomNavCubit(),
         ),
         BlocProvider(
           create: (context) => InternetConnectionCubit(),
+        ),
+        BlocProvider(
+          create: (context) => PurchaseCubit(),
         ),
       ],
       child: MaterialApp(

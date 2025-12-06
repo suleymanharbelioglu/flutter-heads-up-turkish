@@ -1,5 +1,12 @@
 import 'package:ben_kimim/presentation/premium/bloc/is_user_premium_cubit.dart';
-import 'package:ben_kimim/presentation/premium/bloc/plan_cubit.dart';
+import 'package:ben_kimim/presentation/premium/bloc/load_products_cubit.dart';
+import 'package:ben_kimim/presentation/premium/bloc/load_products_state.dart';
+import 'package:ben_kimim/presentation/premium/bloc/premium_status_cubit.dart';
+import 'package:ben_kimim/presentation/premium/bloc/premium_status_state.dart';
+import 'package:ben_kimim/presentation/premium/bloc/purchase_cubit.dart';
+import 'package:ben_kimim/presentation/premium/bloc/purchase_state.dart';
+import 'package:ben_kimim/presentation/premium/bloc/selected_plan_cubit.dart';
+import 'package:ben_kimim/presentation/premium/page/premium_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -8,31 +15,57 @@ class PremiumPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => PlanCubit(),
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-            child: Column(
-              children: const [
-                SizedBox(height: 20),
-                _HeaderSection(),
-                SizedBox(height: 20),
-                _FeaturesSection(),
-                SizedBox(height: 30),
-                Expanded(child: _PlansSection()),
-                SizedBox(height: 16),
-                _StartButton(),
-                SizedBox(height: 16),
-                _BottomLinks(),
-                SizedBox(height: 20),
-              ],
-            ),
-          ),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => LoadProductsCubit()..loadProducts(),
         ),
-      ),
+        BlocProvider(
+          create: (context) => SelectedPlanCubit(),
+        )
+      ],
+      child: BlocListener<PurchaseCubit, PurchaseState>(
+          listener: (context, state) {
+        if (state is PurchaseFailure) {
+          // Satın alma başarısız → SnackBar ile hata göster
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(state.message)),
+          );
+        }
+      }, child: BlocBuilder<PremiumStatusCubit, PremiumStatusState>(
+        builder: (context, state) {
+          if (state is PremiumActive) {
+            return PremiumInfoPage(
+              purchase: state.purchase,
+            );
+          } else {
+            return Scaffold(
+              backgroundColor: Colors.white,
+              body: SafeArea(
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                  child: Column(
+                    children: const [
+                      SizedBox(height: 20),
+                      _HeaderSection(),
+                      SizedBox(height: 20),
+                      _FeaturesSection(),
+                      SizedBox(height: 30),
+                      Expanded(child: _PlansSection()),
+                      SizedBox(height: 16),
+                      _StartButton(),
+                      SizedBox(height: 16),
+                      _BottomLinks(),
+                      SizedBox(height: 20),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          }
+        },
+      )),
     );
   }
 }
@@ -104,35 +137,86 @@ class _FeatureRow extends StatelessWidget {
 class _PlansSection extends StatelessWidget {
   const _PlansSection();
 
+  String _getTitle(String productId) {
+    switch (productId) {
+      case 'weekly_premium':
+        return 'Haftalık Üyelik';
+      case 'monthly_premium':
+        return 'Aylık Üyelik';
+      case 'yearly_premium':
+        return 'Yıllık Üyelik';
+      default:
+        return '';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PlanCubit, PlanType?>(
-      builder: (context, selectedPlan) {
-        return ListView(
-          children: [
-            PlanTile(
-              title: "Haftalık",
-              price: "₺40",
-              selected: selectedPlan == PlanType.weekly,
-              onTap: () =>
-                  context.read<PlanCubit>().selectPlan(PlanType.weekly),
-            ),
-            PlanTile(
-              title: "Aylık",
-              price: "₺120",
-              selected: selectedPlan == PlanType.monthly,
-              onTap: () =>
-                  context.read<PlanCubit>().selectPlan(PlanType.monthly),
-            ),
-            PlanTile(
-              title: "Yıllık",
-              price: "₺600",
-              selected: selectedPlan == PlanType.yearly,
-              onTap: () =>
-                  context.read<PlanCubit>().selectPlan(PlanType.yearly),
-            ),
-          ],
-        );
+    return BlocBuilder<LoadProductsCubit, LoadProductsState>(
+      builder: (context, state) {
+        if (state is LoadProductsLoading) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        if (state is LoadProductsFailure) {
+          return Center(child: Text("Hata: ${state.message}"));
+        }
+
+        if (state is LoadProductsSuccess) {
+          final products = state.products;
+          final selectedProductId = context.watch<SelectedPlanCubit>().state;
+          final isPurchasing =
+              context.watch<PurchaseCubit>().state is PurchaseInProgress;
+
+          return ListView(
+            children: [
+              PlanTile(
+                title: _getTitle('weekly_premium'),
+                price: products
+                    .firstWhere((p) => p.productId == 'weekly_premium')
+                    .price,
+                selected: selectedProductId == 'weekly_premium',
+                onTap: () {
+                  if (!isPurchasing) {
+                    context
+                        .read<SelectedPlanCubit>()
+                        .selectPlan('weekly_premium');
+                  }
+                },
+              ),
+              PlanTile(
+                title: _getTitle('monthly_premium'),
+                price: products
+                    .firstWhere((p) => p.productId == 'monthly_premium')
+                    .price,
+                selected: selectedProductId == 'monthly_premium',
+                onTap: () {
+                  if (!isPurchasing) {
+                    context
+                        .read<SelectedPlanCubit>()
+                        .selectPlan('monthly_premium');
+                  }
+                },
+              ),
+              PlanTile(
+                title: _getTitle('yearly_premium'),
+                price: products
+                    .firstWhere((p) => p.productId == 'yearly_premium')
+                    .price,
+                selected: selectedProductId == 'yearly_premium',
+                onTap: () {
+                  if (!isPurchasing) {
+                    context
+                        .read<SelectedPlanCubit>()
+                        .selectPlan('yearly_premium');
+                  }
+                },
+              ),
+            ],
+          );
+        }
+
+        return const SizedBox.shrink();
       },
     );
   }
@@ -196,30 +280,48 @@ class _StartButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () {
-        // PlanCubit'ten seçili planı al
-        final selectedPlan = context.read<PlanCubit>().state;
+    return BlocBuilder<PurchaseCubit, PurchaseState>(
+      builder: (context, state) {
+        final isLoading = state is PurchaseInProgress;
 
-        // IsUserPremiumCubit ile kullanıcıyı premium yap
-        context.read<IsUserPremiumCubit>().setPremium(true);
-
-        // Terminale yazdır
-        print("Kullanıcı premium oldu! Seçilen plan: $selectedPlan");
+        return ElevatedButton(
+          onPressed: isLoading
+              ? null // Satın alma sürecindeyse tıklamayı iptal et
+              : () {
+                  // Satın alma işlemini başlat
+                  final selectedProductId =
+                      context.read<SelectedPlanCubit>().state;
+                  if (selectedProductId != null) {
+                    context
+                        .read<PurchaseCubit>()
+                        .purchaseProduct(selectedProductId);
+                  }
+                },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.green,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 16),
+          ),
+          child: isLoading
+              ? const SizedBox(
+                  height: 24,
+                  width: 24,
+                  child: CircularProgressIndicator(
+                    color: Colors.white,
+                    strokeWidth: 3,
+                  ),
+                )
+              : const Text(
+                  "Şimdi Başla",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+        );
       },
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.green,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 16),
-      ),
-      child: const Text(
-        "Şimdi Başla",
-        style: TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-          color: Colors.white,
-        ),
-      ),
     );
   }
 }

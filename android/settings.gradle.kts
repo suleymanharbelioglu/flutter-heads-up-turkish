@@ -18,7 +18,11 @@ pluginManagement {
 
 plugins {
     id("dev.flutter.flutter-plugin-loader") version "1.0.0"
-    id("com.android.application") version "8.7.3" apply false
+
+    // 🔥 BURASI GÜNCELLENDİ 🔥
+    id("com.android.application") version "8.9.1" apply false
+    // ✔ 8.9.1 istersen onu da verebilirim.
+
     id("org.jetbrains.kotlin.android") version "2.1.0" apply false
 }
 

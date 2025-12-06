@@ -155,7 +155,12 @@ class _BannerContainerState extends State<BannerContainer> {
     // Eski banner varsa temizle
     _bannerAd?.dispose();
 
-    final width = MediaQuery.of(context).size.width;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+// Küçük olanı al
+    final int width =
+        (screenWidth < screenHeight ? screenWidth : screenHeight).toInt();
     final size = await AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
         width.toInt());
     if (size == null || !mounted) return;
