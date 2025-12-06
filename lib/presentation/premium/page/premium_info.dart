@@ -1,10 +1,17 @@
+import 'package:ben_kimim/data/app_purchase/model/product_model.dart';
 import 'package:ben_kimim/data/app_purchase/model/purchase_model.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class PremiumInfoPage extends StatelessWidget {
   final PurchaseModel purchase;
-  const PremiumInfoPage({super.key, required this.purchase});
+  final ProductModel? product;
+
+  const PremiumInfoPage({
+    super.key,
+    required this.purchase,
+    required this.product,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +24,11 @@ class PremiumInfoPage extends StatelessWidget {
             child: Column(
               children: [
                 _buildHeader(),
+                const SizedBox(height: 8),
+
+                /// *** Manuel fiyat burada ***
+                _buildPriceTag(),
+
                 const SizedBox(height: 25),
                 _buildInfoCard(),
                 const Spacer(),
@@ -30,7 +42,9 @@ class PremiumInfoPage extends StatelessWidget {
     );
   }
 
+  // -----------------------------------------------------------
   // BACKGROUND GRADIENT
+  // -----------------------------------------------------------
   BoxDecoration _buildBackgroundGradient() {
     return const BoxDecoration(
       gradient: LinearGradient(
@@ -41,7 +55,9 @@ class PremiumInfoPage extends StatelessWidget {
     );
   }
 
-  // PREMIUM ÜYELİK BAŞLIĞI
+  // -----------------------------------------------------------
+  // HEADER
+  // -----------------------------------------------------------
   Widget _buildHeader() {
     return Column(
       children: [
@@ -49,7 +65,7 @@ class PremiumInfoPage extends StatelessWidget {
         const SizedBox(height: 10),
         Text(
           _getTitle(purchase.productId),
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white,
             fontSize: 32,
             fontWeight: FontWeight.w900,
@@ -67,7 +83,51 @@ class PremiumInfoPage extends StatelessWidget {
     );
   }
 
+  // -----------------------------------------------------------
+  // FİYAT ROZETİ — Manuel fiyat
+  // -----------------------------------------------------------
+  Widget _buildPriceTag() {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 18),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.9),
+        borderRadius: BorderRadius.circular(30),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.15),
+            blurRadius: 12,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Text(
+        _getPriceText(purchase.productId),
+        style: const TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w800,
+          color: Colors.black87,
+        ),
+      ),
+    );
+  }
+
+  /// *** Manuel fiyat seçimi — format: TRY 40.00 ***
+  String _getPriceText(String productId) {
+    switch (productId) {
+      case 'weekly_premium':
+        return "TRY 40.00";
+      case 'monthly_premium':
+        return "TRY 100.00";
+      case 'yearly_premium':
+        return "TRY 600.00";
+      default:
+        return "TRY —";
+    }
+  }
+
+  // -----------------------------------------------------------
   // INFO CARD
+  // -----------------------------------------------------------
   Widget _buildInfoCard() {
     return Container(
       width: double.infinity,
@@ -78,18 +138,12 @@ class PremiumInfoPage extends StatelessWidget {
         children: [
           _buildActiveStatus(),
           const SizedBox(height: 30),
-
-          // ✓ ÇEKLİ MADDELER
           _infoBulletCheck("Reklamsız uygulama kullanımı"),
           const SizedBox(height: 15),
-
           _infoBulletCheck("Bütün destelere sınırsız erişim"),
           const SizedBox(height: 25),
-
-          // ℹ️ INFO MADDE – productId'ye göre yenilenme bilgisi
           _infoBulletInfo(_getRenewText(purchase.productId)),
           const SizedBox(height: 15),
-
           _buildGooglePlayLink(),
           const SizedBox(height: 20),
         ],
@@ -111,7 +165,6 @@ class PremiumInfoPage extends StatelessWidget {
     );
   }
 
-  // ACTIVE STATUS BOX
   Widget _buildActiveStatus() {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
@@ -136,7 +189,6 @@ class PremiumInfoPage extends StatelessWidget {
     );
   }
 
-  // ✓ CHECK ICON MADDE
   Widget _infoBulletCheck(String text) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -157,7 +209,6 @@ class PremiumInfoPage extends StatelessWidget {
     );
   }
 
-  // ℹ️ INFO ICON MADDE
   Widget _infoBulletInfo(String text) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -178,12 +229,10 @@ class PremiumInfoPage extends StatelessWidget {
     );
   }
 
-  // GOOGLE PLAY LINK
   Widget _buildGooglePlayLink() {
     return GestureDetector(
       onTap: _openGooglePlaySubscriptions,
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Icon(Icons.info, color: Colors.blue.shade400, size: 22),
           const SizedBox(width: 10),
@@ -217,13 +266,11 @@ class PremiumInfoPage extends StatelessWidget {
   void _openGooglePlaySubscriptions() async {
     final Uri url =
         Uri.parse("https://play.google.com/store/account/subscriptions");
-
     if (await canLaunchUrl(url)) {
       await launchUrl(url, mode: LaunchMode.externalApplication);
     }
   }
 
-  // FOOTER
   Widget _buildFooterMessage() {
     return const Text(
       "Üye olduğunuz için teşekkürler!",
@@ -235,9 +282,9 @@ class PremiumInfoPage extends StatelessWidget {
     );
   }
 
-  // ------------------------------------------------------
-  //  PRODUCT ID → BAŞLIK
-  // ------------------------------------------------------
+  // -----------------------------------------------------------
+  // Title
+  // -----------------------------------------------------------
   String _getTitle(String productId) {
     switch (productId) {
       case 'weekly_premium':
@@ -251,9 +298,9 @@ class PremiumInfoPage extends StatelessWidget {
     }
   }
 
-  // ------------------------------------------------------
-  // PRODUCT ID → YENİLENME AÇIKLAMASI
-  // ------------------------------------------------------
+  // -----------------------------------------------------------
+  // Renew Text
+  // -----------------------------------------------------------
   String _getRenewText(String productId) {
     switch (productId) {
       case 'weekly_premium':
@@ -263,7 +310,7 @@ class PremiumInfoPage extends StatelessWidget {
       case 'yearly_premium':
         return "Üyeliğiniz iptal edilmediği sürece yıllık olarak yenilenir.";
       default:
-        return "Üyeliğiniz iptal edilmediği sürece belirlenen sürede yenilenir.";
+        return "Üyeliğiniz iptal edilmediği sürece yenilenmeye devam eder.";
     }
   }
 }

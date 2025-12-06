@@ -1,4 +1,4 @@
-import 'package:ben_kimim/presentation/premium/bloc/is_user_premium_cubit.dart';
+import 'package:ben_kimim/data/app_purchase/model/product_model.dart';
 import 'package:ben_kimim/presentation/premium/bloc/load_products_cubit.dart';
 import 'package:ben_kimim/presentation/premium/bloc/load_products_state.dart';
 import 'package:ben_kimim/presentation/premium/bloc/premium_status_cubit.dart';
@@ -25,47 +25,52 @@ class PremiumPage extends StatelessWidget {
         )
       ],
       child: BlocListener<PurchaseCubit, PurchaseState>(
-          listener: (context, state) {
-        if (state is PurchaseFailure) {
-          // Satın alma başarısız → SnackBar ile hata göster
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.message)),
-          );
-        }
-      }, child: BlocBuilder<PremiumStatusCubit, PremiumStatusState>(
-        builder: (context, state) {
-          if (state is PremiumActive) {
-            return PremiumInfoPage(
-              purchase: state.purchase,
-            );
-          } else {
-            return Scaffold(
-              backgroundColor: Colors.white,
-              body: SafeArea(
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                  child: Column(
-                    children: const [
-                      SizedBox(height: 20),
-                      _HeaderSection(),
-                      SizedBox(height: 20),
-                      _FeaturesSection(),
-                      SizedBox(height: 30),
-                      Expanded(child: _PlansSection()),
-                      SizedBox(height: 16),
-                      _StartButton(),
-                      SizedBox(height: 16),
-                      _BottomLinks(),
-                      SizedBox(height: 20),
-                    ],
+          listener: (context, state) {},
+          child: BlocBuilder<PremiumStatusCubit, PremiumStatusState>(
+            builder: (context, state) {
+              if (state is PremiumActive) {
+                final productsState = context.read<LoadProductsCubit>().state;
+
+                ProductModel? product;
+                if (productsState is LoadProductsSuccess) {
+                  product = productsState.products.firstWhere(
+                    (p) => p.productId == state.purchase.productId,
+                    orElse: () => productsState.products.first,
+                  );
+                }
+
+                return PremiumInfoPage(
+                  purchase: state.purchase,
+                  product: product,
+                );
+              } else {
+                return Scaffold(
+                  backgroundColor: Colors.white,
+                  body: SafeArea(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 24, vertical: 16),
+                      child: Column(
+                        children: const [
+                          SizedBox(height: 20),
+                          _HeaderSection(),
+                          SizedBox(height: 20),
+                          _FeaturesSection(),
+                          SizedBox(height: 30),
+                          Expanded(child: _PlansSection()),
+                          SizedBox(height: 16),
+                          _StartButton(),
+                          SizedBox(height: 16),
+                          _BottomLinks(),
+                          SizedBox(height: 20),
+                        ],
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            );
-          }
-        },
-      )),
+                );
+              }
+            },
+          )),
     );
   }
 }
