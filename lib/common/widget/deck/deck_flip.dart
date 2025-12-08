@@ -133,7 +133,7 @@ class _DeckFlipState extends State<DeckFlip>
       children: [
         Hero(
           tag: "image_${widget.deck.deckName}",
-          child: _buildCard(widget.deck.onGorselAdress, null),
+          child: _buildHeroImage(widget.deck.onGorselAdress),
         ),
         Positioned(
           top: 20,
@@ -175,13 +175,11 @@ class _DeckFlipState extends State<DeckFlip>
         ),
         BlocBuilder<IsUserPremiumCubit, bool>(
           builder: (context, userIsPremium) {
-            // Kilit gösterme koşulları
             if (!widget.deck.isPremium ||
                 (widget.deck.isPremium && userIsPremium)) {
               return const SizedBox.shrink();
             }
 
-            // Kilit gösterilecek durum: deck premium ve kullanıcı premium değil
             return Positioned(
               right: 8,
               bottom: 8,
@@ -205,6 +203,26 @@ class _DeckFlipState extends State<DeckFlip>
           },
         ),
       ],
+    );
+  }
+
+  Widget _buildHeroImage(String imagePath) {
+    return AspectRatio(
+      aspectRatio: 2 / 3,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: Stack(
+          children: [
+            Image.asset(
+              imagePath,
+              fit: BoxFit.cover,
+              width: double.infinity,
+              height: double.infinity,
+              gaplessPlayback: true,
+            ),
+          ],
+        ),
+      ),
     );
   }
 

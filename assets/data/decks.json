@@ -8,7 +8,7 @@
     "arkaGorselAdress": "assets/images/deck_images/hayvanlar_arka.jpg",
     "namesFilePath": "assets/data/names/hayvanlar_nameList.json",
     "deckTextColor": "0xFF372C2F",
-    "deckDescription": "At mı? Köpek mi? Kedi mi?...\n\nBu deste, evcil ve yabani hayvanları içeriyor.\n\nArkadaşların hayvanları hiçbir kelime kullanmadan canlandırsın, sen de hangi hayvan olduğunu tahmin et!",
+    "deckDescription": "At mı? Köpek mi? Kedi mi?...\n\nBu deste, evcil ve yabani hayvanları içeriyor.\n\nArkadaşların hayvanları hiçbir kelime kullanmadan canlandırsın, sen de tahmin et!",
     "isPremium": false
   },
   {
@@ -20,7 +20,7 @@
     "arkaGorselAdress": "assets/images/deck_images/meyve_ve_sebzeler_arka.jpg",
     "namesFilePath": "assets/data/names/meyveler_ve_sebzeler_nameList.json",
     "deckTextColor": "0xFF344F2B",
-    "deckDescription": "Tatlı mı? Ağaçta mı yetişir?...\n\nBu deste,sıkça tüketilen meyve ve sebzeleri içeriyor.\n\nArkadaşlarına sorular sor ve ipuçlarından yola çıkarak tahmin et!",
+    "deckDescription": "Tatlı mı? Ekşi mi? Ağaçta mı yetişir?...\n\nBu deste,sıkça tüketilen meyve ve sebzeleri içeriyor.\n\nArkadaşlarına sorular sor ve ipuçlarından yola çıkarak tahmin et!",
     "isPremium": true
   },
   {
@@ -32,7 +32,7 @@
     "arkaGorselAdress": "assets/images/deck_images/markalar_arka.jpg",
     "namesFilePath": "assets/data/names/markalar_nameList.json",
     "deckTextColor": "0xFF344F2B",
-    "deckDescription": "Araba üretiyor mu? Yerli mı? Lüks mü?...\n\nBu deste, populer markaları içeriyor.\n\nArkadaşlarına sorular sor ve ipuçlarından yola çıkarak hangi marka olduğunu tahmin et!",
+    "deckDescription": "Araba üretiyor mu? Yerli mı? Lüks mü?...\n\nBu deste, popüler markaları içeriyor.\n\nArkadaşlarına sorular sor ve ipuçlarından yola çıkarak hangi marka olduğunu tahmin et!",
     "isPremium": true
   },
   {
@@ -56,7 +56,7 @@
     "arkaGorselAdress": "assets/images/deck_images/ciz_arka.jpg",
     "namesFilePath": "assets/data/names/ciz_2_nameList.json",
     "deckTextColor": "0xFF344F2B",
-    "deckDescription": "Makas mı? Köpek mi? Çorap mı?...\n\nKalem ve kağıdını hazırla! Bu deste, nesneler ve canlılar içeriyor.\n\nArkadaşların hiç konuşmadan ve ses çıkarmadan çizsinler, sen de tahmin et!",
+    "deckDescription": "Makas mı? Köpek mi? Çorap mı?...\n\nKalem ve kağıdını hazırla! Bu deste, nesneler ve canlıları içeriyor.\n\nArkadaşların hiç konuşmadan ve ses çıkarmadan çizsinler, sen de tahmin et!",
     "isPremium": true
   },
   {
@@ -92,7 +92,7 @@
     "arkaGorselAdress": "assets/images/deck_images/super_kahramanlar_arka.jpg",
     "namesFilePath": "assets/data/names/super_kahramanlar_nameList.json",
     "deckTextColor": "0xFF344F2B",
-    "deckDescription": "Uçabiliyor mu? Kalklan mı kullanıyor?...\n\nBu deste; DC ve Marvel evrenlerindeki en popüler süper kahramanları içeriyor.\n\nArkadaşlarına sorular sor ve ipuçlarından yola çıkarak tahmin et!",
+    "deckDescription": "Uçabiliyor mu? Kalkan mı kullanıyor?...\n\nBu deste; DC ve Marvel evrenlerindeki en popüler süper kahramanları içeriyor.\n\nArkadaşlarına sorular sor ve ipuçlarından yola çıkarak tahmin et!",
     "isPremium": true
   },
   {
@@ -104,7 +104,7 @@
     "arkaGorselAdress": "assets/images/deck_images/insan_bedeni_arka.jpg",
     "namesFilePath": "assets/data/names/insan_bedeni_nameList.json",
     "deckTextColor": "0xFF344F2B",
-    "deckDescription": "organı mı? Sistem mi?...\n\nBu deste; organlar, dokular ve sistemleri içeriyor.\n\nArkadaşlarına sorular sor ve ipuçlarından yola çıkarak tahmin et!",
+    "deckDescription": "Organ mı? Sistem mi?...\n\nBu deste; organlar, dokular ve sistemleri içeriyor.\n\nArkadaşlarına sorular sor ve ipuçlarından yola çıkarak tahmin et!",
     "isPremium": true
   },
   {
@@ -164,7 +164,7 @@
     "arkaGorselAdress": "assets/images/deck_images/unluler_arka.jpg",
     "namesFilePath": "assets/data/names/unluler_nameList.json",
     "deckTextColor": "0xFF8D1320",
-    "deckDescription": "Siyasetçi mi? Sanatçı mı?...\n\nBu deste, Türkiye'de en çok tanınan Türk ve yabancı isimlerini içeriyor.\n\nArkadaşlarına sorular sor, ipuçlarından yola çıkarak tahmin et!",
+    "deckDescription": "Siyasetçi mi? Sanatçı mı?...\n\nBu deste, Türkiye'de en çok tanınan Türk ve yabancı isimleri içeriyor.\n\nArkadaşlarına sorular sor, ipuçlarından yola çıkarak tahmin et!",
     "isPremium": true
   },
   {
@@ -176,7 +176,7 @@
     "arkaGorselAdress": "assets/images/deck_images/oyuncular_arka.jpg",
     "namesFilePath": "assets/data/names/oyuncular_nameList.json",
     "deckTextColor": "0xFF5D2219",
-    "deckDescription": "Türk mü? Kariyerine devam ediyor mu?...\nBu deste, Türkiye'de en çok tanınan Türk ve yabancı oyuncularını içeriyor.\nArkadaşlarına sorular sor, ipuçlarından yola çıkarak tahmin et!",
+    "deckDescription": "Türk mü? Kariyerine devam ediyor mu?...\nBu deste, Türkiye'de en çok tanınan Türk ve yabancı oyuncuları içeriyor.\nArkadaşlarına sorular sor, ipuçlarından yola çıkarak tahmin et!",
     "isPremium": true
   },
   {
@@ -200,7 +200,7 @@
     "arkaGorselAdress": "assets/images/deck_images/yabanci_filmler_arka.jpg",
     "namesFilePath": "assets/data/names/dunya_sinemasi_nameList.json",
     "deckTextColor": "0xFFCBA06A",
-    "deckDescription": "Odüllü mü? Mafya konulu mu?...\n\nBu deste, Dünya'non en ünlü dizi ve filmlerini içeriyor.\n\nArkadaşlarına sorular sor, ipuçlarından yola çıkarak tahmin et!",
+    "deckDescription": "Ödüllü mü? Mafya konulu mu?...\n\nBu deste, Dünya'nın en ünlü dizi ve filmlerini içeriyor.\n\nArkadaşlarına sorular sor, ipuçlarından yola çıkarak tahmin et!",
     "isPremium": true
   },
   {
@@ -212,7 +212,7 @@
     "arkaGorselAdress": "assets/images/deck_images/futbolcular_arka.jpg",
     "namesFilePath": "assets/data/names/futbolcular_nameList.json",
     "deckTextColor": "0xFFC9D4C3",
-    "deckDescription": "Forvet mi? Kaleci mi?...\n\nBu deste, Düyan'nın en ünlü futbolcularını içeriyor.\n\nArkadaşlarına sorular sor, ipuçlarından yola çıkarak tahmin et!",
+    "deckDescription": "Forvet mi? Kaleci mi?...\n\nBu deste, Dünya'nın en ünlü futbolcularını içeriyor.\n\nArkadaşlarına sorular sor, ipuçlarından yola çıkarak tahmin et!",
     "isPremium": true
   },
   {
@@ -248,7 +248,7 @@
     "arkaGorselAdress": "assets/images/deck_images/turk_pop_rock_arka.jpg",
     "namesFilePath": "assets/data/names/pop_rock_müzik_nameList.json",
     "deckTextColor": "0xFF5F919C",
-    "deckDescription": "Mırıldan bakalım! lay la lay lay...\n\nBu deste, Türkiye'nin en populer pop ve rock hitlerini içeriyor.\n\nArkadaşların müzikleri hiç kelime kullanmadan mırıldansın,sen de tahmin et!",
+    "deckDescription": "Mırıldan bakalım! lay la lay lay...\n\nBu deste, Türkiye'nin en popüler pop ve rock hitlerini içeriyor.\n\nArkadaşların müzikleri hiç kelime kullanmadan mırıldansın,sen de tahmin et!",
     "isPremium": true
   },
   {
@@ -308,7 +308,7 @@
     "arkaGorselAdress": "assets/images/deck_images/ulkeler_arka.jpg",
     "namesFilePath": "assets/data/names/ulkeler_nameList.json",
     "deckTextColor": "0xFFCE5D39",
-    "deckDescription": "Kahvesiyle mi meşhur ? Asya'da mı?...\n\nBu deste, ülkeleri içeriyor.\nArkadaşlarınıza sorular sor ve ipuçlarından yola çıkarak tahmin et!",
+    "deckDescription": "Kahvesiyle mi meşhur ? Asya'da mı?...\n\nBu deste, ülkeleri içeriyor.\nArkadaşlarına sorular sor ve ipuçlarından yola çıkarak tahmin et!",
     "isPremium": true
   },
   {
@@ -332,7 +332,7 @@
     "arkaGorselAdress": "assets/images/deck_images/baskentler_arka.jpg",
     "namesFilePath": "assets/data/names/baskentler_nameList.json",
     "deckTextColor": "0xFFA36A52",
-    "deckDescription": "Ankara mı? Paris mi?...\n\n Bu deste,  başkentleri içeriyor.\n\nArkadaşların ülkeyi söyselin , sen de başkentini tahmin et!",
+    "deckDescription": "Ankara mı? Paris mi?...\n\n Bu deste,  başkentleri içeriyor.\n\nArkadaşların ülkeyi söylesin , sen de başkentini tahmin et!",
     "isPremium": true
   },
   {
@@ -344,7 +344,7 @@
     "arkaGorselAdress": "assets/images/deck_images/mimikler_arka.jpg",
     "namesFilePath": "assets/data/names/mimikler_nameList.json",
     "deckTextColor": "0xFF2E1915",
-    "deckDescription": "Kaşları çatmak  mı? Göz devirmek mi?...\n\nBu deste, hayatın içinden mimikleri/hareketler  içeriyor.\n\nArkadaşların  ellerini ve ayaklarını hiç kullanmadan canlandırsın, sen de tahmin et!",
+    "deckDescription": "Kaşları çatmak  mı? Göz devirmek mi?...\n\nBu deste, hayatın içinden mimikleri/hareketleri  içeriyor.\n\nArkadaşların  ellerini ve ayaklarını hiç kullanmadan canlandırsın, sen de tahmin et!",
     "isPremium": true
   },
   {
@@ -384,7 +384,7 @@
     "isPremium": true
   },
   {
-    "deckName": "Egzersizeler",
+    "deckName": "Egzersizler",
     "categoryNameList": [
       "Spor"
     ],
@@ -392,7 +392,7 @@
     "arkaGorselAdress": "assets/images/deck_images/egzersizler_arka.jpg",
     "namesFilePath": "assets/data/names/egzersizler_nameList.json",
     "deckTextColor": "0xFF974633",
-    "deckDescription": "Şınav mı? Squat mı?...\n\nBu deste,  popüler egzersiz ve  hareketlerini içeriyor.\n\nArkadaşların bu hareketleri konuşmadan canlandırsın, sen de tahmin et!",
+    "deckDescription": "Şınav mı? Squat mı?...\n\nBu deste,  popüler egzersiz ve  hareketleri içeriyor.\n\nArkadaşların bu hareketleri konuşmadan canlandırsın, sen de tahmin et!",
     "isPremium": true
   },
   {
@@ -420,7 +420,7 @@
     "isPremium": true
   },
   {
-    "deckName": "Kıyfet & Aksesuar",
+    "deckName": "Kıyafet & Aksesuar",
     "categoryNameList": [
       "Günlük Yaşam"
     ],
@@ -464,7 +464,7 @@
     "arkaGorselAdress": "assets/images/deck_images/spor_arka.jpg",
     "namesFilePath": "assets/data/names/spor_nameList.json",
     "deckTextColor": "0xFF5F919C",
-    "deckDescription": "Futbol mu? Okuçuluk mu?...\n\nBu deste,  en popüler spor dallarını  içeriyor.\n\nArkadaşların konuşmadan canlandırsın, sen de tahmin et!",
+    "deckDescription": "Futbol mu? Okçuluk mu?...\n\nBu deste,  en popüler spor dallarını  içeriyor.\n\nArkadaşların konuşmadan canlandırsın, sen de tahmin et!",
     "isPremium": true
   },
   {
@@ -528,7 +528,7 @@
     "isPremium": true
   },
   {
-    "deckName": "Leylayla Mecnun",
+    "deckName": "Leylay ile Mecnun",
     "categoryNameList": [
       "Dizi/Film"
     ],
@@ -552,7 +552,7 @@
     "isPremium": true
   },
   {
-    "deckName": "Muteşem Yüzyıl",
+    "deckName": "Muhteşem Yüzyıl",
     "categoryNameList": [
       "Dizi/Film"
     ],
@@ -560,7 +560,7 @@
     "arkaGorselAdress": "assets/images/deck_images/muhtesem_yuzyil_arka.png",
     "namesFilePath": "assets/data/names/muhtesem_yuzyil_karakterleri_nameList.json",
     "deckTextColor": "0xFF5F919C",
-    "deckDescription": "Sultan Süleyman mı, Hürrem mi?...\n\nBu deste, Muhteşem Yüzyıl dizsinin karakterlerini içeriyor.\n\nArkadaşların karakterleri  canlandırsın, sen de tahmin et!",
+    "deckDescription": "Sultan Süleyman mı, Hürrem mi?...\n\nBu deste, Muhteşem Yüzyıl dizisinin karakterlerini içeriyor.\n\nArkadaşların karakterleri  canlandırsın, sen de tahmin et!",
     "isPremium": true
   },
   {
@@ -588,7 +588,7 @@
     "isPremium": true
   },
   {
-    "deckName": "Cocuklar \nDuymasın",
+    "deckName": "Çocuklar \nDuymasın",
     "categoryNameList": [
       "Dizi/Film"
     ],

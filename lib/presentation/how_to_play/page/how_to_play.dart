@@ -36,7 +36,7 @@ class HowToPlayPage extends StatelessWidget {
             const SizedBox(height: 40),
             InstructionItem(
               description:
-                  "  Pass geçmek için telefonun ekranını yukarı doğru çevir.",
+                  "  Pas geçmek için telefonun ekranını yukarı doğru çevir.",
               imagePath: AppImages.pass,
             ),
           ],

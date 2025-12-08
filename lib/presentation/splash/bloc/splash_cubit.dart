@@ -9,6 +9,7 @@ import 'package:ben_kimim/presentation/all_decks/bloc/popular_decks_cubit.dart';
 import 'package:ben_kimim/presentation/all_decks/bloc/spor_decks_cubit.dart';
 import 'package:ben_kimim/presentation/all_decks/bloc/unluler_decks_cubit.dart';
 import 'package:ben_kimim/presentation/all_decks/bloc/yemeker_decks_cubit.dart';
+import 'package:ben_kimim/presentation/premium/bloc/premium_status_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'splash_state.dart';
@@ -22,7 +23,7 @@ class SplashCubit extends Cubit<SplashState> {
       // 1. Durumu Yükleniyor olarak ayarla
       // SplashState.dart dosyasının SplashLoading durumunu içerdiğinden emin olun.
       emit(SplashLoading());
-
+      final premiumStatusCubit = context.read<PremiumStatusCubit>();
       // 2. TÜM DECK YÜKLEME İŞLEMLERİNİ ASENKRON OLARAK BAŞLAT VE BEKLE
 
       // Cubit'lere erişim
@@ -40,6 +41,7 @@ class SplashCubit extends Cubit<SplashState> {
 
       // DÜZELTME BURADA: Hata nedeniyle Future.wait'in tip parametresi <void> olarak ayarlandı.
       await Future.wait<void>([
+        premiumStatusCubit.checkPremiumStatus(),
         popularDecksCubit.loadPopularDecks(),
         muzikDecksCubit.loadMuzikDecks(),
         sporDecksCubit.loadSporDecks(),
@@ -54,7 +56,7 @@ class SplashCubit extends Cubit<SplashState> {
       ]);
 
       // Minimum yükleme süresi bekle (kullanıcı deneyimi için)
-      await Future.delayed(const Duration(seconds: 2));
+      await Future.delayed(const Duration(seconds: 3));
 
       // 3. Başarılı, navigasyon durumunu yay
       emit(SplashNavigate());
