@@ -5,6 +5,7 @@ import 'package:ben_kimim/core/configs/theme/app_color.dart';
 import 'package:ben_kimim/presentation/game/page/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ben_kimim/presentation/game/bloc/display_current_card_list_cubit.dart';
@@ -79,18 +80,17 @@ class _PhoneToForeheadPageState extends State<PhoneToForeheadPage> {
           child: countdownStarted
               ? Text(
                   '$countdown',
-                  style: const TextStyle(
-                    fontSize: 80,
+                  style: TextStyle(
+                    fontSize: 40.sp,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
                 )
-              : const Text(
+              : Text(
                   'TELEFONU ALNINIZA YERLEŞTİRİN',
                   style: TextStyle(
-                    fontSize: 36,
+                    fontSize: 18.sp,
                     fontWeight: FontWeight.bold,
-                    letterSpacing: 2,
                     color: Colors.white,
                   ),
                   textAlign: TextAlign.center,

@@ -1,5 +1,6 @@
 import 'package:ben_kimim/core/configs/assets/app_images.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HowToPlayPage extends StatelessWidget {
   const HowToPlayPage({super.key});
@@ -9,7 +10,10 @@ class HowToPlayPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text("Nasıl Oynanır?"),
+        title: Text(
+          "Nasıl Oynanır?",
+          style: TextStyle(fontSize: 30.sp),
+        ),
         // leading: IconButton(
         //   icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
         //   onPressed: () {
@@ -18,7 +22,7 @@ class HowToPlayPage extends StatelessWidget {
         // ),
       ),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(16, 40, 16, 16),
+        padding: EdgeInsets.fromLTRB(16.w, 40.h, 16.w, 16.h),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -27,13 +31,13 @@ class HowToPlayPage extends StatelessWidget {
                   "  Oynamak istediğin desteyi seç. Telefonu alnına yerleştir. Deste kartındaki kurallara göre kelimeyi tahmin et!",
               imagePath: AppImages.game,
             ),
-            const SizedBox(height: 40),
+            SizedBox(height: 40.h),
             InstructionItem(
               description:
                   "  Kelimeyi doğru bilirsen telefonun ekranını aşağı doğru çevir.",
               imagePath: AppImages.correct,
             ),
-            const SizedBox(height: 40),
+            SizedBox(height: 40.h),
             InstructionItem(
               description:
                   "  Pas geçmek için telefonun ekranını yukarı doğru çevir.",
@@ -65,18 +69,18 @@ class InstructionItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(14),
           child: Image.asset(
             imagePath,
-            width: 110,
-            height: 110,
+            width: 100.h,
+            height: 100.h,
             fit: BoxFit.cover,
           ),
         ),
-        const SizedBox(width: 18),
+        SizedBox(width: 18.w),
         Expanded(
           child: Text(
             description,
-            style: const TextStyle(
-              fontSize: 16,
-              height: 1.5,
+            style: TextStyle(
+              fontSize: 16.sp,
+              height: 1.5.sp,
               fontWeight: FontWeight.w400,
             ),
           ),

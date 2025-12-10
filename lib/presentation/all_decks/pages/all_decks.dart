@@ -11,6 +11,7 @@ import 'package:ben_kimim/presentation/all_decks/widgets/spor_decks.dart';
 import 'package:ben_kimim/presentation/all_decks/widgets/unluler_decks.dart';
 import 'package:ben_kimim/presentation/all_decks/widgets/yemekler_decks.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AllDecksPage extends StatelessWidget {
   const AllDecksPage({super.key});
@@ -41,8 +42,10 @@ class AllDecksPage extends StatelessWidget {
       backgroundColor: AppColors.allDecksBackground,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text(
-            "Tahmin Et!"), // OPTİMİZASYON 2: Text widget'ı const yapıldı.
+        title: Text(
+          "Tahmin Et!",
+          style: TextStyle(fontSize: 30.sp),
+        ), // OPTİMİZASYON 2: Text widget'ı const yapıldı.
         actions: const [], // OPTİMİZASYON 3: Boş actions listesi const yapıldı.
       ),
       // OPTİMİZASYON 4: SingleChildScrollView yerine ListView kullanılır.

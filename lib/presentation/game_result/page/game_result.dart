@@ -13,6 +13,7 @@ import 'package:ben_kimim/presentation/premium/bloc/is_user_premium_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class GameResultPage extends StatefulWidget {
@@ -165,7 +166,7 @@ class _GameResultPageState extends State<GameResultPage> {
                   children: [
                     _buildTopBar(context),
                     _buildHeader(correctCount),
-                    const SizedBox(height: 8),
+                    SizedBox(height: 8.h),
                     Expanded(child: _buildScrollableResultList(resultList)),
                     _buildPlayAgainButton(context),
                     // BURAYA BANNER EKLENDİ
@@ -183,13 +184,13 @@ class _GameResultPageState extends State<GameResultPage> {
   Widget _buildTopBar(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+      padding: EdgeInsets.symmetric(horizontal: 12.h, vertical: 12.h),
       color: AppColors.primary,
       child: Row(
         children: [
           IconButton(
             onPressed: () => _navigateToHome(context),
-            icon: const Icon(Icons.arrow_back, color: Colors.white, size: 28),
+            icon: Icon(Icons.arrow_back, color: Colors.white, size: 28.sp),
           ),
           const Spacer(),
         ],
@@ -199,12 +200,12 @@ class _GameResultPageState extends State<GameResultPage> {
 
   Widget _buildHeader(int correctCount) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 10),
+      padding: EdgeInsets.only(bottom: 10.h),
       child: Text(
         "Toplam $correctCount kelime bildin!",
         textAlign: TextAlign.center,
-        style: const TextStyle(
-            color: Colors.white, fontSize: 26, fontWeight: FontWeight.w900),
+        style: TextStyle(
+            color: Colors.white, fontSize: 26.sp, fontWeight: FontWeight.w900),
       ),
     );
   }
@@ -222,20 +223,20 @@ class _GameResultPageState extends State<GameResultPage> {
           children: [
             ListView.builder(
               controller: _scrollController,
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+              padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 10.h),
               itemCount: resultList.length,
               itemBuilder: (context, index) =>
                   _ResultListItem(result: resultList[index]),
             ),
             Positioned(
-              right: 10,
+              right: 10.w,
               top: thumbTop.isNaN ? 0 : thumbTop,
               child: Container(
-                width: 3,
+                width: 3.w,
                 height: thumbHeight,
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(4),
+                  borderRadius: BorderRadius.circular(4.r),
                 ),
               ),
             ),
@@ -247,21 +248,23 @@ class _GameResultPageState extends State<GameResultPage> {
 
   Widget _buildPlayAgainButton(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16),
+      padding: EdgeInsets.all(16.r),
       child: SizedBox(
-        height: 56,
+        height: 56.h,
         width: double.infinity,
         child: ElevatedButton(
           onPressed: () => _onPlayAgainPressed(context),
           style: ElevatedButton.styleFrom(
             backgroundColor: AppColors.secondary,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.r)),
           ),
-          child: const Text(
+          child: Text(
             "Tekrar Oyna",
             style: TextStyle(
-                color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                color: Colors.white,
+                fontSize: 20.sp,
+                fontWeight: FontWeight.bold),
           ),
         ),
       ),
@@ -276,13 +279,13 @@ class _ResultListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      padding: EdgeInsets.symmetric(vertical: 10.h),
       child: Center(
         child: Text(
           result.word,
           textAlign: TextAlign.center,
           style: TextStyle(
-            fontSize: 30,
+            fontSize: 30.sp,
             fontWeight: result.isCorrect ? FontWeight.w900 : FontWeight.w600,
             color: result.isCorrect ? Colors.white : Colors.black87,
           ),

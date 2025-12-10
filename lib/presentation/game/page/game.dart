@@ -12,6 +12,7 @@ import 'package:ben_kimim/presentation/game/bloc/score_cubit.dart';
 import 'package:ben_kimim/presentation/game/bloc/timer_cubit.dart';
 import 'package:ben_kimim/presentation/game/widget/game_score.dart';
 import 'package:ben_kimim/presentation/game/widget/game_timer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 
 class GamePage extends StatefulWidget {
@@ -285,8 +286,8 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
         child: Text(
           text,
           textAlign: TextAlign.center,
-          style: const TextStyle(
-            fontSize: 70,
+          style: TextStyle(
+            fontSize: 35.sp,
             fontWeight: FontWeight.bold,
             color: Colors.white,
           ),
@@ -297,10 +298,14 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
 
   Widget _buildBackButton() {
     return Positioned(
-      top: 20,
-      left: 20,
+      top: 16.h, // responsive top
+      left: 16.h, // responsive left
       child: IconButton(
-        icon: const Icon(Icons.arrow_back, color: Colors.white, size: 32),
+        icon: Icon(
+          Icons.arrow_back,
+          color: Colors.white,
+          size: 22.sp, // responsive icon size
+        ),
         onPressed: _onBackPressed,
       ),
     );
@@ -319,65 +324,65 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
       builder: (context) {
         return Dialog(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(16.r),
           ),
           child: Container(
-            width: 320,
-            height: 210,
+            width: 450.h,
+            height: 250.h,
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(16.r),
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
                   width: double.infinity,
-                  decoration: const BoxDecoration(
-                    color: Color(0xFF5058E2),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF5058E2),
                     borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(16),
-                      topRight: Radius.circular(16),
+                      topLeft: Radius.circular(16.r),
+                      topRight: Radius.circular(16.r),
                     ),
                   ),
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  child: const Center(
+                  padding: EdgeInsets.symmetric(vertical: 16.h),
+                  child: Center(
                     child: Text(
                       "DURAKLATILDI",
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 22,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.w900,
                         letterSpacing: 1,
                       ),
                     ),
                   ),
                 ),
-                const SizedBox(height: 18),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
+                SizedBox(height: 18.h),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8.w),
                   child: Text(
                     "Çıkmak istediğine emin misin?",
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 9.sp,
                       fontWeight: FontWeight.bold,
                       color: Colors.black87,
                     ),
                   ),
                 ),
-                const SizedBox(height: 20),
+                SizedBox(height: 16.h),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  padding: EdgeInsets.symmetric(horizontal: 8.w),
                   child: Row(
                     children: [
                       Expanded(
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFFFF4F81),
-                            minimumSize: const Size(double.infinity, 50),
+                            minimumSize: Size(double.infinity, 60.h),
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
+                              borderRadius: BorderRadius.circular(12.r),
                             ),
                           ),
                           onPressed: () {
@@ -396,24 +401,24 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
                               ),
                             );
                           },
-                          child: const Text(
+                          child: Text(
                             "Ana Menü",
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 18,
+                              fontSize: 10.sp,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
                       ),
-                      const SizedBox(width: 12),
+                      SizedBox(width: 6.w),
                       Expanded(
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFF4CD964),
-                            minimumSize: const Size(double.infinity, 50),
+                            minimumSize: Size(double.infinity, 60.h),
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
+                              borderRadius: BorderRadius.circular(12.r),
                             ),
                           ),
                           onPressed: () {
@@ -421,11 +426,11 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
                             SoundHelper.resumeLastSeconds();
                             Navigator.of(context).pop();
                           },
-                          child: const Text(
+                          child: Text(
                             "Devam Et",
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 18,
+                              fontSize: 10.sp,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -434,7 +439,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
                     ],
                   ),
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: 16.h),
               ],
             ),
           ),
@@ -449,7 +454,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
 
   Widget _buildTimer() {
     return Positioned(
-      top: 20,
+      top: 20.h, // ScreenUtil ile yüksekliği scale ettik
       left: 0,
       right: 0,
       child: Center(
@@ -466,10 +471,10 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     return Container(
       color: AppColors.timeUp,
       alignment: Alignment.center,
-      child: const Text(
+      child: Text(
         "Süre Bitti!",
         style: TextStyle(
-          fontSize: 50,
+          fontSize: 28.sp, // Ekran genişliğine/h yüksekliğine göre scale
           fontWeight: FontWeight.bold,
           color: Colors.white,
         ),

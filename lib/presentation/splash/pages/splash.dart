@@ -6,6 +6,7 @@ import 'package:ben_kimim/presentation/splash/bloc/splash_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
@@ -33,11 +34,12 @@ class SplashPage extends StatelessWidget {
             Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
-                padding: const EdgeInsets.only(
-                  bottom: 100.0,
+                padding:  EdgeInsets.only(
+                  bottom: 100.h,
                 ),
                 child: CircularProgressIndicator(
                   color: Colors.white,
+                  
                 ),
               ),
             ),

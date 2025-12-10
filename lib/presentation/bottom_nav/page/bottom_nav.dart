@@ -11,6 +11,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ben_kimim/presentation/no_internet/bloc/internet_connection_cubit.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // ScreenUtil eklendi
 
 class BottomNavPage extends StatefulWidget {
   const BottomNavPage({super.key});
@@ -41,15 +42,11 @@ class _BottomNavPageState extends State<BottomNavPage> {
 
     return BlocListener<InternetConnectionCubit, InternetConnectionState>(
       listener: (context, state) {
-        print(
-            "------------------------------------------- $state -----------------------");
         if (state is InternetDisConnected) {
-          print("go to No internet page ---------------------");
-          // İnternet yoksa NoInternetPage'e yönlendir
           Navigator.of(context).push(
             PageRouteBuilder(
-              opaque: false, // Arkadaki sayfa görünsün
-              barrierColor: Colors.black.withOpacity(0.3), // Arkayı karart
+              opaque: false,
+              barrierColor: Colors.black.withOpacity(0.3),
               pageBuilder: (_, __, ___) => const NoInternetPage(),
               transitionsBuilder: (_, animation, __, child) {
                 return FadeTransition(
@@ -91,9 +88,9 @@ class _BottomNavPageState extends State<BottomNavPage> {
                       type: BottomNavigationBarType.fixed,
                       selectedItemColor: Theme.of(context).primaryColor,
                       unselectedItemColor: Colors.grey,
-                      iconSize: 28,
-                      selectedFontSize: 14,
-                      unselectedFontSize: 13,
+                      iconSize: 28.sp, // ScreenUtil ile responsive
+                      selectedFontSize: 14.sp,
+                      unselectedFontSize: 13.sp,
                       items: const [
                         BottomNavigationBarItem(
                           icon: FaIcon(FontAwesomeIcons.crown),
@@ -141,7 +138,6 @@ class _BannerContainerState extends State<BannerContainer> {
       final internetState = context.read<InternetConnectionCubit>().state;
       final isPremium = context.read<IsUserPremiumCubit>().state;
 
-      // Sadece internet var ve kullanıcı premium değilse banner yükle
       if (internetState is InternetConnected && !isPremium) {
         _loadBanner();
       }
@@ -150,15 +146,13 @@ class _BannerContainerState extends State<BannerContainer> {
 
   Future<void> _loadBanner() async {
     final isPremium = context.read<IsUserPremiumCubit>().state;
-    if (isPremium) return; // Premium kullanıcı için yükleme iptal
+    if (isPremium) return;
 
-    // Eski banner varsa temizle
     _bannerAd?.dispose();
 
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
-// Küçük olanı al
     final int width =
         (screenWidth < screenHeight ? screenWidth : screenHeight).toInt();
     final size = await AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
@@ -193,13 +187,11 @@ class _BannerContainerState extends State<BannerContainer> {
   Widget build(BuildContext context) {
     final isPremium = context.watch<IsUserPremiumCubit>().state;
 
-    // Premium kullanıcı → banner gözükmesin
     if (isPremium) return const SizedBox.shrink();
 
     return BlocListener<InternetConnectionCubit, InternetConnectionState>(
       listener: (context, state) {
         if (state is InternetConnected && !isPremium) {
-          print("laod banner ads*************************");
           _loadBanner();
         }
       },

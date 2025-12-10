@@ -7,6 +7,7 @@ import 'package:ben_kimim/presentation/all_decks/bloc/unluler_decks_cubit.dart';
 import 'package:ben_kimim/presentation/all_decks/bloc/unluler_decks_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // Ünlüler kategorisindeki desteleri yatay olarak listeleyen optimize edilmiş widget.
 class UnlulerDecks extends StatelessWidget {
@@ -14,26 +15,26 @@ class UnlulerDecks extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(vertical: 10),
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 10.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Kategori Başlığı
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
-            // Başlıktaki fazla boşluk kaldırıldı.
+            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
             child: Text("ÜNLÜLER", style: AppTextstyle.allDecksBaslik),
           ),
-          // Deck Yükleyici ve Gösterim Alanı (BlocBuilder'ı içerir)
-          _DeckContent(),
+
+          // Deck Yükleyici
+          const _DeckContent(),
         ],
       ),
     );
   }
 }
 
-// BlocBuilder'ı içeren ve sadece state değiştiğinde yeniden oluşturulan özel widget.
+// BlocBuilder'ı içeren özel widget.
 class _DeckContent extends StatelessWidget {
   const _DeckContent();
 
@@ -41,22 +42,22 @@ class _DeckContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: AppColors.allDecksBackground,
-      height: SizeHelper.categoryDeckHeight,
+      height: SizeHelper.categoryDeckHeight, // MediaQuery tabanlı, dokunma!
       child: BlocBuilder<UnlulerDecksCubit, UnlulerDecksState>(
         builder: (context, state) {
           if (state is UnlulerDecksLoading) {
             return const Center(child: CircularProgressIndicator());
           }
+
           if (state is UnlulerDecksLoadFailure) {
             return Center(
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: EdgeInsets.all(16.r),
                 child: Text(
-                  // Hata mesajı daha açıklayıcı hale getirildi.
                   'Hata: Desteler yüklenemedi. ${state.errorMessage}',
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 14,
+                  style: TextStyle(
+                    fontSize: 14.sp,
                     color: Colors.red,
                     fontWeight: FontWeight.w500,
                   ),
@@ -64,26 +65,26 @@ class _DeckContent extends StatelessWidget {
               ),
             );
           }
+
           if (state is UnlulerDecksLoaded) {
             return _buildDeckList(state.decks);
           }
-          // Initial durumu veya bilinmeyen durumlar için boş bir alan.
+
           return const SizedBox.shrink();
         },
       ),
     );
   }
 
-  // Destelerin yatay olarak listelendiği veya boş liste uyarısı verildiği metot.
+  // Destelerin yatay olarak listelendiği metot.
   Widget _buildDeckList(List<DeckEntity> deckList) {
-    // Liste boşsa kullanıcıya bilgi verilir.
     if (deckList.isEmpty) {
-      return const Center(
+      return Center(
         child: Text(
           'Bu kategoride henüz bir deste bulunmamaktadır.',
           style: TextStyle(
             color: Colors.grey,
-            fontSize: 14,
+            fontSize: 14.sp,
           ),
         ),
       );
@@ -91,13 +92,13 @@ class _DeckContent extends StatelessWidget {
 
     return ListView.builder(
       scrollDirection: Axis.horizontal,
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      padding: EdgeInsets.symmetric(horizontal: 16.w),
       itemCount: deckList.length,
       itemBuilder: (context, index) {
         return Padding(
-          padding: const EdgeInsets.only(right: 12),
+          padding: EdgeInsets.only(right: 8.w),
           child: SizedBox(
-            width: SizeHelper.categoryDeckWidth,
+            width: SizeHelper.categoryDeckWidth, // Dokunma!
             child: DeckCover(deck: deckList[index]),
           ),
         );

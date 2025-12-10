@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ben_kimim/domain/deck/entity/deck.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
@@ -133,10 +134,10 @@ class _DeckFlipState extends State<DeckFlip>
       children: [
         Hero(
           tag: "image_${widget.deck.deckName}",
-          child: _buildHeroImage(widget.deck.onGorselAdress),
+          child: _buildCard(widget.deck.onGorselAdress, null),
         ),
         Positioned(
-          top: 20,
+          top: 20.h,
           left: 0,
           right: 0,
           child: Hero(
@@ -150,11 +151,11 @@ class _DeckFlipState extends State<DeckFlip>
                       widget.deck.deckName,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: 32,
+                        fontSize: 32.sp,
                         fontWeight: FontWeight.bold,
                         foreground: Paint()
                           ..style = PaintingStyle.stroke
-                          ..strokeWidth = 4
+                          ..strokeWidth = 4.sp
                           ..color = Colors.black,
                       ),
                     ),
@@ -162,7 +163,7 @@ class _DeckFlipState extends State<DeckFlip>
                       widget.deck.deckName,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: 32,
+                        fontSize: 32.sp,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
                       ),
@@ -175,27 +176,29 @@ class _DeckFlipState extends State<DeckFlip>
         ),
         BlocBuilder<IsUserPremiumCubit, bool>(
           builder: (context, userIsPremium) {
+            // Kilit gösterme koşulları
             if (!widget.deck.isPremium ||
                 (widget.deck.isPremium && userIsPremium)) {
               return const SizedBox.shrink();
             }
 
+            // Kilit gösterilecek durum: deck premium ve kullanıcı premium değil
             return Positioned(
               right: 8,
               bottom: 8,
               child: Hero(
                 tag: "lock_${widget.deck.deckName}",
                 child: Container(
-                  width: 72,
-                  height: 72,
+                  width: 72.h,
+                  height: 72.h,
                   decoration: BoxDecoration(
                     color: Colors.black.withOpacity(0.5),
                     shape: BoxShape.circle,
                   ),
-                  child: const Icon(
+                  child: Icon(
                     Icons.lock,
                     color: Colors.white,
-                    size: 40,
+                    size: 40.h,
                   ),
                 ),
               ),
@@ -203,26 +206,6 @@ class _DeckFlipState extends State<DeckFlip>
           },
         ),
       ],
-    );
-  }
-
-  Widget _buildHeroImage(String imagePath) {
-    return AspectRatio(
-      aspectRatio: 2 / 3,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(20),
-        child: Stack(
-          children: [
-            Image.asset(
-              imagePath,
-              fit: BoxFit.cover,
-              width: double.infinity,
-              height: double.infinity,
-              gaplessPlayback: true,
-            ),
-          ],
-        ),
-      ),
     );
   }
 
@@ -236,18 +219,18 @@ class _DeckFlipState extends State<DeckFlip>
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 20),
+              padding: EdgeInsets.only(top: 20.h),
               child: Stack(
                 children: [
                   Text(
                     widget.deck.deckName,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 32,
+                      fontSize: 32.sp,
                       fontWeight: FontWeight.bold,
                       foreground: Paint()
                         ..style = PaintingStyle.stroke
-                        ..strokeWidth = 4
+                        ..strokeWidth = 4.sp
                         ..color = Colors.black,
                     ),
                   ),
@@ -255,7 +238,7 @@ class _DeckFlipState extends State<DeckFlip>
                     widget.deck.deckName,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 32,
+                      fontSize: 32.sp,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
@@ -263,10 +246,10 @@ class _DeckFlipState extends State<DeckFlip>
                 ],
               ),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20.h),
             Expanded(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
                 child: Column(
                   children: [
                     Stack(
@@ -275,11 +258,11 @@ class _DeckFlipState extends State<DeckFlip>
                           widget.deck.deckDescription,
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontSize: 20,
+                            fontSize: 20.sp,
                             fontWeight: FontWeight.w600,
                             foreground: Paint()
                               ..style = PaintingStyle.stroke
-                              ..strokeWidth = 3
+                              ..strokeWidth = 3.sp
                               ..color = Colors.black,
                           ),
                         ),
@@ -287,14 +270,14 @@ class _DeckFlipState extends State<DeckFlip>
                           widget.deck.deckDescription,
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontSize: 20,
+                            fontSize: 20.sp,
                             fontWeight: FontWeight.w600,
                             color: Colors.white,
                           ),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 20),
+                    SizedBox(height: 20.h),
                     BlocBuilder<IsUserPremiumCubit, bool>(
                       builder: (context, userIsPremium) {
                         // Eğer deck premium değilse Timer göster
@@ -303,41 +286,43 @@ class _DeckFlipState extends State<DeckFlip>
                             builder: (context, state) {
                               return Padding(
                                 padding:
-                                    const EdgeInsets.only(top: 40, bottom: 30),
+                                    EdgeInsets.only(top: 40.h, bottom: 30.h),
                                 child: Align(
                                   alignment: Alignment.bottomCenter,
                                   child: Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 8, vertical: 4),
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 8.w, vertical: 4.h),
                                     decoration: BoxDecoration(
                                       color: Colors.transparent,
-                                      borderRadius: BorderRadius.circular(30),
+                                      borderRadius: BorderRadius.circular(30.r),
                                     ),
                                     child: Container(
                                       width: 160,
                                       height: 35,
                                       decoration: BoxDecoration(
                                         color: Colors.white,
-                                        borderRadius: BorderRadius.circular(25),
+                                        borderRadius:
+                                            BorderRadius.circular(25.r),
                                       ),
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Container(
-                                            width: 50,
-                                            height: 50,
-                                            decoration: const BoxDecoration(
+                                            width: 50.h,
+                                            height: 50.h,
+                                            decoration: BoxDecoration(
                                               color: Color(0xFF339CFF),
                                               borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(25),
-                                                bottomLeft: Radius.circular(25),
+                                                topLeft: Radius.circular(25.r),
+                                                bottomLeft:
+                                                    Radius.circular(25.r),
                                               ),
                                             ),
                                             child: IconButton(
-                                              icon: const Icon(Icons.remove,
+                                              icon: Icon(Icons.remove,
                                                   color: Colors.white,
-                                                  size: 24),
+                                                  size: 24.sp),
                                               onPressed: () => context
                                                   .read<TimerCubit>()
                                                   .decrease(),
@@ -347,8 +332,8 @@ class _DeckFlipState extends State<DeckFlip>
                                             child: Center(
                                               child: Text(
                                                 "${state}s",
-                                                style: const TextStyle(
-                                                  fontSize: 22,
+                                                style: TextStyle(
+                                                  fontSize: 22.sp,
                                                   fontWeight: FontWeight.bold,
                                                   color: Color(0xFF339CFF),
                                                 ),
@@ -356,20 +341,20 @@ class _DeckFlipState extends State<DeckFlip>
                                             ),
                                           ),
                                           Container(
-                                            width: 50,
-                                            height: 50,
-                                            decoration: const BoxDecoration(
+                                            width: 50.h,
+                                            height: 50.h,
+                                            decoration: BoxDecoration(
                                               color: Color(0xFF339CFF),
                                               borderRadius: BorderRadius.only(
-                                                topRight: Radius.circular(25),
+                                                topRight: Radius.circular(25.r),
                                                 bottomRight:
-                                                    Radius.circular(25),
+                                                    Radius.circular(25.r),
                                               ),
                                             ),
                                             child: IconButton(
-                                              icon: const Icon(Icons.add,
+                                              icon: Icon(Icons.add,
                                                   color: Colors.white,
-                                                  size: 24),
+                                                  size: 24.sp),
                                               onPressed: () => context
                                                   .read<TimerCubit>()
                                                   .increase(),
@@ -394,41 +379,41 @@ class _DeckFlipState extends State<DeckFlip>
                         return BlocBuilder<TimerCubit, int>(
                           builder: (context, state) {
                             return Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 40, bottom: 30),
+                              padding: EdgeInsets.only(top: 40.h, bottom: 30.h),
                               child: Align(
                                 alignment: Alignment.bottomCenter,
                                 child: Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 8, vertical: 4),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 8.w, vertical: 4.h),
                                   decoration: BoxDecoration(
                                     color: Colors.transparent,
                                     borderRadius: BorderRadius.circular(30),
                                   ),
                                   child: Container(
-                                    width: 160,
-                                    height: 35,
+                                    width: 160.h,
+                                    height: 35.h,
                                     decoration: BoxDecoration(
                                       color: Colors.white,
-                                      borderRadius: BorderRadius.circular(25),
+                                      borderRadius: BorderRadius.circular(25.r),
                                     ),
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Container(
-                                          width: 50,
-                                          height: 50,
-                                          decoration: const BoxDecoration(
+                                          width: 50.h,
+                                          height: 50.h,
+                                          decoration: BoxDecoration(
                                             color: Color(0xFF339CFF),
                                             borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(25),
-                                              bottomLeft: Radius.circular(25),
+                                              topLeft: Radius.circular(25.r),
+                                              bottomLeft: Radius.circular(25.r),
                                             ),
                                           ),
                                           child: IconButton(
-                                            icon: const Icon(Icons.remove,
-                                                color: Colors.white, size: 24),
+                                            icon: Icon(Icons.remove,
+                                                color: Colors.white,
+                                                size: 24.sp),
                                             onPressed: () => context
                                                 .read<TimerCubit>()
                                                 .decrease(),
@@ -438,8 +423,8 @@ class _DeckFlipState extends State<DeckFlip>
                                           child: Center(
                                             child: Text(
                                               "${state}s",
-                                              style: const TextStyle(
-                                                fontSize: 22,
+                                              style: TextStyle(
+                                                fontSize: 22.sp,
                                                 fontWeight: FontWeight.bold,
                                                 color: Color(0xFF339CFF),
                                               ),
@@ -447,18 +432,20 @@ class _DeckFlipState extends State<DeckFlip>
                                           ),
                                         ),
                                         Container(
-                                          width: 50,
-                                          height: 50,
-                                          decoration: const BoxDecoration(
+                                          width: 50.h,
+                                          height: 50.h,
+                                          decoration: BoxDecoration(
                                             color: Color(0xFF339CFF),
                                             borderRadius: BorderRadius.only(
-                                              topRight: Radius.circular(25),
-                                              bottomRight: Radius.circular(25),
+                                              topRight: Radius.circular(25.r),
+                                              bottomRight:
+                                                  Radius.circular(25.r),
                                             ),
                                           ),
                                           child: IconButton(
-                                            icon: const Icon(Icons.add,
-                                                color: Colors.white, size: 24),
+                                            icon: Icon(Icons.add,
+                                                color: Colors.white,
+                                                size: 24.sp),
                                             onPressed: () => context
                                                 .read<TimerCubit>()
                                                 .increase(),
@@ -474,12 +461,12 @@ class _DeckFlipState extends State<DeckFlip>
                         );
                       },
                     ),
-                    const SizedBox(height: 16),
+                    SizedBox(height: 16.h),
                   ],
                 ),
               ),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: 16.h),
             _buildButtons(),
           ],
         ),
@@ -513,7 +500,7 @@ class _DeckFlipState extends State<DeckFlip>
 
   Widget _buildButtons() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16),
+      padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 16.h),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -537,14 +524,14 @@ class _DeckFlipState extends State<DeckFlip>
                 return CustomPaint(
                   painter:
                       _ArrowBackgroundPainter(backgroundColor: backgroundColor),
-                  child: const SizedBox(
-                    width: 60,
-                    height: 45,
+                  child: SizedBox(
+                    width: 60.h,
+                    height: 45.h,
                     child: Center(
                       child: Icon(
                         Icons.arrow_back_ios_new_rounded,
                         color: Colors.white, // ok hep beyaz
-                        size: 20,
+                        size: 20.sp,
                       ),
                     ),
                   ),
@@ -581,16 +568,16 @@ class _DeckFlipState extends State<DeckFlip>
                   }
                 },
                 child: Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 24, vertical: 10),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 24.w, vertical: 10.h),
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         colors: [gradientStart, gradientEnd],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       ),
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: Colors.white, width: 2),
+                      borderRadius: BorderRadius.circular(12.r),
+                      border: Border.all(color: Colors.white, width: 2.sp),
                       boxShadow: [
                         BoxShadow(
                           color:
@@ -606,19 +593,19 @@ class _DeckFlipState extends State<DeckFlip>
                       children: [
                         Text(
                           showVIP ? "VIP Satın Al" : "Oyna!",
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
-                            fontSize: 18,
+                            fontSize: 18.sp,
                             letterSpacing: 0.5,
                           ),
                         ),
                         if (showVIP) const SizedBox(width: 6),
                         if (showVIP)
-                          const FaIcon(
+                          FaIcon(
                             FontAwesomeIcons.crown,
                             color: Colors.yellow,
-                            size: 20,
+                            size: 20.sp,
                           ),
                       ],
                     )),

@@ -7,93 +7,88 @@ import 'package:ben_kimim/presentation/all_decks/bloc/dizi_film_decks_cubit.dart
 import 'package:ben_kimim/presentation/all_decks/bloc/dizi_film_decks_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DiziFilmDecks extends StatelessWidget {
- const DiziFilmDecks({super.key});
+  const DiziFilmDecks({super.key});
 
- @override
- Widget build(BuildContext context) {
-  // OPTİMİZASYON 1: Tüm üst düzey statik widget'lar const yapıldı.
-  return const Padding(
-   padding: EdgeInsets.symmetric(vertical: 10),
-   child: Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-     // Üst başlık
-     Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
-      child: Text(
-       "DİZİ & FİLM", // Sabit metin
-       style: AppTextstyle.allDecksBaslik // Sabit stil
-      ),
-     ),
-     // OPTİMİZASYON 2: BlocBuilder içeriği ayrı bir widget'a taşındı.
-     _DeckContentLoader(),
-    ],
-   ),
-  );
- }
-}
-
-/// Veri yükleme durumlarını yöneten ve BlocBuilder'ı içeren yardımcı widget.
-class _DeckContentLoader extends StatelessWidget {
- const _DeckContentLoader();
-
- @override
- Widget build(BuildContext context) {
-  return Container(
-   // Sabit renk ve yükseklik const yapıldı.
-   color: AppColors.allDecksBackground,
-   height: SizeHelper.categoryDeckHeight,
-   child: BlocBuilder<DiziFilmDecksCubit, DiziFilmDecksState>(
-    builder: (context, state) {
-     if (state is DiziFilmDecksLoading) {
-      // OPTİMİZASYON 3: Yükleme göstergesi const yapıldı.
-      return const Center(child: CircularProgressIndicator());
-     }
-     if (state is DiziFilmDecksLoadFailure) {
-      return Center(
-       child: Text(
-        state.errorMessage,
-        // OPTİMİZASYON 4: Hata metni stilinin bir kısmı const yapıldı.
-        style: const TextStyle(fontSize: 16, color: Colors.red),
-       ),
-      );
-     }
-     if (state is DiziFilmDecksLoaded) {
-      // Veri yüklendiğinde ayrı ListView widget'ını çağır.
-      return _DeckListView(decks: state.decks);
-     }
-     // OPTİMİZASYON 5: Varsayılan geri dönüş const yapıldı.
-     return const SizedBox.shrink();
-    },
-   ),
-  );
- }
-}
-
-/// Yüklü desteleri yatay ListView.builder ile gösteren yardımcı widget.
-class _DeckListView extends StatelessWidget {
- final List<DeckEntity> decks;
- const _DeckListView({required this.decks});
-
- @override
- Widget build(BuildContext context) {
-  return ListView.builder(
-   // OPTİMİZASYON 6: ListView özellikleri const yapıldı.
-   scrollDirection: Axis.horizontal,
-   padding: const EdgeInsets.symmetric(horizontal: 16.0),
-   itemCount: decks.length,
-   itemBuilder: (context, index) {
-    // OPTİMİZASYON 7: Padding ve sabit genişlik const yapıldı.
+  @override
+  Widget build(BuildContext context) {
     return Padding(
-     padding: const EdgeInsets.only(right: 12),
-     child: SizedBox(
-      width: SizeHelper.categoryDeckWidth,
-      child: DeckCover(deck: decks[index]),
-     ),
+      padding: EdgeInsets.symmetric(vertical: 10.h),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+            child: Text(
+              "DİZİ & FİLM",
+              style: AppTextstyle.allDecksBaslik,
+            ),
+          ),
+          const _DeckContentLoader(),
+        ],
+      ),
     );
-   },
-  );
- }
+  }
+}
+
+class _DeckContentLoader extends StatelessWidget {
+  const _DeckContentLoader();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: AppColors.allDecksBackground,
+      height: SizeHelper.categoryDeckHeight,
+      child: BlocBuilder<DiziFilmDecksCubit, DiziFilmDecksState>(
+        builder: (context, state) {
+          if (state is DiziFilmDecksLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
+          if (state is DiziFilmDecksLoadFailure) {
+            return Center(
+              child: Text(
+                state.errorMessage,
+                style: TextStyle(
+                  fontSize: 16.sp,
+                  color: Colors.red,
+                ),
+              ),
+            );
+          }
+
+          if (state is DiziFilmDecksLoaded) {
+            return _DeckListView(decks: state.decks);
+          }
+
+          return const SizedBox.shrink();
+        },
+      ),
+    );
+  }
+}
+
+class _DeckListView extends StatelessWidget {
+  final List<DeckEntity> decks;
+  const _DeckListView({required this.decks});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      scrollDirection: Axis.horizontal,
+      padding: EdgeInsets.symmetric(horizontal: 16.w),
+      itemCount: decks.length,
+      itemBuilder: (context, index) {
+        return Padding(
+          padding: EdgeInsets.only(right: 8.w),
+          child: SizedBox(
+            width: SizeHelper.categoryDeckWidth,
+            child: DeckCover(deck: decks[index]),
+          ),
+        );
+      },
+    );
+  }
 }

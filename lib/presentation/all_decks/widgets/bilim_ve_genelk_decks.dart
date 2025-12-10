@@ -7,23 +7,26 @@ import 'package:ben_kimim/presentation/all_decks/bloc/bilim_ve_genelk_decks_cubi
 import 'package:ben_kimim/presentation/all_decks/bloc/bilim_ve_genelk_decks_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BilimVeGenelKDecks extends StatelessWidget {
   const BilimVeGenelKDecks({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(vertical: 10),
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 10.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
-            child: Text(" BİLİM & GENEL KÜLTÜR",
-                style: AppTextstyle.allDecksBaslik),
+            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+            child: Text(
+              " BİLİM & GENEL KÜLTÜR",
+              style: AppTextstyle.allDecksBaslik,
+            ),
           ),
-          _DeckContentLoader(),
+          const _DeckContentLoader(),
         ],
       ),
     );
@@ -47,7 +50,7 @@ class _DeckContentLoader extends StatelessWidget {
             return Center(
               child: Text(
                 state.errorMessage,
-                style: const TextStyle(fontSize: 16, color: Colors.red),
+                style: TextStyle(fontSize: 16.sp, color: Colors.red),
               ),
             );
           }
@@ -70,11 +73,11 @@ class _DeckListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       scrollDirection: Axis.horizontal,
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      padding: EdgeInsets.symmetric(horizontal: 16.w),
       itemCount: decks.length,
       itemBuilder: (context, index) {
         return Padding(
-          padding: const EdgeInsets.only(right: 12),
+          padding: EdgeInsets.only(right: 8.w),
           child: SizedBox(
             width: SizeHelper.categoryDeckWidth,
             child: DeckCover(deck: decks[index]),

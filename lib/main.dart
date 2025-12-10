@@ -26,6 +26,7 @@ import 'package:ben_kimim/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 Future<void> main() async {
@@ -47,67 +48,54 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (context) => PremiumStatusCubit()),
-        BlocProvider(create: (context) => SplashCubit()),
-        BlocProvider(create: (context) => TimerCubit()),
-        BlocProvider(create: (context) => DisplayCurrentCardListCubit()),
-        BlocProvider(create: (context) => ScoreCubit()),
-        BlocProvider(create: (context) => ResultCubit()),
-        BlocProvider(
-          create: (context) =>
-              CurrentNameCubit(context.read<DisplayCurrentCardListCubit>()),
-        ),
-        BlocProvider(
-          create: (context) => PopularDecksCubit(),
-        ),
-        BlocProvider(create: (context) => MuzikDecksCubit()),
-        BlocProvider(create: (context) => SporDecksCubit()),
-        BlocProvider(
-          create: (context) => DiziFilmDecksCubit(),
-        ),
-        BlocProvider(
-          create: (context) => CanlandirDecksCubit(),
-        ),
-        BlocProvider(
-          create: (context) => GunlukYasamDecksCubit(),
-        ),
-        BlocProvider(
-          create: (context) => BilimVeGenelKDecksCubit(),
-        ),
-        BlocProvider(
-          create: (context) => CizDecksCubit(),
-        ),
-        BlocProvider(
-          create: (context) => UnlulerDecksCubit(),
-        ),
-        BlocProvider(
-          create: (context) => YemeklerDecksCubit(),
-        ),
-        BlocProvider(
-          create: (context) => CizgiFilmAnimeDecksCubit(),
-        ),
-       BlocProvider(
-      create: (context) => IsUserPremiumCubit(
-        context.read<PremiumStatusCubit>(), // Ana Cubit'i okur ve IsUserPremiumCubit'e verir
-      ),),
-        BlocProvider(
-          create: (context) => BottomNavCubit(),
-        ),
-        BlocProvider(
-          create: (context) => InternetConnectionCubit(),
-        ),
-        BlocProvider(
-          create: (context) => PurchaseCubit(),
-        ),
-      ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: AppTheme.appTheme,
-        title: 'Ben Kimim',
-        home: SplashPage(),
-      ),
+    print("Width: ${MediaQuery.of(context).size.width}");
+    print("Height: ${MediaQuery.of(context).size.height}");
+    return ScreenUtilInit(
+      designSize: const Size(392, 825),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (_, __) {
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (context) => PremiumStatusCubit()),
+            BlocProvider(create: (context) => SplashCubit()),
+            BlocProvider(create: (context) => TimerCubit()),
+            BlocProvider(create: (context) => DisplayCurrentCardListCubit()),
+            BlocProvider(create: (context) => ScoreCubit()),
+            BlocProvider(create: (context) => ResultCubit()),
+            BlocProvider(
+              create: (context) => CurrentNameCubit(
+                context.read<DisplayCurrentCardListCubit>(),
+              ),
+            ),
+            BlocProvider(create: (context) => PopularDecksCubit()),
+            BlocProvider(create: (context) => MuzikDecksCubit()),
+            BlocProvider(create: (context) => SporDecksCubit()),
+            BlocProvider(create: (context) => DiziFilmDecksCubit()),
+            BlocProvider(create: (context) => CanlandirDecksCubit()),
+            BlocProvider(create: (context) => GunlukYasamDecksCubit()),
+            BlocProvider(create: (context) => BilimVeGenelKDecksCubit()),
+            BlocProvider(create: (context) => CizDecksCubit()),
+            BlocProvider(create: (context) => UnlulerDecksCubit()),
+            BlocProvider(create: (context) => YemeklerDecksCubit()),
+            BlocProvider(create: (context) => CizgiFilmAnimeDecksCubit()),
+            BlocProvider(
+              create: (context) => IsUserPremiumCubit(
+                context.read<PremiumStatusCubit>(),
+              ),
+            ),
+            BlocProvider(create: (context) => BottomNavCubit()),
+            BlocProvider(create: (context) => InternetConnectionCubit()),
+            BlocProvider(create: (context) => PurchaseCubit()),
+          ],
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: AppTheme.appTheme,
+            title: 'Tahmin Et',
+            home: SplashPage(),
+          ),
+        );
+      },
     );
   }
 }

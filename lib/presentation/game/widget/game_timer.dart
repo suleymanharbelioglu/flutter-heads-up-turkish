@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class GameTimer extends StatelessWidget {
   final int remainingSeconds;
@@ -18,19 +19,19 @@ class GameTimer extends StatelessWidget {
       alignment: Alignment.center,
       children: [
         SizedBox(
-          width: 60,
-          height: 60,
+          width: 70.h,
+          height: 70.h,
           child: CircularProgressIndicator(
             value: progress,
-            strokeWidth: 5,
+            strokeWidth: 6.h,
             backgroundColor: Colors.white24,
             valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
           ),
         ),
         Text(
           '$remainingSeconds',
-          style: const TextStyle(
-            fontSize: 22,
+          style: TextStyle(
+            fontSize: 11.sp,
             fontWeight: FontWeight.bold,
             color: Colors.white,
             shadows: [

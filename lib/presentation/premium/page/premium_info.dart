@@ -1,6 +1,7 @@
 import 'package:ben_kimim/data/app_purchase/model/product_model.dart';
 import 'package:ben_kimim/data/app_purchase/model/purchase_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class PremiumInfoPage extends StatelessWidget {
@@ -20,20 +21,17 @@ class PremiumInfoPage extends StatelessWidget {
         decoration: _buildBackgroundGradient(),
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: EdgeInsets.all(20.w),
             child: Column(
               children: [
                 _buildHeader(),
-                const SizedBox(height: 8),
-
-                /// *** Manuel fiyat burada ***
+                SizedBox(height: 8.h),
                 _buildPriceTag(),
-
-                const SizedBox(height: 25),
+                SizedBox(height: 25.h),
                 _buildInfoCard(),
                 const Spacer(),
                 _buildFooterMessage(),
-                const SizedBox(height: 20),
+                SizedBox(height: 20.h),
               ],
             ),
           ),
@@ -61,16 +59,16 @@ class PremiumInfoPage extends StatelessWidget {
   Widget _buildHeader() {
     return Column(
       children: [
-        const Icon(Icons.workspace_premium, size: 90, color: Colors.white),
-        const SizedBox(height: 10),
+        Icon(Icons.workspace_premium, size: 90.sp, color: Colors.white),
+        SizedBox(height: 10.h),
         Text(
           _getTitle(purchase.productId),
-          style: const TextStyle(
+          style: TextStyle(
             color: Colors.white,
-            fontSize: 32,
+            fontSize: 32.sp,
             fontWeight: FontWeight.w900,
             letterSpacing: 1,
-            shadows: [
+            shadows: const [
               Shadow(
                 blurRadius: 8,
                 color: Colors.black26,
@@ -84,26 +82,26 @@ class PremiumInfoPage extends StatelessWidget {
   }
 
   // -----------------------------------------------------------
-  // FİYAT ROZETİ — Manuel fiyat
+  // PRICE TAG
   // -----------------------------------------------------------
   Widget _buildPriceTag() {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 18),
+      padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 18.w),
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(0.9),
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(30.r),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.15),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
+            blurRadius: 12.r,
+            offset: Offset(0, 4.h),
           ),
         ],
       ),
       child: Text(
         _getPriceText(purchase.productId),
-        style: const TextStyle(
-          fontSize: 18,
+        style: TextStyle(
+          fontSize: 18.sp,
           fontWeight: FontWeight.w800,
           color: Colors.black87,
         ),
@@ -111,7 +109,6 @@ class PremiumInfoPage extends StatelessWidget {
     );
   }
 
-  /// *** Manuel fiyat seçimi — format: TRY 40.00 ***
   String _getPriceText(String productId) {
     switch (productId) {
       case 'weekly_premium':
@@ -131,21 +128,21 @@ class PremiumInfoPage extends StatelessWidget {
   Widget _buildInfoCard() {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(25),
+      padding: EdgeInsets.all(25.w),
       decoration: _cardDecoration(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildActiveStatus(),
-          const SizedBox(height: 30),
+          SizedBox(height: 30.h),
           _infoBulletCheck("Reklamsız uygulama kullanımı"),
-          const SizedBox(height: 15),
+          SizedBox(height: 15.h),
           _infoBulletCheck("Bütün destelere sınırsız erişim"),
-          const SizedBox(height: 25),
+          SizedBox(height: 25.h),
           _infoBulletInfo(_getRenewText(purchase.productId)),
-          const SizedBox(height: 15),
+          SizedBox(height: 15.h),
           _buildGooglePlayLink(),
-          const SizedBox(height: 20),
+          SizedBox(height: 20.h),
         ],
       ),
     );
@@ -154,12 +151,12 @@ class PremiumInfoPage extends StatelessWidget {
   BoxDecoration _cardDecoration() {
     return BoxDecoration(
       color: Colors.white,
-      borderRadius: BorderRadius.circular(20),
+      borderRadius: BorderRadius.circular(20.r),
       boxShadow: [
         BoxShadow(
           color: Colors.black.withOpacity(0.15),
-          blurRadius: 15,
-          offset: const Offset(0, 5),
+          blurRadius: 15.r,
+          offset: Offset(0, 5.h),
         ),
       ],
     );
@@ -167,20 +164,20 @@ class PremiumInfoPage extends StatelessWidget {
 
   Widget _buildActiveStatus() {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+      padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 15.w),
       decoration: BoxDecoration(
         color: Colors.green.shade50,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12.r),
       ),
       child: Row(
-        children: const [
-          Icon(Icons.verified, color: Colors.green, size: 28),
-          SizedBox(width: 10),
+        children: [
+          Icon(Icons.verified, color: Colors.green, size: 28.sp),
+          SizedBox(width: 10.w),
           Text(
             "Üyeliğiniz Aktif",
             style: TextStyle(
               color: Colors.green,
-              fontSize: 20,
+              fontSize: 20.sp,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -193,14 +190,14 @@ class PremiumInfoPage extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Icon(Icons.check_circle, color: Colors.orange, size: 22),
-        const SizedBox(width: 10),
+        Icon(Icons.check_circle, color: Colors.orange, size: 22.sp),
+        SizedBox(width: 10.w),
         Expanded(
           child: Text(
             text,
-            style: const TextStyle(
+            style: TextStyle(
               color: Colors.black87,
-              fontSize: 16,
+              fontSize: 16.sp,
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -213,14 +210,14 @@ class PremiumInfoPage extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(Icons.info, color: Colors.blue.shade400, size: 22),
-        const SizedBox(width: 10),
+        Icon(Icons.info, color: Colors.blue.shade400, size: 22.sp),
+        SizedBox(width: 10.w),
         Expanded(
           child: Text(
             text,
             style: TextStyle(
               color: Colors.grey.shade700,
-              fontSize: 16,
+              fontSize: 16.sp,
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -234,14 +231,14 @@ class PremiumInfoPage extends StatelessWidget {
       onTap: _openGooglePlaySubscriptions,
       child: Row(
         children: [
-          Icon(Icons.info, color: Colors.blue.shade400, size: 22),
-          const SizedBox(width: 10),
+          Icon(Icons.info, color: Colors.blue.shade400, size: 22.sp),
+          SizedBox(width: 10.w),
           Expanded(
             child: RichText(
               text: TextSpan(
                 style: TextStyle(
                   color: Colors.grey.shade700,
-                  fontSize: 16,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.w600,
                 ),
                 children: const [
@@ -272,19 +269,16 @@ class PremiumInfoPage extends StatelessWidget {
   }
 
   Widget _buildFooterMessage() {
-    return const Text(
+    return Text(
       "Üye olduğunuz için teşekkürler!",
       style: TextStyle(
         color: Colors.white,
-        fontSize: 16,
+        fontSize: 16.sp,
         fontWeight: FontWeight.w500,
       ),
     );
   }
 
-  // -----------------------------------------------------------
-  // Title
-  // -----------------------------------------------------------
   String _getTitle(String productId) {
     switch (productId) {
       case 'weekly_premium':
@@ -298,9 +292,6 @@ class PremiumInfoPage extends StatelessWidget {
     }
   }
 
-  // -----------------------------------------------------------
-  // Renew Text
-  // -----------------------------------------------------------
   String _getRenewText(String productId) {
     switch (productId) {
       case 'weekly_premium':

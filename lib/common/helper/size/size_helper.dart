@@ -1,4 +1,6 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 class SizeHelper {
-  static const double categoryDeckWidth = 170;
-  static const double categoryDeckHeight = 250;
+  static final double categoryDeckWidth = 160.h;
+  static final double categoryDeckHeight = 266.h;
 }

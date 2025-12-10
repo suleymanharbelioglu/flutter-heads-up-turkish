@@ -7,63 +7,62 @@ import 'package:ben_kimim/presentation/all_decks/bloc/muzik_decks_cubit.dart';
 import 'package:ben_kimim/presentation/all_decks/bloc/Muzik_decks_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MuzikDecks extends StatelessWidget {
   const MuzikDecks({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // OPTİMİZASYON 1: Tüm üst düzey statik widget'lar const yapıldı.
-    return const Padding(
-      padding: EdgeInsets.symmetric(vertical: 10),
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 10.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Üst başlık
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
-            child: Text("MÜZİK", // Sabit metin
-                style: AppTextstyle.allDecksBaslik // Sabit stil
-                ),
+            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+            child: Text(
+              "MÜZİK",
+              style: AppTextstyle.allDecksBaslik,
+            ),
           ),
-          // OPTİMİZASYON 2: BlocBuilder içeriği ayrı bir widget'a taşındı.
-          _DeckContentLoader(),
+          const _DeckContentLoader(),
         ],
       ),
     );
   }
 }
 
-/// Veri yükleme durumlarını yöneten ve BlocBuilder'ı içeren yardımcı widget.
 class _DeckContentLoader extends StatelessWidget {
   const _DeckContentLoader();
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      // Sabit renk ve yükseklik const yapıldı.
       color: AppColors.allDecksBackground,
       height: SizeHelper.categoryDeckHeight,
       child: BlocBuilder<MuzikDecksCubit, MuzikDecksState>(
         builder: (context, state) {
           if (state is MuzikDecksLoading) {
-            // OPTİMİZASYON 3: Yükleme göstergesi const yapıldı.
             return const Center(child: CircularProgressIndicator());
           }
+
           if (state is MuzikDecksLoadFailure) {
             return Center(
               child: Text(
                 state.errorMessage,
-                // OPTİMİZASYON 4: Hata metni stilinin bir kısmı const yapıldı.
-                style: const TextStyle(fontSize: 16, color: Colors.red),
+                style: TextStyle(
+                  fontSize: 16.sp,
+                  color: Colors.red,
+                ),
               ),
             );
           }
+
           if (state is MuzikDecksLoaded) {
-            // Veri yüklendiğinde ayrı ListView widget'ını çağır.
             return _DeckListView(decks: state.decks);
           }
-          // OPTİMİZASYON 5: Varsayılan geri dönüş const yapıldı.
+
           return const SizedBox.shrink();
         },
       ),
@@ -71,7 +70,6 @@ class _DeckContentLoader extends StatelessWidget {
   }
 }
 
-/// Yüklü desteleri yatay ListView.builder ile gösteren yardımcı widget.
 class _DeckListView extends StatelessWidget {
   final List<DeckEntity> decks;
   const _DeckListView({required this.decks});
@@ -79,14 +77,12 @@ class _DeckListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      // OPTİMİZASYON 6: ListView özellikleri const yapıldı.
       scrollDirection: Axis.horizontal,
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      padding: EdgeInsets.symmetric(horizontal: 16.w),
       itemCount: decks.length,
       itemBuilder: (context, index) {
-        // OPTİMİZASYON 7: Padding ve sabit genişlik const yapıldı.
         return Padding(
-          padding: const EdgeInsets.only(right: 12),
+          padding: EdgeInsets.only(right: 8.w),
           child: SizedBox(
             width: SizeHelper.categoryDeckWidth,
             child: DeckCover(deck: decks[index]),
