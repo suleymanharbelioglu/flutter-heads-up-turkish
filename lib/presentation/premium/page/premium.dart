@@ -23,52 +23,47 @@ class PremiumPage extends StatelessWidget {
         BlocProvider(create: (context) => LoadProductsCubit()..loadProducts()),
         BlocProvider(create: (context) => SelectedPlanCubit()),
       ],
-      child: BlocListener<PurchaseCubit, PurchaseState>(
-        listener: (context, state) {},
-        child: BlocBuilder<PremiumStatusCubit, PremiumStatusState>(
-          builder: (context, state) {
-            if (state is PremiumActive) {
-              final productsState = context.read<LoadProductsCubit>().state;
-              ProductModel? product;
-              if (productsState is LoadProductsSuccess) {
-                product = productsState.products.firstWhere(
-                  (p) => p.productId == state.purchase.productId,
-                  orElse: () => productsState.products.first,
-                );
-              }
-              return PremiumInfoPage(
-                  purchase: state.purchase, product: product);
-            } else {
-              return Scaffold(
-                backgroundColor: Colors.white,
-                body: SafeArea(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 24,
-                        vertical: 11), // 16 → 11 (%30 azaltıldı)
-                    child: Column(
-                      children: const [
-                        SizedBox(height: 13), // 18 → 13
-                        _HeaderSection(),
-                        SizedBox(height: 13), // 18 → 13
-                        _FeaturesSection(),
-                        SizedBox(height: 17), // 24 → 17
-                        Expanded(child: _PlansSection()),
-                        SizedBox(height: 10), // 14 → 10
-                        _PaymentInfoText(),
-                        SizedBox(height: 7), // 10 → 7
-                        _StartButton(),
-                        SizedBox(height: 10), // 14 → 10
-                        _BottomLinks(),
-                        SizedBox(height: 12), // 18 → 12
-                      ],
-                    ),
-                  ),
-                ),
+      child: BlocBuilder<PremiumStatusCubit, PremiumStatusState>(
+        builder: (context, state) {
+          if (state is PremiumActive) {
+            final productsState = context.read<LoadProductsCubit>().state;
+            ProductModel? product;
+            if (productsState is LoadProductsSuccess) {
+              product = productsState.products.firstWhere(
+                (p) => p.productId == state.purchase.productId,
+                orElse: () => productsState.products.first,
               );
             }
-          },
-        ),
+            return PremiumInfoPage(purchase: state.purchase, product: product);
+          } else {
+            return Scaffold(
+              backgroundColor: Colors.white,
+              body: SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 24, vertical: 11), // 16 → 11 (%30 azaltıldı)
+                  child: Column(
+                    children: const [
+                      SizedBox(height: 13), // 18 → 13
+                      _HeaderSection(),
+                      SizedBox(height: 13), // 18 → 13
+                      _FeaturesSection(),
+                      SizedBox(height: 17), // 24 → 17
+                      Expanded(child: _PlansSection()),
+                      SizedBox(height: 10), // 14 → 10
+                      _PaymentInfoText(),
+                      SizedBox(height: 7), // 10 → 7
+                      _StartButton(),
+                      SizedBox(height: 10), // 14 → 10
+                      _BottomLinks(),
+                      SizedBox(height: 12), // 18 → 12
+                    ],
+                  ),
+                ),
+              ),
+            );
+          }
+        },
       ),
     );
   }
