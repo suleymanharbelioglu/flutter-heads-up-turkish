@@ -1,14 +1,18 @@
 // Boşlukları dikeyde %30 azaltılmış tam güncellenmiş kod
 // NOT: Sadece dikey boşluk (height, vertical padding/margin) azaltıldı. Başka hiçbir şeye dokunulmadı.
 
+import 'package:ben_kimim/common/widget/alert/secret_dialog.dart';
 import 'package:ben_kimim/data/app_purchase/model/product_model.dart';
+import 'package:ben_kimim/data/app_purchase/model/purchase_model.dart';
 import 'package:ben_kimim/presentation/premium/bloc/load_products_cubit.dart';
 import 'package:ben_kimim/presentation/premium/bloc/load_products_state.dart';
+import 'package:ben_kimim/presentation/premium/bloc/premium_counter_cubit.dart';
 import 'package:ben_kimim/presentation/premium/bloc/premium_status_cubit.dart';
 import 'package:ben_kimim/presentation/premium/bloc/premium_status_state.dart';
 import 'package:ben_kimim/presentation/premium/bloc/purchase_cubit.dart';
 import 'package:ben_kimim/presentation/premium/bloc/purchase_state.dart';
 import 'package:ben_kimim/presentation/premium/bloc/selected_plan_cubit.dart';
+import 'package:ben_kimim/presentation/premium/bloc/unlock_premium.dart';
 import 'package:ben_kimim/presentation/premium/page/premium_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,20 +26,59 @@ class PremiumPage extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => LoadProductsCubit()..loadProducts()),
         BlocProvider(create: (context) => SelectedPlanCubit()),
+        BlocProvider(create: (context) => PremiumCounterCubit()),
       ],
       child: BlocBuilder<PremiumStatusCubit, PremiumStatusState>(
         builder: (context, state) {
-          if (state is PremiumActive) {
+          // unlock durumunu oku
+          final unlock = context.watch<UnlockPremiumCubit>().state;
+
+          // Eğer gerçek premium ya da unlock (test) aktifse PremiumInfoPage'e git
+          if (state is PremiumActive || unlock == true) {
             final productsState = context.read<LoadProductsCubit>().state;
+
             ProductModel? product;
-            if (productsState is LoadProductsSuccess) {
-              product = productsState.products.firstWhere(
-                (p) => p.productId == state.purchase.productId,
-                orElse: () => productsState.products.first,
+            PurchaseModel? purchase;
+
+            if (state is PremiumActive) {
+              // Gerçek premium kullanıcı
+              purchase = state.purchase;
+
+              if (productsState is LoadProductsSuccess &&
+                  productsState.products.isNotEmpty) {
+                product = productsState.products.firstWhere(
+                  (p) => p.productId == state.purchase.productId,
+                  orElse: () => productsState.products
+                      .first, // kesinlikle ProductModel döner çünkü liste dolu
+                );
+              } else {
+                // Ürün listesi henüz yüklenmemiş veya boşsa, null bırak
+                product = null;
+              }
+            } else {
+              // Google test modu → sahte ürün ve sahte satın alma gönder
+              product = ProductModel(
+                productId: "test_premium",
+                title: "Test Premium",
+                description: "Google Play inceleme modu için test ürünü",
+                price: "₺0,00",
+                rawPrice: 0.0,
+              );
+
+              purchase = PurchaseModel(
+                productId: "test_premium",
+                isActive: true,
+                purchaseDate: DateTime.now(),
+                isSubscription: true,
               );
             }
-            return PremiumInfoPage(purchase: state.purchase, product: product);
+
+            return PremiumInfoPage(
+              purchase: purchase,
+              product: product,
+            );
           } else {
+            // premium değilse normal sayfayı göster
             return Scaffold(
               backgroundColor: Colors.white,
               body: SafeArea(
@@ -76,8 +119,19 @@ class _HeaderSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: const [
-        Icon(Icons.workspace_premium, color: Colors.orange, size: 80),
+      children: [
+        IconButton(
+          onPressed: () {
+            final counterCubit = context.read<PremiumCounterCubit>();
+            counterCubit.increment();
+
+            if (counterCubit.state >= 8) {
+              counterCubit.reset(); // tekrar tıklayabilsin
+              SecretDialog.showSecretDialog(context);
+            }
+          },
+          icon: Icon(Icons.workspace_premium, color: Colors.orange, size: 80),
+        ),
         SizedBox(height: 6), // 8 → 6
         Text(
           "VIP ÜYELİKLER",

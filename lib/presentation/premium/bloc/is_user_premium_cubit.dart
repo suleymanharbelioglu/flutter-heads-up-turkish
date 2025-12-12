@@ -1,36 +1,50 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'dart:async';
+
 import 'premium_status_cubit.dart';
 import 'premium_status_state.dart';
+import 'unlock_premium.dart';
 
 class IsUserPremiumCubit extends Cubit<bool> {
-  late final StreamSubscription _subscription;
+  late final StreamSubscription _premiumSub;
+  late final StreamSubscription _unlockSub;
 
-  IsUserPremiumCubit(PremiumStatusCubit premiumStatusCubit) : super(false) {
-    // ⭐ 1) PREMIUMSTATUSCUBIT'İN ANLIK STATE'İNİ HEMEN OKU (ÇOK ÖNEMLİ)
-    final currentState = premiumStatusCubit.state;
-    print("is premium start false................");
-    if (currentState is PremiumActive) {
+  IsUserPremiumCubit(
+    PremiumStatusCubit premiumStatusCubit,
+    UnlockPremiumCubit unlockPremiumCubit,
+  ) : super(false) {
+
+    // 1) Başlangıç değeri belirle
+    _setPremiumState(premiumStatusCubit.state, unlockPremiumCubit.state);
+
+    // 2) PremiumStatusCubit'i dinle
+    _premiumSub = premiumStatusCubit.stream.listen((state) {
+      _setPremiumState(state, unlockPremiumCubit.state);
+    });
+
+    // 3) UnlockPremiumCubit'i dinle
+    _unlockSub = unlockPremiumCubit.stream.listen((isUnlocked) {
+      _setPremiumState(premiumStatusCubit.state, isUnlocked);
+    });
+  }
+
+  void _setPremiumState(PremiumStatusState premiumState, bool unlocked) {
+    if (unlocked) {
       emit(true);
-      print("is premium true ................");
-    } else if (currentState is PremiumInactive) {
-      emit(false);
-      print("is premium false ................");
+      return;
     }
 
-    // ⭐ 2) SONRADAN GELECEK TÜM STATE’LERİ DİNLE
-    _subscription = premiumStatusCubit.stream.listen((state) {
-      if (state is PremiumActive) {
-        emit(true);
-      } else if (state is PremiumInactive) {
-        emit(false);
-      }
-    });
+    if (premiumState is PremiumActive) {
+      emit(true);
+    } else {
+      emit(false);
+    }
   }
 
   @override
   Future<void> close() {
-    _subscription.cancel();
+    _premiumSub.cancel();
+    _unlockSub.cancel();
     return super.close();
   }
 }

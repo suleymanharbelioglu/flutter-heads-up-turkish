@@ -117,6 +117,8 @@ class PremiumInfoPage extends StatelessWidget {
         return "TRY 100.00";
       case 'yearly_premium':
         return "TRY 600.00";
+      case 'test_premium':
+        return "TRY 0.00";
       default:
         return "TRY —";
     }
