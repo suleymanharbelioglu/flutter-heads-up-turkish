@@ -1,5 +1,6 @@
 import 'package:ben_kimim/presentation/premium/bloc/unlock_premium.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SecretDialog {
@@ -13,6 +14,9 @@ class SecretDialog {
         content: TextField(
           controller: controller,
           decoration: const InputDecoration(hintText: "Secret code"),
+          inputFormatters: [
+            FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9]')),
+          ],
         ),
         actions: [
           TextButton(
