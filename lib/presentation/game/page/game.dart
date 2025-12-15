@@ -182,7 +182,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
       setState(() {
         _currentZone = to;
         _oldCardColor = to == "pass" ? AppColors.pass : AppColors.correct;
-        _oldCardText = to == "pass" ? "PASS" : "DOĞRU";
+        _oldCardText = to == "pass" ? "PAS" : "DOĞRU";
       });
 
       if (to == "pass") {

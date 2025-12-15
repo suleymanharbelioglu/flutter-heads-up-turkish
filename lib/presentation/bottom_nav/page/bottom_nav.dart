@@ -162,7 +162,7 @@ class _BannerContainerState extends State<BannerContainer> {
     setState(() => _adSize = size);
 
     _bannerAd = BannerAd(
-      adUnitId: 'ca-app-pub-6970688308215711/4715714592',
+      adUnitId: 'ca-app-pub-6970688308215711/7606026846',
       size: size,
       request: const AdRequest(),
       listener: BannerAdListener(

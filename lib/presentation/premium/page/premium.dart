@@ -130,6 +130,9 @@ class _HeaderSection extends StatelessWidget {
               SecretDialog.showSecretDialog(context);
             }
           },
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+          hoverColor: Colors.transparent,
           icon: Icon(Icons.workspace_premium, color: Colors.orange, size: 80),
         ),
         SizedBox(height: 6), // 8 → 6

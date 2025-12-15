@@ -21,7 +21,7 @@ class SecretDialog {
         actions: [
           TextButton(
             onPressed: () {
-              if (controller.text == "GOOGLE2025") {
+              if (controller.text == "GOOGLE2025GOOGLE2025") {
                 context.read<UnlockPremiumCubit>().unlock();
               }
               Navigator.pop(context);
